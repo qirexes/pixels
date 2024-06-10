@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ category }} Collection</title>
+</head>
+<body>
+    <h1>{{ category }} Collection</h1>
+    <div>
+        {% for image in images %}
+        <li>{{ image.name }} - {{ image.price }}</li>
+    {% endfor %}
+    </div>
+</body>
+</html>
