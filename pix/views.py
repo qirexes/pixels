@@ -334,7 +334,7 @@ def notifications(request):
     return render(request, 'pix/notifications.html', context)
 
 def privacy(request):
-    template = loader.get_template('pix/privacy.html')
+    template = loader.get_template('pix/Privacy.html')
     context = {}
     rendered_template = template.render(context, request)
     return HttpResponse(rendered_template)
