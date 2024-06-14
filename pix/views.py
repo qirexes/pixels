@@ -13,6 +13,8 @@ from .models import Image, Category, Profile, ImageFile, Withdrawal
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from .models import User  # Assuming 'User' is in your app's models.py
+from .forms import DepositForm
+from django.db.models import Q
 
 
 
@@ -91,19 +93,26 @@ def custom_logout(request):
 
 @login_required
 def collections(request):
-    user_images = Image.objects.filter(user=request.user)
-    categories = set(image.category for image in user_images)
-    collections_preview = {category: user_images.filter(category=category).first() for category in categories}
-    
-    return render(request, 'pix/collections.html', {'collections_preview': collections_preview})
+    images_by_category = {}
+
+    # Filter images by the logged-in user
+    images = ImageFile.objects.filter(image_info__user=request.user)
+
+    for image in images:
+        category_name = image.image_info.category
+        # Check if category_name already exists in images_by_category
+        # If it doesn't, add it to the dictionary
+        if category_name not in images_by_category:
+            images_by_category[category_name] = image
+
+    return render(request, 'pix/collections.html', {'images_by_category': images_by_category})
 
 
 @login_required
-def full_collection(request, category_id):
-    user_images = Image.objects.filter(user=request.user, category_id=category_id)
-    images_data = [{'name': image.name, 'price': image.price} for image in user_images]
-    
-    return JsonResponse({'images': images_data})
+def full_collection(request, image_name):
+    images_info = Image.objects.filter(name=image_name)
+    images = ImageFile.objects.filter(image_info__in=images_info)
+    return render(request, 'pix/full_collection.html', {'image_name': image_name, 'images': images})
 
 
 @login_required
@@ -137,15 +146,22 @@ def full_collection(request, category_id):
 #         form = ImageUploadForm()
 #     return render(request, 'pix/create.html', {'form': form})
 
+
+@login_required
 def create(request):
-    upload_cost = 180
+    upload_cost_per_file = 180
     if request.method == 'POST':
         form = ImageUploadForm(request.POST, request.FILES)
         if form.is_valid():
             user_balance = Balance.objects.get_or_create(user=request.user)[0]
 
-            if user_balance.balance >= upload_cost:
-                user_balance.balance -= upload_cost
+            # Get the list of uploaded files
+            images = request.FILES.getlist('images')
+            number_of_files = len(images)
+            total_upload_cost = upload_cost_per_file * number_of_files
+
+            if user_balance.balance >= total_upload_cost:
+                user_balance.balance -= total_upload_cost
                 user_balance.save()
 
                 # Save the main Image object
@@ -154,19 +170,19 @@ def create(request):
                 image.save()
 
                 # Handle multiple file uploads for ImageFile
-                images = request.FILES.getlist('images')
                 for img in images:
                     ImageFile.objects.create(image=img, image_info=image)
 
-                messages.success(request, 'Image uploaded successfully and amount deducted from your balance.')
+                messages.success(request, f'Image uploaded successfully and ${total_upload_cost} deducted from your balance.')
                 return redirect('pix:explore')
             else:
-                messages.error(request, 'Insufficient balance to upload the image.')
+                messages.error(request, 'Insufficient balance to upload the images.')
         else:
             messages.error(request, 'Invalid form submission.')
     else:
         form = ImageUploadForm()
     return render(request, 'pix/create.html', {'form': form})
+
 
 # def explore(request):
 #     categories = Category.objects.all()
@@ -179,33 +195,134 @@ def create(request):
 
 
 #Elvis Code >>>>>>>>>>>>>>>>>>>>>>
+# def explore(request):
+
+#     if 'q' in request.GET:
+#         q = request.GET['q']
+#         categories = Category.objects.filter(name__icontains=q)
+
+#     else:
+#         categories = Category.objects.all()
+#     cont = {
+#         'categories' : categories
+#     }
+#     images_by_category = {}
+
+
+
+#     for category in categories:
+#         image = ImageFile.objects.filter(image_info__category=category).first()
+#         if image:
+#             images_by_category[category.name] = image
+
+#     return render(request, 'pix/explore.html',  {'images_by_category': images_by_category})
+
+
+
+# def explore(request):
+#     q = request.GET.get('q', '')  # Get 'q' parameter from request.GET or set it to an empty string if not present
+#     if q:
+#         categories = Category.objects.filter(Q(name__icontains=q) | Q(image__name__icontains=q))
+#     else:
+#         categories = Category.objects.all()
+
+#     images_by_category = {}
+
+#     for category in categories:
+#         image = ImageFile.objects.filter(image_info__category=category, image_info__name__icontains=q).first()  
+#         if image:
+#             images_by_category[category.name] = image
+
+#     return render(request, 'pix/explore.html', {'images_by_category': images_by_category})
+
+# ////////////////////////////////////////////>>>>>>>>>>>>>>>>>>>>>>>>>
+
+# def explore(request):
+#     q = request.GET.get('q', '')  # Get 'q' parameter from request.GET or set it to an empty string if not present
+#     if q:
+#         categories = Category.objects.filter(Q(name__icontains=q) | Q(image__name__icontains=q))
+#     else:
+#         categories = Category.objects.all()
+
+#     images_by_category = {}
+
+#     for category in categories:
+#         images = ImageFile.objects.filter(image_info__category=category, image_info__name__icontains=q)
+#         if images.exists():  # Check if there are any images for the category
+#             images_by_category[category.name] = images
+#             for image_file in images:  # Add debug output
+#                 print(f"Image Name: {image_file.image_info.name}")
+
+#     return render(request, 'pix/explore.html', {'images_by_category': images_by_category})
+
+# ?>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
 def explore(request):
-    categories = Category.objects.all()
+    q = request.GET.get('q', '')  # Get 'q' parameter from request.GET or set it to an empty string if not present
+    if q:
+        categories = Category.objects.filter(Q(name__icontains=q) | Q(image__name__icontains=q))
+    else:
+        categories = Category.objects.all()
+
     images_by_category = {}
 
     for category in categories:
-        image = ImageFile.objects.filter(image_info__category=category).first()
-        if image:
-            images_by_category[category.name] = image
+        images = ImageFile.objects.filter(image_info__category=category, image_info__name__icontains=q)
+        filtered_images = []
+        seen_names = set()  # Initialize a set to track seen names
 
-    return render(request, 'pix/explore.html', {'images_by_category': images_by_category})
+        for image in images:
+            if image.image_info.name not in seen_names:  # Check if the name is not in the set
+                filtered_images.append(image)
+                seen_names.add(image.image_info.name)  # Add the name to the set
+
+        if filtered_images:  # Check if there are any filtered images for the category
+            images_by_category[category.name] = filtered_images
+
+    return render(request, 'pix/explore.html', {
+        'images_by_category': images_by_category,
+    })
+
 
 #Elvis End >>>>>>>>>>>>>>>>>>>>>>>>
 
-
+@login_required
 def view_collections(request, image_name):
     images_info = Image.objects.filter(name=image_name)
     images = ImageFile.objects.filter(image_info__in=images_info)
     return render(request, 'pix/view_collections.html', {'image_name': image_name, 'images': images})
 
+
+
+# def deposit(request):
+#     if request.method == 'POST':
+#         amount = request.POST.get('amount')
+#         user_id = request.POST.get('user_id')
+
+#         # Save the deposit
+#         deposit = Deposit.objects.create(amount=amount, user_id=user_id)
+
+#         return redirect('admin:pix_deposit_changelist')  # Redirect to admin page after deposit
+
+#     return JsonResponse({'status': 'error'})
+
 @login_required
 def dashboard(request):
+    desposit_form = DepositForm()
+    method = request.method
+    print(request.method)
+    if method == "POST":
+        amount = request.POST.get("amount")
+        desposit = Deposit.objects.create(amount=amount, user=request.user)
     user_balance = Balance.objects.get_or_create(user=request.user)[0]
     user_image_count = Image.objects.filter(user=request.user).count()
 
     context = {
         'user_balance': user_balance,
         'user_image_count': user_image_count,
+        "desposit_form":desposit_form
+
     }
     
     return render(request, 'pix/dashboard.html', context)
@@ -242,7 +359,7 @@ def Terms(request):
 #         form = ProfilePictureForm()
 #     return render(request, 'pix/settings.html', {'form': form})
 
-
+@login_required
 def settings_view(request):
     # Retrieve the profile if it exists, otherwise create a new one
     profile, created = Profile.objects.get_or_create(user=request.user)
@@ -297,17 +414,6 @@ def dashboard_view(request):
 
 
 
-# def deposit(request):
-#     if request.method == 'POST':
-#         amount = request.POST.get('amount')
-#         user_id = request.POST.get('user_id')
-
-#         # Save the deposit
-#         deposit = Deposit.objects.create(amount=amount, user_id=user_id)
-
-#         return redirect('admin:pix_deposit_changelist')  # Redirect to admin page after deposit
-
-#     return JsonResponse({'status': 'error'})
 
 
 @login_required
@@ -325,24 +431,26 @@ def collection_purchase(request):
 
 @login_required
 def deposit(request):
-    if request.method == 'POST':
-        amount = request.POST.get('amount')
-        user = request.user
+    # print(request.method)
+    # if request.method == 'POST':
+    #     amount = request.POST.get('amount')
+    #     user = request.user
 
-        # Optional data validation (e.g., check amount is positive)
-        if not amount or float(amount) <= 0:
-            return render(request, 'dashboard.html', {'error_message': 'Invalid amount'})
+    #     # Optional data validation (e.g., check amount is positive)
+    #     if not amount or float(amount) <= 0:
+    #         return render(request, 'dashboard.html', {'error_message': 'Invalid amount'})
 
-        # Try saving the deposit
-        try:
-            deposit = Deposit.objects.create(amount=amount, user=user)
-            return HttpResponseRedirect(request.path_info + '?success=1')
-        except Exception as e:
-            print(f"Error saving deposit: {e}")
-            return render(request, 'dashboard.html', {'error_message': 'An error occurred while saving the deposit'})
+    #     # Try saving the deposit
+    #     try:
+    #         deposit = Deposit.objects.create(amount=amount, user=user)
+    #         return HttpResponseRedirect(request.path_info + '?success=1')
+    #     except Exception as e:
+    #         print(f"Error saving deposit: {e}")
+    #         return render(request, 'dashboard.html', {'error_message': 'An error occurred while saving the deposit'})
 
-    success_message = 'Deposit successful' if request.GET.get('success') == '1' else ''
-    return render(request, 'dashboard.html', {'success_message': success_message})
+    # success_message = 'Deposit successful' if request.GET.get('success') == '1' else ''
+    # return render(request, 'dashboard.html', {'success_message': success_message})
+    return HttpResponse("OK")
     
 
     # ... rest of your code

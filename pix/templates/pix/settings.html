@@ -24,6 +24,8 @@
         
         <!--3D TOOL-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    
         
         <div class="right">
           <!--USER PROFILE PICTURE-->
@@ -40,34 +42,35 @@
           </div>
                     
           <!--DROPDOWN MENU BUTTON-->
-  <div class="dropdown-container" id="dropdown-container" style="position: relative; z-index: 3;">
-  <button onclick="toggleDropdown()" class="dropdown-button" style="background: none; border: none; cursor: pointer;">
+    <div class="dropdown-container" id="dropdown-container" style="position: relative; z-index: 3;">
+    <button onclick="toggleDropdown()" class="dropdown-button" style="background: none; border: none; cursor: pointer;">
     <img src="/static/pix/images/dropdown menu icon.png" alt="Dropdown Icon" style="width: 30px; height: 30px; background: white; margin-bottom: auto; border-radius: 2px; margin-top: .25rem;" >
-  </button>
-  <div id="dropdownContent" class="dropdown-content" style="display: none; position: absolute; top: 100%; right: 0; background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 3px; padding: 10px; transition: right 0.5s;
-  background: linear-gradient(to bottom right, blue, red, purple);">
+    </button>
+    <div id="dropdownContent" class="dropdown-content" style="display: none; position: absolute; top: 100%; right: 0; background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 3px; padding: 10px; transition: right 0.5s;
+    background: linear-gradient(to left, darkblue, darkslateblue)">
     <a class="sub-text" href="{% url 'pix:notifications' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Notifications</a>
     <a class="sub-text" href="{% url 'pix:collections' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Collections</a>
+    <a class="sub-text" href="{% url 'pix:create' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Create</a>
     <a class="sub-text" href="{% url 'pix:settings' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Settings</a>
     <a class="sub-text" href="{% url 'pix:explore' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Explore</a>
     <form method="POST" action="{% url 'pix:logout' %}" style="display:inline;">
       {% csrf_token %}
       <button class="sub-text" type="submit" style="background: none; border: none; cursor: pointer; padding: 8px 0; width: 100%; text-align: left; color: black; color: beige;">Logout</button>
     </form>
-  </div>
-  
-<script>
-  function toggleDropdown() {
+    </div>
+    
+    <script>
+    function toggleDropdown() {
     var dropdownContent = document.getElementById("dropdownContent");
     if (dropdownContent.style.display === "block") {
       dropdownContent.style.display = "none";
     } else {
       dropdownContent.style.display = "block";
     }
-  }
-</script>
-</div>
-
+    }
+    </script>
+    </div>
+    
           {% else %}
           <div class="login-register-links" style="z-index: 100; display: flex; flex: row; gap: .5rem;" >
             <a href="{% url 'pix:login' %}" style="color: beige; text-decoration: underline; margin-right: 10px; background: green; padding: .3rem .6rem; border: none; border-radius: 23px; text-decoration: none;
@@ -87,9 +90,13 @@
           {% endif %}
         </div>
       </nav>
-      
-
+          
   <!-- PROFILE PICTURE FORM -->
+
+
+  <!-- old settings container start -->
+
+<!-- 
   <div class="login-form-container">
 
     <div>
@@ -101,7 +108,32 @@
         <button type="submit">Save Changes</button>
       </form>
     </div>
-  </div>
+  </div> -->
+
+
+
+  <!-- old settings container end -->
+
+
+  <!-- new settings container start -->
+
+
+  <div class="settings-form-container">
+    <div>
+        <h2>Change Profile Picture</h2>
+        <form method="post" class="settings-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ profile_form.as_p }}
+            {{ picture_form.as_p }}
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+</div>
+
+
+
+  <!-- new settings container end -->
+
 
     <!-- change profile picture -->
     <!-- change name and email -->
@@ -119,35 +151,39 @@
 
     
     
-    <!-- FOOTER -->
-  <footer style="color: beige;">
+
+  <!-- new footer start  -->
+
+  <footer class="site-footer">
     <div class="footer-content">
-  
-      <div class="footer-section">
-          <p class="sub-text footer-header">SERVICES</p>
-        <div class="links">
-          <a href="{% url 'pix:explore' %}">Explore</a>
-          <a href="{% url 'pix:create' %}">Create</a>
-          <a href="{% url 'pix:explore' %}">Trade</a>
+        <div class="footer-section">
+            <p class="footer-header">SERVICES</p>
+            <div class="links">
+                <a href="{% url 'pix:explore' %}">Explore</a>
+                <a href="{% url 'pix:create' %}">Create</a>
+                <a href="{% url 'pix:explore' %}">Trade</a>
+            </div>
         </div>
-      </div>
-  
-      <div class="footer-section">
-        <p  class="sub-text footer-header">CONTACT</p>
-        <div class="links">
-          <a href="#">User Support</a>
+
+        <div class="footer-section">
+            <p class="footer-header">CONTACT</p>
+            <div class="links">
+              <a href="https://t.me/pixelvault_live">User Support</a>
+            </div>
         </div>
-      </div>
-  
-      <div class="footer-section">
-        <p  class="sub-text footer-header">LEGAL</p>
-        <div  class="links">
-          <a href="{% url 'pix:Terms' %}">Terms of Use</a>
-          <a href="{% url 'pix:Privacy' %}">Privacy Policy</a>
+
+        <div class="footer-section">
+            <p class="footer-header">LEGAL</p>
+            <div class="links">
+                <a href="{% url 'pix:Terms' %}">Terms of Use</a>
+                <a href="{% url 'pix:Privacy' %}">Privacy Policy</a>
+            </div>
         </div>
-      </div>
     </div>
-  </footer>
+</footer>
+
+
+  <!-- new footer end -->
 
 
 
@@ -158,7 +194,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border: 1px solid #ccc;
+      /* border: 1px solid #ccc; */
       height: 8vh;
     }
     
@@ -177,10 +213,10 @@
       position: relative;
       top: 19px;
     }
-
+/* 
     .body-container{
       border: solid 1px white ;
-    }
+    } */
 
     .welcome-txt{
       padding-left: 1rem;
@@ -482,6 +518,145 @@ box-sizing: 2px 2px 31px rgba(0, 0, 0, 0.501);
         opacity: .9;
         transition: all ease-in .5s;
       }
+
+
+
+      /* new footer styling start  */
+
+
+.site-footer {
+    background-color: #333; /* Dark background color */
+    color: beige; /* Light text color */
+    padding: 40px 0;
+    margin-top: 20px;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.footer-section {
+    flex: 1 1 300px; /* Flexbox properties for responsive layout */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.footer-header {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.links a {
+    display: block;
+    color: beige;
+    text-decoration: none;
+    margin-bottom: 8px;
+    transition: color 0.3s;
+}
+
+.links a:hover {
+    color: #007bff; /* Primary color or a color of your choice */
+}
+
+
+/* new footer styling end */
+
+
+
+/* new settings styling start  */
+
+
+/* General styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+/* Container styles */
+.settings-form-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    /* background-color: #fff; */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background: linear-gradient(to left, darkblue, darkslateblue)
+
+}
+
+.settings-form-container h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.settings-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.settings-form p {
+    margin: 0;
+}
+
+.settings-form label {
+    font-size: 14px;
+    /* color: #555; */
+    margin-bottom: 5px;
+    color: beige;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.settings-form input[type="text"],
+.settings-form input[type="email"],
+.settings-form input[type="file"],
+.settings-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.settings-form button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.settings-form button:hover {
+    background-color: #45a049;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    .settings-form-container {
+        padding: 15px;
+    }
+
+    .settings-form button {
+        width: 100%;
+    }
+}
+
+
+/* new settings styling end */
 
 </style>
 

@@ -22,6 +22,8 @@
     
     <!--3D TOOL-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+
     
     <div class="right">
       <!--USER PROFILE PICTURE-->
@@ -43,9 +45,10 @@
 <img src="/static/pix/images/dropdown menu icon.png" alt="Dropdown Icon" style="width: 30px; height: 30px; background: white; margin-bottom: auto; border-radius: 2px; margin-top: .25rem;" >
 </button>
 <div id="dropdownContent" class="dropdown-content" style="display: none; position: absolute; top: 100%; right: 0; background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 3px; padding: 10px; transition: right 0.5s;
-background: linear-gradient(to bottom right, blue, red, purple);">
+background: linear-gradient(to left, darkblue, darkslateblue)">
 <a class="sub-text" href="{% url 'pix:notifications' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Notifications</a>
 <a class="sub-text" href="{% url 'pix:collections' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Collections</a>
+<a class="sub-text" href="{% url 'pix:create' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Create</a>
 <a class="sub-text" href="{% url 'pix:settings' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Settings</a>
 <a class="sub-text" href="{% url 'pix:explore' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Explore</a>
 <form method="POST" action="{% url 'pix:logout' %}" style="display:inline;">
@@ -68,28 +71,17 @@ if (dropdownContent.style.display === "block") {
 
       {% else %}
       <div class="login-register-links" style="z-index: 100; display: flex; flex: row; gap: .5rem;" >
-        <a href="{% url 'pix:login' %}" style="color: beige; text-decoration: underline; margin-right: 10px; background: green; padding: .3rem .6rem; border: none; border-radius: 23px; text-decoration: none;
-          font-size: .7rem;
-          letter-spacing: 2px;
-          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-          font-weight: bold; background: darkgreen; padding: 10px 5px; border: none; border-radius: 23px; text-decoration: none; color: white;
-         z-index: 102; box-shadow: 1px 1px 1px rgba(255, 255, 255, 0.367);
-         z-index: 101;" class="login-btn">Login</a>
-        <a href="{% url 'pix:register' %}" style="color: white; text-decoration: underline;
-          font-size: .7rem;
-          letter-spacing: 2px;
-          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-          font-weight: bold; background: darkblue; padding: .6rem .6rem; border: none; border-radius: 23px; text-decoration: none; color: white;
-         z-index: 102; box-shadow: 1px 1px 1px rgba(255, 255, 255, 0.367); " class="register-btn">Register</a>
+        <a href="{% url 'pix:login' %}" style="margin-right: 10px;" class="login-btn">Login</a>
+        <a href="{% url 'pix:register' %}" class="register-btn">Register</a>
       </div>  
       {% endif %}
     </div>
   </nav>
-  
+      
 
-
+<!-- old register form container start  -->
     
-    <div class="login-form-container">
+    <!-- <div class="login-form-container">
     <form method="POST">
         {% csrf_token %}
         <h2 style="color: beige;">Registration Form</h2>
@@ -97,44 +89,93 @@ if (dropdownContent.style.display === "block") {
         <p style="color: beige; margin-bottom: 10px;">Do you already have an account? <a href="{% url 'pix:login' %}" style=" text-decoration: underline;">Login</a></p>
         <input type="submit" value="Register" style="background-color: beige; color: black; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
     </form>
-    </div>
+    </div> -->
+
+
+<!-- old regsiter form containter end -->
+    
+
+
+
+
+<!-- new register form container start  -->
+
+<div class="register-form-container">
+  <form method="POST" class="register-form">
+      {% csrf_token %}
+      <h2>Registration Form</h2>
+      {{ form.non_field_errors }}
+      <div class="form-group">
+          {{ form.username.label_tag }}
+          {{ form.username }}
+          {% if form.username.errors %}
+              <div class="error-message">{{ form.username.errors }}</div>
+          {% endif %}
+      </div>
+      <div class="form-group">
+          {{ form.email.label_tag }}
+          {{ form.email }}
+          {% if form.email.errors %}
+              <div class="error-message">{{ form.email.errors }}</div>
+          {% endif %}
+      </div>
+      <div class="form-group">
+          {{ form.password1.label_tag }}
+          {{ form.password1 }}
+          {% if form.password1.errors %}
+              <div class="error-message">{{ form.password1.errors }}</div>
+          {% endif %}
+      </div>
+      <div class="form-group">
+          {{ form.password2.label_tag }}
+          {{ form.password2 }}
+          {% if form.password2.errors %}
+              <div class="error-message">{{ form.password2.errors }}</div>
+          {% endif %}
+      </div>
+      <button class="lg-btn" type="submit">Register</button>
+      <p class="login-link">Do you already have an account? <a href="{% url 'pix:login' %}">Login</a></p>
+  </form>
+</div>
+
+
+<!-- new register form container end -->
+
 
 
     
-    
+  <!-- new footer start  -->
 
-
-
-    
-    <!-- FOOTER -->
-  <footer style="color: beige;">
+  <footer class="site-footer">
     <div class="footer-content">
-  
-      <div class="footer-section">
-          <p class="sub-text footer-header">SERVICES</p>
-        <div class="links">
-          <a href="{% url 'pix:explore' %}">Explore</a>
-          <a href="{% url 'pix:create' %}">Create</a>
+        <div class="footer-section">
+            <p class="footer-header">SERVICES</p>
+            <div class="links">
+                <a href="{% url 'pix:explore' %}">Explore</a>
+                <!-- <a href="{% url 'pix:create' %}">Create</a>
+                <a href="{% url 'pix:explore' %}">Trade</a> -->
+            </div>
         </div>
-      </div>
-  
-      <div class="footer-section">
-        <p  class="sub-text footer-header">CONTACT</p>
-        <div class="links">
-          <a href="#">User Support</a>
-        </div>
-      </div>
-  
-      <div class="footer-section">
-        <p  class="sub-text footer-header">LEGAL</p>
-        <div  class="links">
-          <a href="{% url 'pix:Terms' %}">Terms of Use</a>
-          <a href="{% url 'pix:Privacy' %}">Privacy Policy</a>
-        </div>
-      </div>
-    </div>
-  </footer>
 
+        <div class="footer-section">
+            <p class="footer-header">CONTACT</p>
+            <div class="links">
+                <a href="https://t.me/pixelvault_live">User Support</a>
+            </div>
+        </div>
+
+        <div class="footer-section">
+            <p class="footer-header">LEGAL</p>
+            <div class="links">
+                <a href="{% url 'pix:Terms' %}">Terms of Use</a>
+                <a href="{% url 'pix:Privacy' %}">Privacy Policy</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+  <!-- new footer end -->
 
   <canvas id="c" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></canvas>
   <script src="/static/pix/js/script.js"></script> 
@@ -155,7 +196,7 @@ if (dropdownContent.style.display === "block") {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border: 1px solid #ccc;
+      /* border: 1px solid #ccc; */
       height: 8vh;
     }
     
@@ -174,138 +215,11 @@ if (dropdownContent.style.display === "block") {
       position: relative;
       top: 19px;
     }
-
+/* 
     .body-container{
       border: solid 1px white ;
-    }
+    } */
 
-    .welcome-txt{
-      padding-left: 1rem;
-      transition: all ease-in 1s;
-    }
-    .intro-text{    
-      color: beige; 
-      top: 10%; 
-      font-size: 2rem;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    .orange-text{
-      /* color: orangered; */
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      font-size: 3rem;
-      font-weight: bolder;
-      font-style: italic;
-      background: linear-gradient(to right, purple, red);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    
-    .sub-text{
-      color: beige;
-      font-size: 1rem;
-      letter-spacing: 2px;
-      width: 70%;
-      font-family: monospace;
-    }
-
-    .nft-slider-wrapper, .nft-slider{
-      padding: 1rem;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-around;
-      align-items: center;
-    }
-
-    .nft-slider-img{
-      width: 50%;
-      border-radius: 10px;
-      padding: 1rem;
-    }
-
-    .homepage-tran{
-      padding: 1rem;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-around;
-      align-items: center;
-    }
-
-    
-    /* SLIDER CODE */
-
-
-/* CSS styles */
-.container {
-display: flex;
-flex-direction: column;
-justify-content: space-around;
-align-items: center;
-padding: 2rem;
-}
-
-.slider {
-display: flex;
-transition: transform 0.5s ease;
-justify-content: space-around;
-align-items: center;
-background: linear-gradient(to bottom right, purple, red);
-transition:all  ease-out 1s;
-border-radius: 15px;
-padding-bottom: 2rem;
-}
-
-.slider-image{
-max-width: 350px;
-min-width: 300px;
-max-height: 350px;
-min-height: 300px;
-border-radius: 20px;
-scale: 90%;
-}
-
-.button {
-position: absolute;
-top: 50%;
-/* transform: translateY(-50%); */
-cursor: pointer;
-background-color: beige;
-border-radius: 100%;
-padding: 10px;
-
-}
-
-.slider-metadata{
-font-weight: bold;
-font-size: medium;
-font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-display: flex;
-flex-direction: column;
-justify-content: space-around;
-margin-top: 10px;
-padding-left: 1rem;
-}
-
-.owner, .price{
-font-weight: 400;
-font-size: small;
-}
-
-.prev {
-left: 0;
-}
-
-.next {
-right: 0;
-}
-
-.slider-price{
-font-weight: bold;
-font-size: medium;
-font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-
-}
 
 .Explore-btn{
 background-color: blue;
@@ -327,160 +241,180 @@ background-color: rgba(0, 0, 255, 0.644);
 box-sizing: 2px 2px 4px 2px black;
 }
 
-.metadata-title{
-font-size: small;
-font-weight: 400;
+.register-form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    /* background-color: #333; */
+     /* Dark background color */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    background: linear-gradient(to left, darkblue, darkslateblue);
 }
 
-.homepage-tran{
-display: flex;
-width: 70%;
-justify-content: center;
-margin: auto;
-}
-
-.transaction{
-width: 31%;
-height: 190px;
-border: solid none;
-background: linear-gradient(to bottom right, blue, red, purple);
-margin: auto;
-border-radius: 6px;
-}
-.transaction .img-container{
-display: flex;
-justify-content: center;
-align-items: center;
-padding: 1rem;
-}
-
-.transaction .t-img{
-padding: 1rem;
-height: 1rem;
-width: 1rem;
-}
-
-.transaction .txt-container{
-display: flex;
-flex-direction: column;
-justify-content: center;
-padding: 0 1rem;  
-align-items: center;
-margin: auto;
-}
-
-.transaction .intro-text{
-font-size: .7rem;
-font-weight: bold;
-}
-
-.transaction .sub-text{
-font-size: .5rem;
-margin-top: 1rem;
-padding: auto;
-}
-
-@media (max-width: 1000px){
-.transaction .sub-text{
-  color: black;
-}
-}
-
-footer{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin-top: 3rem;
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
-  /* background: linear-gradient(to bottom right, blue, red, purple); */
-}
-
-.footer-content{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: baseline;
-}
-
-.footer-header{
-  /* margin: auto; */
-  font-size: 1.2rem;
-}
-.footer-section{
-max-width: fit-content;
-padding: 0 1rem;
-border: soiid white 1px;
-}
-
-footer a{
-color: beige;
-margin: .4rem auto;
-padding: auto;
-display: flex;
-flex-direction: column;
-justify-content: center;
-}
-
-footer .links{
-margin: auto;
-display: flex;
-flex-direction: column;
-}
-
-.login-form-container{
+.register-form {
     display: flex;
     flex-direction: column;
+}
+
+.register-form h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    text-align: center;
+    color: beige; /* Light text color */
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: beige; /* Light text color */
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: 95%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9; /* Light background color */
+    color: #333; /* Dark text color */
+}
+
+.error-message {
+    color: #d32f2f; /* Red color for error messages */
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.lg-btn {
+    background-color: beige; /* Light background color */
+    color: #333; /* Dark text color */
+    border: none;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.lg-btn:hover {
+    background-color: #e0e0e0; /* Lighter shade of background color on hover */
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 10px;
+    color: beige; /* Light text color */
+}
+
+.login-link a {
+    color: #007bff; /* Matching the primary color */
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+
+
+/* added register form container styling end */
+
+
+
+.login-btn,
+.register-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 23px;
+    text-decoration: none;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    box-shadow: 1px 1px 1px rgba(255, 255, 255, 0.367);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.login-btn {
+    background: darkgreen;
+    color: white;
+    border: none;
+}
+
+.register-btn {
+    background: darkblue;
+    color: white;
+    border: none;
+}
+
+.login-btn:hover,
+.register-btn:hover {
+    background-color: #007bff; /* Change to a shade of blue on hover */
+    color: white; /* Maintain text color */
+}
+
+.login-btn:focus,
+.register-btn:focus {
+    outline: none; /* Remove outline on focus */
+}
+
+
+
+/* new footer styling start  */
+
+
+.site-footer {
+    background-color: #333; /* Dark background color */
+    color: beige; /* Light text color */
+    padding: 40px 0;
+    margin-top: 20px;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
     justify-content: space-around;
-    align-items: center;
-    padding: 1rem;
-    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.footer-section {
+    flex: 1 1 300px; /* Flexbox properties for responsive layout */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.footer-header {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.links a {
+    display: block;
     color: beige;
-    background: linear-gradient(to bottom right, blue, red, purple);
-    max-width: 350px;
-    min-width: 300px;
-    border-radius: 20px;
-    margin: auto;
-    margin-top: 3rem;
+    text-decoration: none;
+    margin-bottom: 8px;
+    transition: color 0.3s;
+}
+
+.links a:hover {
+    color: #007bff; /* Primary color or a color of your choice */
 }
 
 
-.login-form-container label{
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-
-.login-form-container input{
-    margin-left: 20px;
-}
-
-.login-form-container button{
-background-color: blue;
-border-radius: 20px;
-justify-content: space-around;
-width: fit-content;
-padding: .4rem 1rem;
-cursor: pointer;
-font-weight: bold;
-font-size: medium;
-border: none;
-margin-top: 1rem;
-}
-
-.login-form-container button:hover{
-transition: 0.5s;
-scale: 1.03;
-opacity: 0.90;
-box-sizing: 2px 2px 31px rgba(0, 0, 0, 0.501);
-}
+/* new footer styling end */
 
 
-.login-btn:hover, .register-btn:hover{
-        scale: 1.07;
-        opacity: .9;
-        transition: all ease-in .5s;
-      }
 </style>
 
 

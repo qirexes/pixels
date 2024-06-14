@@ -48,6 +48,7 @@
   background: linear-gradient(to bottom right, blue, red, purple);">
     <a class="sub-text" href="{% url 'pix:notifications' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Notifications</a>
     <a class="sub-text" href="{% url 'pix:collections' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Collections</a>
+    <a class="sub-text" href="{% url 'pix:create' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Create</a>
     <a class="sub-text" href="{% url 'pix:settings' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Settings</a>
     <a class="sub-text" href="{% url 'pix:explore' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Explore</a>
     <form method="POST" action="{% url 'pix:logout' %}" style="display:inline;">
@@ -140,38 +141,39 @@
     
 
 
-    
-    <!-- FOOTER -->
-  <footer style="color: beige;">
-    <div class="footer-content">
   
-      <div class="footer-section">
-          <p class="sub-text footer-header">SERVICES</p>
-        <div class="links">
-          <a href="{% url 'pix:explore' %}">Explore</a>
-          <a href="{% url 'pix:create' %}">Create</a>
-          <a href="{% url 'pix:explore' %}">Trade</a>
-        </div>
-      </div>
-  
-      <div class="footer-section">
-        <p  class="sub-text footer-header">CONTACT</p>
-        <div class="links">
-          <a href="#">User Support</a>
-        </div>
-      </div>
-  
-      <div class="footer-section">
-        <p  class="sub-text footer-header">LEGAL</p>
-        <div  class="links">
-          <a href="{% url 'pix:Terms' %}">Terms of Use</a>
-          <a href="{% url 'pix:Privacy' %}">Privacy Policy</a>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <!-- new footer start  -->
 
- 
+  <footer class="site-footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <p class="footer-header">SERVICES</p>
+            <div class="links">
+                <a href="{% url 'pix:explore' %}">Explore</a>
+                <a href="{% url 'pix:create' %}">Create</a>
+                <a href="{% url 'pix:explore' %}">Trade</a>
+            </div>
+        </div>
+
+        <div class="footer-section">
+            <p class="footer-header">CONTACT</p>
+            <div class="links">
+              <a href="https://t.me/pixelvault_live">User Support</a>
+            </div>
+        </div>
+
+        <div class="footer-section">
+            <p class="footer-header">LEGAL</p>
+            <div class="links">
+                <a href="{% url 'pix:Terms' %}">Terms of Use</a>
+                <a href="{% url 'pix:Privacy' %}">Privacy Policy</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+  <!-- new footer end -->
 
 
     
@@ -182,7 +184,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border: 1px solid #ccc;
+        /* border: 1px solid #ccc; */
         height: 8vh;
       }
       
@@ -201,10 +203,10 @@
         position: relative;
         top: 19px;
       }
-
+/* 
       .body-container{
         border: solid 1px white ;
-      }
+      } */
 
       .welcome-txt{
         padding-left: 1rem;
@@ -413,51 +415,6 @@
   }
 }
 
-footer{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin-top: 3rem;
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
-  /* background: linear-gradient(to bottom right, blue, red, purple); */
-}
-
-.footer-content{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: baseline;
-}
-
-.footer-header{
-  /* margin: auto; */
-  font-size: 1.2rem;
-}
-
-.footer-section{
-  max-width: fit-content;
-  padding: 0 1rem;
-  border: soiid white 1px;
-}
-
-footer a{
-  color: beige;
-  margin: .4rem auto;
-  padding: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-footer .links{
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-}
-
 .text-container{
   display: flex;
   flex-wrap: wrap;
@@ -478,6 +435,54 @@ footer .links{
         opacity: .9;
         transition: all ease-in .5s;
       }
+
+
+
+
+      /* new footer styling start  */
+
+
+.site-footer {
+    background-color: #333; /* Dark background color */
+    color: beige; /* Light text color */
+    padding: 40px 0;
+    margin-top: 20px;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.footer-section {
+    flex: 1 1 300px; /* Flexbox properties for responsive layout */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.footer-header {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.links a {
+    display: block;
+    color: beige;
+    text-decoration: none;
+    margin-bottom: 8px;
+    transition: color 0.3s;
+}
+
+.links a:hover {
+    color: #007bff; /* Primary color or a color of your choice */
+}
+
+
+/* new footer styling end */
 </style>
 
 

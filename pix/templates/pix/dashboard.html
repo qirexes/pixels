@@ -9,89 +9,101 @@
 
 </head>
 <body>
-
-<nav class="navbar">
+ 
+  <nav class="navbar">
 
     <!--LOGO-->
     <div class="left">
-        <a href="{% url 'pix:index' %}">
-            <img class="logo-img" src="/static/pix/images/Pixelvault black background.jpg">
+        <a href="{% url 'pix:index' %}"> 
+          <img class="logo-img" src="/static/pix/images/Pixelvault black background.jpg">
         </a>
     </div>
+    
 
+    
     <!--3D TOOL-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-    <div class="right">
-      <div class="dep-withdraw">
-        <button class="btn btn-success" data-toggle="modal" data-target="#withdrawalModal" style="margin-right: 1rem;">Withdraw</div>
-          <button class="Fund btn btn-primary" data-toggle="modal" data-target="#depositModal">Fund Account</button>
-        </div>
-        <!--USER PROFILE PICTURE-->
-        {% if user.is_authenticated %}
-        <div class="user-icon">
-          <a href="{% url 'pix:dashboard' %}" id="user-icon" style="display: flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(to bottom right, blue, red, purple);
-          transform: translate(-50%, -50%);
-          ">
-            {% if user.profile.profile_picture %}
-            <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" style="max-width: 50%; max-height: 50%;">
-            {% else %}
-            <img src="/static/pix/images/iconmonstr-user-circle-thin-240.png" alt="Default Picture" style="max-width: 50%; max-height: 50%;">
-            {% endif %}
-          </a>
-        </div>
-                  
-        <!--DROPDOWN MENU BUTTON-->
+
+    
+    <div class="right" style="position: absolute; right: 3px;">
+      <!--USER PROFILE PICTURE-->
+      {% if user.is_authenticated %}
+      <div class="user-icon">
+        <a href="{% url 'pix:dashboard' %}" id="user-icon" style="display: flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(to bottom right, blue, red, purple);
+        ;  transform: translate(-50%, -50%);">
+          {% if user.profile.profile_picture %}
+          <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" style="max-width: 50%; max-height: 50%;">
+          {% else %}
+          <img src="/static/pix/images/iconmonstr-user-circle-thin-240.png" alt="Default Picture" style="max-width: 50%; max-height: 50%;">
+          {% endif %}
+        </a>
+      </div>
+                
+      <!--DROPDOWN MENU BUTTON-->
 <div class="dropdown-container" id="dropdown-container" style="position: relative; z-index: 3;">
 <button onclick="toggleDropdown()" class="dropdown-button" style="background: none; border: none; cursor: pointer;">
-  <img src="/static/pix/images/dropdown menu icon.png" alt="Dropdown Icon" style="width: 30px; height: 30px; background: white; margin-bottom: auto; border-radius: 2px; margin-top: .25rem;" >
+<img src="/static/pix/images/dropdown menu icon.png" alt="Dropdown Icon" style="width: 30px; height: 30px; background: white; margin-bottom: auto; border-radius: 2px; margin-top: .25rem;" >
 </button>
 <div id="dropdownContent" class="dropdown-content" style="display: none; position: absolute; top: 100%; right: 0; background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 3px; padding: 10px; transition: right 0.5s;
-background: linear-gradient(to bottom right, blue, red, purple);">
-  <a class="sub-text" href="{% url 'pix:notifications' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Notifications</a>
-  <a class="sub-text" href="{% url 'pix:collections' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Collections</a>
-  <a class="sub-text" href="{% url 'pix:settings' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Settings</a>
-  <a class="sub-text" href="{% url 'pix:explore' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Explore</a>
-  <form method="POST" action="{% url 'pix:logout' %}" style="display:inline;">
-    {% csrf_token %}
-    <button class="sub-text" type="submit" style="background: none; border: none; cursor: pointer; padding: 8px 0; width: 100%; text-align: left; color: black; color: beige;">Logout</button>
-  </form>
+background: linear-gradient(to left, darkblue, darkslateblue)">
+<a class="sub-text" href="{% url 'pix:notifications' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Notifications</a>
+<a class="sub-text" href="{% url 'pix:collections' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Collections</a>
+<a class="sub-text" href="{% url 'pix:create' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Create</a>
+<a class="sub-text" href="{% url 'pix:settings' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Settings</a>
+<a class="sub-text" href="{% url 'pix:explore' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Explore</a>
+<form method="POST" action="{% url 'pix:logout' %}" style="display:inline;">
+  {% csrf_token %}
+  <button class="sub-text" type="submit" style="background: none; border: none; cursor: pointer; padding: 8px 0; width: 100%; text-align: left; color: black; color: beige;">Logout</button>
+</form>
 </div>
 
 <script>
 function toggleDropdown() {
-  var dropdownContent = document.getElementById("dropdownContent");
-  if (dropdownContent.style.display === "block") {
-    dropdownContent.style.display = "none";
-  } else {
-    dropdownContent.style.display = "block";
-  }
+var dropdownContent = document.getElementById("dropdownContent");
+if (dropdownContent.style.display === "block") {
+  dropdownContent.style.display = "none";
+} else {
+  dropdownContent.style.display = "block";
+}
 }
 </script>
 </div>
 
-        {% else %}
-        <div class="login-register-links" style="z-index: 100; display: flex; flex: row; gap: .5rem;" >
-          <a href="{% url 'pix:login' %}" style="color: beige; text-decoration: underline; margin-right: 10px; background: green; padding: .3rem .6rem; border: none; border-radius: 23px; text-decoration: none;
-            font-size: .7rem;
-            letter-spacing: 2px;
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            font-weight: bold; background: darkgreen; padding: 10px 5px; border: none; border-radius: 23px; text-decoration: none; color: white;
-           z-index: 102; box-shadow: 1px 1px 1px rgba(255, 255, 255, 0.367);
-           z-index: 101;" class="login-btn">Login</a>
-          <a href="{% url 'pix:register' %}" style="color: white; text-decoration: underline;
-            font-size: .7rem;
-            letter-spacing: 2px;
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            font-weight: bold; background: darkblue; padding: .6rem .6rem; border: none; border-radius: 23px; text-decoration: none; color: white;
-           z-index: 102; box-shadow: 1px 1px 1px rgba(255, 255, 255, 0.367); " class="register-btn">Register</a>
-        </div>  
-        {% endif %}
-      </div>
+      {% else %}
+      <div class="login-register-links" style="z-index: 100; display: flex; flex: row; gap: .5rem;" >
+        <a href="{% url 'pix:login' %}" style="color: beige; text-decoration: underline; margin-right: 10px; background: green; padding: .3rem .6rem; border: none; border-radius: 23px; text-decoration: none;
+          font-size: .7rem;
+          letter-spacing: 2px;
+          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+          font-weight: bold; background: darkgreen; padding: 10px 5px; border: none; border-radius: 23px; text-decoration: none; color: white;
+         z-index: 102; box-shadow: 1px 1px 1px rgba(255, 255, 255, 0.367);
+         z-index: 101;" class="login-btn">Login</a>
+        <a href="{% url 'pix:register' %}" style="color: white; text-decoration: underline;
+          font-size: .7rem;
+          letter-spacing: 2px;
+          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+          font-weight: bold; background: darkblue; padding: .6rem .6rem; border: none; border-radius: 23px; text-decoration: none; color: white;
+         z-index: 102; box-shadow: 1px 1px 1px rgba(255, 255, 255, 0.367); " class="register-btn">Register</a>
+      </div>  
+      {% endif %}
     </div>
-</nav>
+  </nav>
 
 
+  
+  <div class="center-nav">
+    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#depositModal">
+      Deposit
+    </button>
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#withdrawalModal">
+      Withdrawal
+    </button>
+  </div>
+      
+
+
+  <!-- old modal container -->
 
 <div class="modal-main-container" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; color: black;">
 
@@ -114,14 +126,15 @@ function toggleDropdown() {
                 </button>
             </div>
             <div class="modal-body">
-              <form id="depositForm" method="Post" action="{% url 'pix:deposit' %}">
+              <form id="depositForm" method="post" action="">
                 {% csrf_token %}
                 <input type="hidden" id="userId" name="user_id" value="{{ user.id }}">
                 <div class="form-group">
                     <label for="depositAmount">Amount to Deposit:</label>
                     <input type="text" class="form-control" id="depositAmount" name="amount" required pattern="^\d+(\.\d{1,2})?$" title="Please enter a valid amount.">
                 </div>
-                <button type="submit" class="btn btn-primary" form="depositForm">Deposit</button>
+                <!-- {{desposit_form.as_p}} -->
+                <button type="submit" class="btn btn-primary">Deposit</button>
             </form>
             
             </div>
@@ -129,7 +142,6 @@ function toggleDropdown() {
     </div>
   </div>
   
-  <!-- Withdrawal Modal -->
   <!-- Withdrawal Modal -->
   <div class="modal fade" id="withdrawalModal" tabindex="-1" role="dialog" aria-labelledby="withdrawalModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -141,13 +153,13 @@ function toggleDropdown() {
                 </button>
             </div>
             <div class="modal-body">
-                <form id="withdrawalForm" action="{% url 'pix:withdraw' %}" method="post">
+                <form id="withdrawalForm" action="" method="post">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="withdrawAmount">Amount to Withdraw:</label>
                         <input type="text" class="form-control" id="withdrawAmount" name="amount" required pattern="^\d+(\.\d{1,2})?$" title="Please enter a valid amount.">
                     </div>
-                    <p>Note: You must deposit 10% of whatever amount you want to withdraw.</p>
+                    <p>Note: Input much would are you withdrawing.</p>
                     <button type="submit" class="btn btn-primary">Withdraw</button>
                 </form>
             </div>
@@ -160,7 +172,7 @@ function toggleDropdown() {
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="secondModalLabel">Random Content</h5>
+                <h5 class="modal-title" id="secondModalLabel">Deposit Ethereum</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -204,29 +216,28 @@ function toggleDropdown() {
   
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var withdrawalAmount = 0;
-        var depositAmount = 0;
-        var isWithdrawal = false;
+        let withdrawalAmount = 0;
+        let depositAmount = 0;
+        let isWithdrawal = false;
   
         document.getElementById('depositForm').addEventListener('submit', function(event) {
             event.preventDefault();
   
             // Validate the input
-            var amountInput = document.getElementById('depositAmount');
-            depositAmount = parseFloat(amountInput.value);
-            var valid = amountInput.checkValidity();
+            let amountInput = document.getElementById('depositAmount').value;
+            console.log(amountInput, typeof amountInput)
+            depositAmount = parseFloat(amountInput);
+            // var valid = amountInput.checkValidity();
+            console.log(depositAmount, typeof depositAmount)
   
-            if (!valid) {
-                amountInput.reportValidity();
-                return;
-            }
+     
   
             // Hide the deposit modal
             $('#depositModal').modal('hide');
   
             // Display the deposit amount message
             document.getElementById('depositMessage').style.display = 'block';
-            document.getElementById('depositMessage').innerText = 'You need to deposit: ' + '$'+ depositAmount;
+            document.getElementById('depositMessage').innerText =  '$'+ depositAmount;
   
             // Randomly select one of the three content divs
             var contents = ['content1', 'content2', 'content3'];
@@ -296,13 +307,21 @@ function toggleDropdown() {
         document.getElementById('confirmDeposit').addEventListener('click', function() {
             // Hide the second modal
             $('#secondModal').modal('hide');
-  
+            async function saveAmount(){
+              const depositForm = document.getElementById("depositForm")
+              const input = document.createElement("input")
+              input.value = depositAmount
+              depositForm.appendChild(input)
+              depositForm.submit()
+            }
+
+            saveAmount()
             // Show the deposit progress message
             document.getElementById('depositProgress').style.display = 'block';
   
             // Simulate a deposit process (e.g., via AJAX call)
             setTimeout(function() {
-                // document.getElementById('depositProgress').innerText = 'Deposit completed successfully!';
+                document.getElementById('depositProgress').innerText = 'Transaction in Progress. Awaiting Admin approval!';
                 location.reload(); // Reload the page
             }, 3000);
         });
@@ -326,6 +345,18 @@ function toggleDropdown() {
   </div>
 
 
+  <!-- old modal container end -->
+
+
+
+  <!-- new modal container -->
+
+
+
+
+  <!-- new modal container end -->
+
+
  
 
 
@@ -339,11 +370,22 @@ function toggleDropdown() {
   {% endif %}
     
 
+
+
+  <!-- old dashboard code start -->
+
+
+<!-- 
   <div class="container">
 
     <div class="balance-div dashboard-section">
-      <img class="balance-img" src="/static/pix/images/iconmonstr-coin-10-240.png" alt="bal">
-      <span class="sub-text balance-text">Balance:</span>
+      <div class="leftt" style="display: flex; flex-direction: column;">
+        <img class="balance-img" src="/static/pix/images/iconmonstr-coin-10-240.png" alt="bal">
+        <span class="sub-text balance-text">Balance:</span>
+
+      </div>
+
+      <div class="rightt">
         {% if user_balance %}
         <span class="user-balance" style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: 1.2rem;"> ${{ user_balance.balance }}</span>
         {% else %}
@@ -351,19 +393,25 @@ function toggleDropdown() {
         {% endif %}
         
       </span>
+
+      </div>
     </div>
       
     
     <div class="balance-div collection-div dashboard-section">
-      <img class="balance-img" src="/static/pix/images/iconmonstr-picture-thin-240.png" alt="collections">
-      <span class="sub-text balance-text">Collections</span>
-      <span class="user-balance collection-count" style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: 1.2rem;">{{ user_image_count }}</span>
+      <div class="leftt">
+        <img class="balance-img" src="/static/pix/images/iconmonstr-picture-thin-240.png" alt="collections">
+        <span class="sub-text balance-text">Collections:</span>
+      </div>
+      <div class="rightt">
+        <span class="user-balance collection-count" style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: 1.2rem;">{{ user_image_count }}</span>
+
+      </div>
   </div>
 
-
-    
+   
   <div class="balance-div collection-div dashboard-section">
-    <span class="user-icon balance-img">
+    <div class="leftt">
       <span href="{% url 'pix:dashboard' %}">
         {% if user.profile.profile_picture %}
         <img class="balance-img" src="{{ user.profile.profile_picture.url }}" alt="Profile Picture">
@@ -371,50 +419,136 @@ function toggleDropdown() {
         <img class="balance-img" src="/static/pix/images/iconmonstr-user-circle-thin-240.png" alt="Default Picture">
         {% endif %}
       </span>
-    </span>
-    <span class="sub-text balance-text">user <br> Info</span>
-    <span class="user-balance collection-count">
-    <div class="rightt" style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: 1rem;">
-      <div class="inner-rightt"><span class="inner-rightt-label" style="font-size: .5rem;">Name: </span>{{ user.first_name }} {{ user.last_name }}</div>
-      <div class="inner-rightt"><span class="inner-rightt-label" style="font-size: .5rem;">Email: </span> {{ user.email }}</div>
-    </div></span>
+      <span class="sub-text balance-text">User info:</span>
+    </div>
+
+    <div class="rightt">
+
+      <div class="" style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: 1rem;">
+        <div class="inner-rightt"><div class="tag">Name: </div>
+        <div class="value">{{ user.first_name }} {{ user.last_name }}</div></div>
+        <div class="inner-rightt"><div class="tag">Email: </div><div class="value" style="display: flex; flex-wrap: wrap;"> {{ user.email }}</div></div>
+      </div>
+      
+    </div>
 </div>
 
+
+
+
+
+</div> -->
+     
+
+  <!-- old dashboard code end -->
+
+
+
+
+  <!-- new dashboard code start  -->
+
+
+
+
+  <div class="container">
+    <div class="balance-div dashboard-section">
+        <div class="leftt">
+            <img class="balance-img" src="/static/pix/images/iconmonstr-coin-10-240.png" alt="bal">
+            <span class="sub-text balance-text">Balance</span>
+        </div>
+        <div class="rightt">
+          <div class="right-inner">
+            
+            {% if user_balance %}
+            <span class="user-balance">${{ user_balance.balance }}</span>
+            {% else %}
+            <span class="sub-text">Your balance is: <span class="user-balance">$0.00</span></span>
+            {% endif %}
+          </div>
+        </div>
+    </div>
+    
+    <div class="balance-div collection-div dashboard-section">
+        <div class="leftt">
+            <img class="balance-img" src="/static/pix/images/iconmonstr-picture-thin-240.png" alt="collections">
+            <span class="sub-text balance-text">Collections</span>
+        </div>
+        <div class="rightt">
+          <div class="right-inner">
+            
+            <span class="user-balance collection-count">{{ user_image_count }}</span>
+          </div>
+        </div>
+    </div>
+    
+    <div class="balance-div collection-div dashboard-section">
+        <div class="leftt">
+            <a href="{% url 'pix:dashboard' %}">
+                {% if user.profile.profile_picture %}
+                <img class="balance-img" src="{{ user.profile.profile_picture.url }}" alt="Profile Picture">
+                {% else %}
+                <img class="balance-img" src="/static/pix/images/iconmonstr-user-circle-thin-240.png" alt="Default Picture">
+                {% endif %}
+            </a>
+            <span class="sub-text balance-text">User info</span>
+        </div>
+        <div class="rightt">
+            <div class="">
+                <div class="inner-rightt">
+                    <div class="tag">Name:</div>
+                    <div class="value">{{ user.first_name }} {{ user.last_name }}</div>
+                </div>
+                <div class="inner-rightt">
+                    <div class="tag">Email:</div>
+                    <div class="value">{{ user.email }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-      
+
+
+
+  <!-- new dashboard code end -->
+
+
+
 <canvas id="c" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></canvas>
 <script src="/static/pix/js/script.js"></script> 
 
-      
-<!-- FOOTER -->
-<footer style="color: beige;">
-<div class="footer-content">
+ 
+  <!-- new footer start  -->
 
-  <div class="footer-section">
-      <p class="sub-text footer-header">SERVICES</p>
-    <div class="links">
-      <a href="{% url 'pix:explore' %}">Explore</a>
-      <a href="{% url 'pix:create' %}">Create</a>
-      <a href="{% url 'pix:explore' %}">Trade</a>
-    </div>
-  </div>
+  <footer class="site-footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <p class="footer-header">SERVICES</p>
+            <div class="links">
+                <a href="{% url 'pix:explore' %}">Explore</a>
+                <a href="{% url 'pix:create' %}">Create</a>
+                <a href="{% url 'pix:explore' %}">Trade</a>
+            </div>
+        </div>
 
-  <div class="footer-section">
-    <p  class="sub-text footer-header">CONTACT</p>
-    <div class="links">
-      <a href="#">User Support</a>
-    </div>
-  </div>
+        <div class="footer-section">
+            <p class="footer-header">CONTACT</p>
+            <div class="links">
+              <a href="https://t.me/pixelvault_live">User Support</a>
+            </div>
+        </div>
 
-  <div class="footer-section">
-    <p  class="sub-text footer-header">LEGAL</p>
-    <div  class="links">
-      <a href="{% url 'pix:Terms' %}">Terms of Use</a>
-      <a href="{% url 'pix:Privacy' %}">Privacy Policy</a>
+        <div class="footer-section">
+            <p class="footer-header">LEGAL</p>
+            <div class="links">
+                <a href="{% url 'pix:Terms' %}">Terms of Use</a>
+                <a href="{% url 'pix:Privacy' %}">Privacy Policy</a>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 </footer>
+
+
+  <!-- new footer end -->
 
 </body>
 <script src="/static/pix/js/script.js"></script>
@@ -429,7 +563,7 @@ function toggleDropdown() {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     height: 8vh;
   }
   
@@ -456,10 +590,10 @@ function toggleDropdown() {
     position: relative;
     top: 19px;
   }
-
+/* 
   .body-container{
     border: solid 1px white ;
-  }
+  } */
 
   .welcome-txt{
     padding-left: 1rem;
@@ -659,50 +793,6 @@ margin-top: 1rem;
 padding: auto;
 }
 
-footer{
-display: flex;
-flex-direction: row;
-justify-content: center;
-margin-top: 3rem;
-padding-top: 3rem;
-padding-bottom: 3rem;
-border-top-right-radius: 10px;
-border-top-left-radius: 10px;
-/* background: linear-gradient(to bottom right, blue, red, purple); */
-}
-
-.footer-content{
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: baseline;
-}
-
-.footer-header{
-/* margin: auto; */
-font-size: 1.2rem;
-}
-.footer-section{
-max-width: fit-content;
-padding: 0 1rem;
-border: soiid white 1px;
-}
-
-footer a{
-color: beige;
-margin: .4rem auto;
-padding: auto;
-display: flex;
-flex-direction: column;
-justify-content: center;
-}
-
-footer .links{
-margin: auto;
-display: flex;
-flex-direction: column;
-}
-
 .dashboard-section{
 min-width: 250px;
 transition: all ease-in 1s;
@@ -724,11 +814,11 @@ padding: 1rem;
 .balance-img{
 height: 3rem;
 width: 3rem;
-padding-right: 5px;
 }
 
 .balance-text{
 font-size: 1rem;
+padding-left: .5rem;
 }
 
 .user-balance{
@@ -856,6 +946,17 @@ cursor: pointer;
 }
 
 
+
+.tag{
+    font-size: small;
+  }
+
+  .value{
+    font-weight: 600;
+    font-size: small;
+  }
+
+
 /* modal things */
         .content-container {
             display: none;
@@ -876,6 +977,147 @@ cursor: pointer;
 
 
 /* modal things end */
+
+
+
+/* new footer styling start  */
+
+
+.site-footer {
+    background-color: #333; /* Dark background color */
+    color: beige; /* Light text color */
+    padding: 40px 0;
+    margin-top: 20px;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.footer-section {
+    flex: 1 1 300px; /* Flexbox properties for responsive layout */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.footer-header {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.links a {
+    display: block;
+    color: beige;
+    text-decoration: none;
+    margin-bottom: 8px;
+    transition: color 0.3s;
+}
+
+.links a:hover {
+    color: #007bff; /* Primary color or a color of your choice */
+}
+
+
+/* new footer styling end */
+
+
+/* new styling start */
+
+
+.container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .dashboard-section {
+            display: flex;
+            align-items: center;
+            /* background-color: #fff; */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(to bottom right, blue, red, purple);
+            background: linear-gradient(to left, darkblue, darkslateblue);
+            color: beige;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        .leftt {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .balance-img {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 10px;
+        }
+
+        .sub-text {
+            font-size: 1rem;
+            color: beige;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        .rightt {
+            flex: 1;
+        }
+
+        .user-balance {
+            font-size: 1.2rem;
+            color: beige;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-weight: bold;
+        }
+
+        .inner-rightt {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .tag {
+            font-weight: bold;
+            color: beige;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            margin-right: 10px;
+        }
+
+        .value {
+            color: beige;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+/* new styling end */
+
+
+/* new nav center start  */
+
+.center-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-nav button {
+  margin: 0 10px; /* Adds some space between the buttons */
+}
+
+
+.right-inner{
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* new nav center end  */
 
 </style>
 
