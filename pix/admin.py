@@ -2,12 +2,13 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
-from .models import Balance, Category, Image, Notification, Profile, CollectionClickLog, Deposit, Withdrawal
+from .models import Balance, Category, Image, Notification, Profile, CollectionClickLog, Deposit, Withdrawal,ImageFile
 from django import forms
 
 
 
 admin.site.unregister(User)
+admin.site.register(ImageFile)
 
 @admin.register(User)
 class CustomUserAdmin(BaseUserAdmin):

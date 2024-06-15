@@ -45,7 +45,7 @@
 <img src="/static/pix/images/dropdown menu icon.png" alt="Dropdown Icon" style="width: 30px; height: 30px; background: white; margin-bottom: auto; border-radius: 2px; margin-top: .25rem;" >
 </button>
 <div id="dropdownContent" class="dropdown-content" style="display: none; position: absolute; top: 100%; right: 0; background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 3px; padding: 10px; transition: right 0.5s;
-background: linear-gradient(to left, darkblue, darkslateblue)">
+background: linear-gradient(to bottom right, blue, red, purple);">
 <a class="sub-text" href="{% url 'pix:notifications' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Notifications</a>
 <a class="sub-text" href="{% url 'pix:collections' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Collections</a>
 <a class="sub-text" href="{% url 'pix:create' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Create</a>
@@ -69,12 +69,23 @@ if (dropdownContent.style.display === "block") {
 </script>
 </div>
 
-      {% else %}
-      <div class="login-register-links" style="z-index: 100; display: flex; flex: row; gap: .5rem;" >
-        <a href="{% url 'pix:login' %}" style="margin-right: 10px;" class="login-btn">Login</a>
-        <a href="{% url 'pix:register' %}" class="register-btn">Register</a>
-      </div>  
-      {% endif %}
+{% else %}
+<div class="login-register-links" style="z-index: 100; display: flex; flex: row; gap: .5rem;" >
+  <a href="{% url 'pix:login' %}" style="color: beige; text-decoration: underline; margin-right: 10px; background: green; padding: .3rem .6rem; border: none; border-radius: 23px; text-decoration: none;
+    font-size: .7rem;
+    letter-spacing: 2px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold; background: transparent; padding: .6rem 1rem; border: none; border-radius: 23px; text-decoration: none; color: white;
+   z-index: 102; border: 1px white solid;
+   z-index: 101;" class="login-btn">LOGIN</a>
+  <a href="{% url 'pix:register' %}" style="color: white; text-decoration: underline;
+    font-size: .7rem;
+    letter-spacing: 2px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold; background: white; padding: .6rem 1rem; border: none; border-radius: 23px; text-decoration: none; color: black;
+   z-index: 102;  border: 1px white solid; " class="register-btn">REGISTER</a>
+</div>  
+{% endif %}
     </div>
   </nav>
       
@@ -103,8 +114,22 @@ if (dropdownContent.style.display === "block") {
 <div class="register-form-container">
   <form method="POST" class="register-form">
       {% csrf_token %}
-      <h2>Registration Form</h2>
+      <h2 style="color: white;">Registration Form</h2>
       {{ form.non_field_errors }}
+      <div class="form-group">
+        {{ form.first_name.label_tag }}
+        {{ form.first_name }}
+        {% if form.first_name.errors %}
+            <div class="error-message">{{ form.first_name.errors }}</div>
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{ form.last_name.label_tag }}
+        {{ form.last_name }}
+        {% if form.last_name.errors %}
+            <div class="error-message">{{ form.last_name.errors }}</div>
+        {% endif %}
+    </div>
       <div class="form-group">
           {{ form.username.label_tag }}
           {{ form.username }}
@@ -250,7 +275,9 @@ box-sizing: 2px 2px 4px 2px black;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-top: 30px;
-    background: linear-gradient(to left, darkblue, darkslateblue);
+    /* background: linear-gradient(to left, darkblue, darkslateblue); */
+    background: black;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .register-form {
@@ -273,7 +300,7 @@ box-sizing: 2px 2px 4px 2px black;
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
-    color: beige; /* Light text color */
+    color: white; /* Light text color */
 }
 
 .form-group input[type="text"],
@@ -295,18 +322,24 @@ box-sizing: 2px 2px 4px 2px black;
 }
 
 .lg-btn {
-    background-color: beige; /* Light background color */
-    color: #333; /* Dark text color */
+    background-color: white; /* Light background color */
+    color: black; /* Dark text color */
     border: none;
     padding: 10px;
     font-size: 1rem;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: 0.3s;
+    border-radius: 5px;
 }
 
 .lg-btn:hover {
     background-color: #e0e0e0; /* Lighter shade of background color on hover */
+    background: black;
+    color: white;
+    border: 1px white solid;
+    scale: 1.04;
+    transition: ease-in-out all 0.3s;
 }
 
 .login-link {
@@ -321,7 +354,7 @@ box-sizing: 2px 2px 4px 2px black;
 }
 
 .login-link a:hover {
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 
@@ -334,7 +367,7 @@ box-sizing: 2px 2px 4px 2px black;
 .register-btn {
     display: inline-block;
     padding: 10px 20px;
-    border-radius: 23px;
+    border-radius: 5px;
     text-decoration: none;
     font-size: 0.7rem;
     letter-spacing: 2px;
@@ -360,6 +393,8 @@ box-sizing: 2px 2px 4px 2px black;
 .register-btn:hover {
     background-color: #007bff; /* Change to a shade of blue on hover */
     color: white; /* Maintain text color */
+    background: black;
+    border: 1px solid white;
 }
 
 .login-btn:focus,
@@ -373,7 +408,7 @@ box-sizing: 2px 2px 4px 2px black;
 
 
 .site-footer {
-    background-color: #333; /* Dark background color */
+    background: transparent;
     color: beige; /* Light text color */
     padding: 40px 0;
     margin-top: 20px;

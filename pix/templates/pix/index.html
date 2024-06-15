@@ -46,7 +46,7 @@
 <img src="/static/pix/images/dropdown menu icon.png" alt="Dropdown Icon" style="width: 30px; height: 30px; background: white; margin-bottom: auto; border-radius: 2px; margin-top: .25rem;" >
 </button>
 <div id="dropdownContent" class="dropdown-content" style="display: none; position: absolute; top: 100%; right: 0; background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 3px; padding: 10px; transition: right 0.5s;
-background: linear-gradient(to left, darkblue, darkslateblue)">
+background: linear-gradient(to bottom right, blue, red, purple);">
 <a class="sub-text" href="{% url 'pix:notifications' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Notifications</a>
 <a class="sub-text" href="{% url 'pix:collections' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Collections</a>
 <a class="sub-text" href="{% url 'pix:create' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Create</a>
@@ -76,15 +76,15 @@ if (dropdownContent.style.display === "block") {
           font-size: .7rem;
           letter-spacing: 2px;
           font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-          font-weight: bold; background: darkgreen; padding: 10px 5px; border: none; border-radius: 23px; text-decoration: none; color: white;
-         z-index: 102; box-shadow: 1px 1px 1px rgba(255, 255, 255, 0.367);
-         z-index: 101;" class="login-btn">Login</a>
+          font-weight: bold; background: transparent; padding: .6rem 1rem; border: none; border-radius: 23px; text-decoration: none; color: white;
+         z-index: 102; border: 1px white solid;
+         z-index: 101;" class="login-btn">LOGIN</a>
         <a href="{% url 'pix:register' %}" style="color: white; text-decoration: underline;
           font-size: .7rem;
           letter-spacing: 2px;
           font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-          font-weight: bold; background: darkblue; padding: .6rem .6rem; border: none; border-radius: 23px; text-decoration: none; color: white;
-         z-index: 102; box-shadow: 1px 1px 1px rgba(255, 255, 255, 0.367); " class="register-btn">Register</a>
+          font-weight: bold; background: white; padding: .6rem 1rem; border: none; border-radius: 23px; text-decoration: none; color: black;
+         z-index: 102;  border: 1px white solid; " class="register-btn">REGISTER</a>
       </div>  
       {% endif %}
     </div>
@@ -99,8 +99,8 @@ if (dropdownContent.style.display === "block") {
       <h1 class="intro-text">
         Unlock a world of <br> possibilities with   <div class="orange-text" style="display: inline-block; padding-left: 2px"> Pixel Vault.</div> 
       </h1>
-      <h3 class="sub-text">
-        Our secure and user-friendly platform makes NFT trading a breeze. Explore, collect, and own a piece of the future.
+      <h3 class="sub-text stt">
+        Our secure and user-friendly platform makes NFT trading a breeze. <br> Explore, collect, and own a piece of the future.
       </h3> 
     </div>
 
@@ -114,21 +114,10 @@ if (dropdownContent.style.display === "block") {
     <!-- first swiper slider for hot collections -->
 
 
-    <!-- end swiper for hot collections -->
-
-
-
-
-
-
-    <!-- second swiper slider for new collection -->
-
-
-    <!-- end swiper for new collection -->
-
-
     <h2 class="orange-text" style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-weight: bolder; font-size: larger; padding-left: 1rem;">Hot Collections</h2>
 
+
+    
     <div class="swiper-container">
       <button class="nav-button left">&lt;</button>
       <div class="swiper-wrapper">
@@ -285,6 +274,181 @@ if (dropdownContent.style.display === "block") {
       <button class="nav-button right">&gt;</button>
   </div>
 
+    <!-- end swiper for hot collections -->
+
+
+
+
+
+
+    <!-- second swiper slider for new collection -->
+
+    
+    <h2 class="orange-text" style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-weight: bolder; font-size: larger; padding-left: 1rem;">New Collections</h2>
+
+
+
+    
+    <div class="swiper-container">
+      <button class="nav-button left">&lt;</button>
+      <div class="swiper-wrapper">
+          <div class="swiper-slide">
+              <div class="item">
+                  <div class="img-div">
+                      <img src="/static/pix/images/IMG-20240612-WA0006.jpg" alt="Image">
+                  </div>
+                  <div class="collection-metadata">
+                      <div class="collection-owner">
+                          <div class="tag">Collection: </div>
+                          <div class="value">Abstract</div>
+                      </div>
+                      <div class="collection-owner">
+                          <div class="tag">Uploaded by: </div>
+                          <div class="value">catusjack</div>
+                      </div>
+                      <div class="collection-price">
+                          <div class="tag">Price: </div>
+                          <div class="value">1.43 ETH</div>
+                      </div>
+                      <a href="{% url 'pix:explore' %}">
+                          <button class="Explore-btn" style="min-width: 98%; border-radius: 4px;">View Collections</button>
+                      </a>
+                  </div>
+              </div>
+          </div>
+          <div class="swiper-slide">
+              <div class="item">
+                  <div class="img-div">
+                      <img src="/static/pix/images/IMG-20240612-WA0061.jpg" alt="Image">
+                  </div>
+                  <div class="collection-metadata">
+                      <div class="collection-owner">
+                          <div class="tag">Collection: </div>
+                          <div class="value">Wizard-chan</div>
+                      </div>
+                      <div class="collection-owner">
+                          <div class="tag">Uploaded by: </div>
+                          <div class="value">catusjack</div>
+                      </div>
+                      <div class="collection-price">
+                          <div class="tag">Price: </div>
+                          <div class="value">3.65 ETH</div>
+                      </div>
+                      <a href="{% url 'pix:explore' %}">
+                          <button class="Explore-btn" style="min-width: 98%; border-radius: 4px;">View Collections</button>
+                      </a>
+                  </div>
+              </div>
+          </div>
+          <div class="swiper-slide">
+              <div class="item">
+                  <div class="img-div">
+                      <img src="/static/pix/images/IMG-20240612-WA0007.jpg" alt="Image">
+                  </div>
+                  <div class="collection-metadata">
+                      <div class="collection-owner">
+                          <div class="tag">Collection: </div>
+                          <div class="value">Faces</div>
+                      </div>
+                      <div class="collection-owner">
+                          <div class="tag">Uploaded by: </div>
+                          <div class="value">catusjack</div>
+                      </div>
+                      <div class="collection-price">
+                          <div class="tag">Price: </div>
+                          <div class="value">2.43 ETH</div>
+                      </div>
+                      <a href="{% url 'pix:explore' %}">
+                          <button class="Explore-btn" style="min-width: 98%; border-radius: 4px;">View Collections</button>
+                      </a>
+                  </div>
+              </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="item">
+                <div class="img-div">
+                    <img src="/static/pix/images/IMG-20240612-WA0097.jpg" alt="Image">
+                </div>
+                <div class="collection-metadata">
+                    <div class="collection-owner">
+                        <div class="tag">Collection: </div>
+                        <div class="value">Robofam</div>
+                    </div>
+                    <div class="collection-owner">
+                        <div class="tag">Uploaded by: </div>
+                        <div class="value">orangeSoda</div>
+                    </div>
+                    <div class="collection-price">
+                        <div class="tag">Price: </div>
+                        <div class="value">2.22 ETH</div>
+                    </div>
+                    <a href="{% url 'pix:explore' %}">
+                        <button class="Explore-btn" style="min-width: 98%; border-radius: 4px;">View Collections</button>
+                    </a>
+                </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="item">
+                <div class="img-div">
+                    <img src="/static/pix/images/IMG-20240612-WA0021.jpg" alt="Image">
+                </div>
+                <div class="collection-metadata">
+                    <div class="collection-owner">
+                        <div class="tag">Collection: </div>
+                        <div class="value">Touch</div>
+                    </div>
+                    <div class="collection-owner">
+                        <div class="tag">Uploaded by: </div>
+                        <div class="value">BananaMan</div>
+                    </div>
+                    <div class="collection-price">
+                        <div class="tag">Price: </div>
+                        <div class="value">1.22 ETH</div>
+                    </div>
+                    <a href="{% url 'pix:explore' %}">
+                        <button class="Explore-btn" style="min-width: 98%; border-radius: 4px;">View Collections</button>
+                    </a>
+                </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="item">
+                <div class="img-div">
+                    <img src="/static/pix/images/IMG-20240612-WA0078.jpg" alt="Image">
+                </div>
+                <div class="collection-metadata">
+                    <div class="collection-owner">
+                        <div class="tag">Collection: </div>
+                        <div class="value">Van</div>
+                    </div>
+                    <div class="collection-owner">
+                        <div class="tag">Uploaded by: </div>
+                        <div class="value">catusjack</div>
+                    </div>
+                    <div class="collection-price">
+                        <div class="tag">Price: </div>
+                        <div class="value">1.45 ETH</div>
+                    </div>
+                    <a href="{% url 'pix:explore' %}">
+                        <button class="Explore-btn" style="min-width: 98%; border-radius: 4px;">View Collections</button>
+                    </a>
+                </div>
+            </div>
+          </div>
+          <!-- <div class="swiper-slide">Slide 7</div>
+          <div class="swiper-slide">Slide 8</div>
+          <div class="swiper-slide">Slide 9</div>
+          <div class="swiper-slide">Slide 10</div>
+          <div class="swiper-slide">Slide 11</div> -->
+      </div>
+      <button class="nav-button right">&gt;</button>
+  </div>
+
+    <!-- end swiper for new collection -->
+
+
+
   <script>
     let startX = 0;
     let currentX = 0;
@@ -420,15 +584,15 @@ if (dropdownContent.style.display === "block") {
           <img class="t-img" src="/static/pix/images/pricetag icon.png">
         </div>
         <div class="txt-container">
-          <div class="intro-text" style="color: beige;">Sell your NFT's</div>
-          <div class="sub-text" style="color: beige; width: fit-content;">Sell it or share to a buyer</div>
+          <div class="intro-text it" style="color: beige;">Sell your NFT's</div>
+          <div class="sub-text st" style="color: beige; width: fit-content;">Sell it or share to a buyer</div>
         </div>
       </div>
 
       
     </div>
-<!-- 
-    
+
+<!--     
     <div class="outro-text" style="color: beige; display: flex; flex-direction: column; justify-content: center; align-items: center;">
       <div class="outro-text-wrapper">
         <div class="outro-text-header">
@@ -437,9 +601,9 @@ if (dropdownContent.style.display === "block") {
         <div class="outro-text-subtext">
           Easy to use trading platform for NFT collection and sale
         </div>
-      </div> -->
+      </div>
 
-<!--       
+      
       <div class="outro-text-wrapper">
         <div class="outro-text-header">
           User-Friendly NFT trading platform for easy and secure transactions
@@ -457,9 +621,9 @@ if (dropdownContent.style.display === "block") {
         <div class="outro-text-subtext">
           A Uniquely easy to use trading platform for NFT collection and sale
         </div>
-      </div> -->
+      </div>
     </div>
-      
+       -->
 
     </div>
 
@@ -474,28 +638,36 @@ if (dropdownContent.style.display === "block") {
   <!-- new footer start  -->
 
   <footer class="site-footer">
+    <hr>
     <div class="footer-content">
-        <div class="footer-section">
+        <!-- <div class="footer-section">
             <p class="footer-header">SERVICES</p>
             <div class="links">
                 <a href="{% url 'pix:explore' %}">Explore</a>
                 <a href="{% url 'pix:create' %}">Create</a>
                 <a href="{% url 'pix:explore' %}">Trade</a>
             </div>
-        </div>
+        </div> -->
 
         <div class="footer-section">
-            <p class="footer-header">CONTACT</p>
+            <!-- <p class="footer-header">CONTACT</p> -->
             <div class="links">
-              <a href="https://t.me/pixelvault_live">User Support</a>
+              <a href="https://t.me/pixelvault_live">USER SUPPORT</a>
+            </div>
+        </div>
+        
+        <div class="footer-section">
+            <!-- <p class="footer-header">CONTACT</p> -->
+            <div class="links">
+              <a href="{% url 'pix:Terms' %}">TERMS OF USE</a>
             </div>
         </div>
 
         <div class="footer-section">
-            <p class="footer-header">LEGAL</p>
+            <!-- <p class="footer-header">LEGAL</p> -->
             <div class="links">
-                <a href="{% url 'pix:Terms' %}">Terms of Use</a>
-                <a href="{% url 'pix:Privacy' %}">Privacy Policy</a>
+                <!-- <a href="{% url 'pix:Terms' %}">Terms of Use</a> -->
+                <a href="{% url 'pix:Privacy' %}">PRIVACY POLICY</a>
             </div>
         </div>
     </div>
@@ -567,6 +739,10 @@ if (dropdownContent.style.display === "block") {
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+      }
+
+      .stt{
+        font-family: Arial, Helvetica, sans-serif;
       }
       
       .sub-text{
@@ -687,7 +863,10 @@ if (dropdownContent.style.display === "block") {
 }
   
 .Explore-btn{
-  background-color: blue;
+  /* background-color: blue; */
+  /* background: linear-gradient(to bottom right, blue, red, purple); */
+  background: white;
+  color: black;
   border-radius: 20px;
   justify-content: space-around;
   width: fit-content;
@@ -748,6 +927,16 @@ if (dropdownContent.style.display === "block") {
   align-items: center;
   margin: auto;
 }
+
+.st, .it{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 90%;
+  margin: auto;
+}
+
 
 .transaction .intro-text{
   font-size: .7rem;
@@ -822,10 +1011,19 @@ if (dropdownContent.style.display === "block") {
   max-width: 230px;
   margin: 5px;
   padding: 3px;
-  background-color: #f0f0f0;
+  background-color: black;
   border: 1px solid #ddd;
   box-sizing: border-box;
-  border-radius: 3px;
+  border-radius: 10px;
+}
+
+.tag{
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: smaller;
+}
+
+.value{
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .item:hover{
@@ -838,6 +1036,16 @@ if (dropdownContent.style.display === "block") {
   width: 100%;
   height: auto;
   display: block;
+  overflow: hidden;
+}
+
+.item .img-div{
+  max-height: 224px;
+  max-width: 230px;
+}
+
+.tag{
+  font-size: 1px;
 }
 
 .metadata {
@@ -906,7 +1114,7 @@ if (dropdownContent.style.display === "block") {
         }
 
         .collection-metadata {
-            background-color: #333;
+            background-color: transparent;
             color: white;
             padding: 10px;
             border-radius: 5px;
@@ -924,15 +1132,25 @@ if (dropdownContent.style.display === "block") {
 
         .Explore-btn {
             border: none;
-            color: white;
+            background: white;
+            color: black;
+            border: solid 1px black;
             padding: 10px;
             cursor: pointer;
             font-size: 16px;
             border-radius: 4px;
             margin-top: 10px;
             width: 100%;
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.208);
             /* background-color: #282828; */
              /* Keep the default background color */
+        }
+
+        .Explore-btn:hover{
+          background: black;
+          color: white;
+          border: 1px solid white;
+          transition: ease-in-out all .3s;
         }
 
         .nav-button {
@@ -993,10 +1211,12 @@ if (dropdownContent.style.display === "block") {
 
 
 .site-footer {
-    background-color: #333; /* Dark background color */
+    background-color: transparent;
     color: beige; /* Light text color */
     padding: 40px 0;
     margin-top: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
 }
 
 .footer-content {
@@ -1034,8 +1254,46 @@ if (dropdownContent.style.display === "block") {
 
 /* new footer styling end */
 
+.outro-text-wrapper{
+  color: beige;
+}
 
 
+/* newer footer styling start */
+
+
+.footer-section{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.footer-section .links{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  color: white;
+  padding-top: 1rem;
+}
+
+/* newer footer styling end */
+
+
+@media (max-width: 500px) {
+  .homepage-tran{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 1rem;
+
+  }
+  .transaction{
+    width: 80%;
+
+  }
+}
 
 </style>
 
