@@ -5,11 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'pix/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!--TITLE-->
     <title>Pixel Vault</title>
   </head>
  
 <body>
+
    
      
   <nav class="navbar">
@@ -19,6 +21,14 @@
           <img class="logo-img" src="/static/pix/images/Pixelvault black background.jpg">
         </a>
     </div>
+
+
+      <!-- Search form -->
+      <form method="get" action="{% url 'pix:explore' %}" style="position: relative; display: inline-block;">
+        <input type="text" name="q" placeholder="&#xf002; Search..." value="{{ request.GET.q }}" style="font-family: Arial, FontAwesome; padding-left: 30px;">
+        <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+
     
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
