@@ -139,6 +139,7 @@
           <form method="post" enctype="multipart/form-data" action="{% url 'pix:create' %}">
               {% csrf_token %}
               {{ form.as_p }}
+              Gas fee per image in collection: $185.68
               <button type="submit" class="btn-submit lg-btn">Upload</button>
           </form>
       </div>
