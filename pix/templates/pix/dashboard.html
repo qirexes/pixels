@@ -12,7 +12,80 @@
  
   <nav class="navbar">
 
-    <!--LOGO-->
+    <div class="left">
+        <a href="{% url 'pix:index' %}"> 
+          <img class="logo-img" src="/static/pix/images/Pixelvault black background.jpg">
+        </a>
+    </div>
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <div class="right">
+      {% if user.is_authenticated %}
+      <div class="user-icon">
+        <a href="{% url 'pix:dashboard' %}" id="user-icon" style="display: flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; background: white;
+        ;  transform: translate(-50%, -50%);">
+          {% if user.profile.profile_picture %}
+          <img src="{{ user.profile.profile_picture.url }}" alt="" style="width: 98%; height: 98%; border-radius: 100%;">
+          {% else %}
+          <img src="/static/pix/images/iconmonstr-user-circle-thin-240.png" alt="" style="max-width: 50%; max-height: 50%;">
+          {% endif %}
+        </a>
+      </div>
+                
+<div class="dropdown-container" id="dropdown-container" style="position: relative; z-index: 3;">
+<button onclick="toggleDropdown()" class="dropdown-button" style="background: none; border: none; cursor: pointer;">
+<img src="/static/pix/images/dropdown menu icon.png" alt="Dropdown Icon" style="width: 30px; height: 30px; background: white; margin-bottom: auto; border-radius: 2px; margin-top: .25rem;" >
+</button>
+<div id="dropdownContent" class="dropdown-content" style="display: none; position: absolute; top: 100%; right: 0;border: 1px solid #ddd; border-radius: 3px; padding: 10px; transition: right 0.5s;
+background: linear-gradient(to bottom right, blue, red, purple);
+background: white; color: black;">
+<a class="sub-text" href="{% url 'pix:notifications' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Notifications</a>
+<a class="sub-text" href="{% url 'pix:collections' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Collections</a>
+<a class="sub-text" href="{% url 'pix:create' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Create</a>
+<a class="sub-text" href="{% url 'pix:settings' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Profile</a>
+<a class="sub-text" href="{% url 'pix:explore' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Explore</a>
+<form method="POST" action="{% url 'pix:logout' %}" style="display:inline;">
+  {% csrf_token %}
+  <button class="sub-text" type="submit" style="background: none; border: none; cursor: pointer; padding: 8px 0; width: 100%; text-align: left; color: black;">Logout</button>
+</form>
+</div>
+
+<script>
+function toggleDropdown() {
+var dropdownContent = document.getElementById("dropdownContent");
+if (dropdownContent.style.display === "block") {
+  dropdownContent.style.display = "none";
+} else {
+  dropdownContent.style.display = "block";
+}
+}
+</script>
+</div>
+
+      {% else %}
+      <div class="login-register-links" style="z-index: 100; display: flex; flex: row; gap: .5rem;" >
+        <a href="{% url 'pix:login' %}" style="color: beige; text-decoration: underline; margin-right: 10px; background: green; padding: .3rem .6rem; border: none; border-radius: 23px; text-decoration: none;
+          font-size: .7rem;
+          letter-spacing: 2px;
+          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+          font-weight: bold; background: transparent; padding: .6rem 1rem; border: none; border-radius: 23px; text-decoration: none; color: white;
+         z-index: 102; border: 1px white solid;
+         z-index: 101;" class="login-btn">LOGIN</a>
+        <a href="{% url 'pix:register' %}" style="color: white; text-decoration: underline;
+          font-size: .7rem;
+          letter-spacing: 2px;
+          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+          font-weight: bold; background: white; padding: .6rem 1rem; border: none; border-radius: 23px; text-decoration: none; color: black;
+         z-index: 102;  border: 1px white solid; " class="register-btn">REGISTER</a>
+      </div>  
+      {% endif %}
+    </div>
+  </nav>
+<!--   
+  <nav class="navbar">
+
     <div class="left">
         <a href="{% url 'pix:index' %}"> 
           <img class="logo-img" src="/static/pix/images/Pixelvault black background.jpg">
@@ -21,13 +94,11 @@
     
 
     
-    <!--3D TOOL-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
 
     
     <div class="right" style="position: absolute; right: 3px;">
-      <!--USER PROFILE PICTURE-->
       {% if user.is_authenticated %}
       <div class="user-icon">
         <a href="{% url 'pix:dashboard' %}" id="user-icon" style="display: flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(to bottom right, blue, red, purple);
@@ -40,10 +111,9 @@
         </a>
       </div>
                 
-      <!--DROPDOWN MENU BUTTON-->
 <div class="dropdown-container" id="dropdown-container" style="position: relative; z-index: 3;">
 <button onclick="toggleDropdown()" class="dropdown-button" style="background: none; border: none; cursor: pointer;">
-<img src="/static/pix/images/dropdown menu icon.png" alt="Dropdown Icon" style="width: 30px; height: 30px; background: white; margin-bottom: auto; border-radius: 2px; margin-top: .25rem;" >
+<img src="/static/pix/images/dbblined.png" alt="Dropdown Icon" style="width: 30px; height: 30px; background: white; margin-bottom: auto; border-radius: 2px; margin-top: .25rem;" >
 </button>
 <div id="dropdownContent" class="dropdown-content" style="display: none; position: absolute; top: 100%; right: 0; background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 3px; padding: 10px; transition: right 0.5s;
 background: linear-gradient(to bottom right, blue, red, purple);">
@@ -88,7 +158,7 @@ if (dropdownContent.style.display === "block") {
 </div>  
 {% endif %}
     </div>
-  </nav>
+  </nav> -->
 
 
 <!--   
@@ -348,18 +418,6 @@ if (dropdownContent.style.display === "block") {
   <!-- old modal container end -->
 
 
-
-  <!-- new modal container -->
-
-
-
-
-  <!-- new modal container end -->
-
-
- 
-
-
     <!-- USER INFORMATION -->
     {% if messages %}
     <div class="messages">
@@ -370,87 +428,11 @@ if (dropdownContent.style.display === "block") {
   {% endif %}
     
 
-
-
-  <!-- old dashboard code start -->
-
-
-<!-- 
-  <div class="container">
-
-    <div class="balance-div dashboard-section">
-      <div class="leftt" style="display: flex; flex-direction: column;">
-        <img class="balance-img" src="/static/pix/images/iconmonstr-coin-10-240.png" alt="bal">
-        <span class="sub-text balance-text">Balance:</span>
-
-      </div>
-
-      <div class="rightt">
-        {% if user_balance %}
-        <span class="user-balance" style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: 1.2rem;"> ${{ user_balance.balance }}</span>
-        {% else %}
-        <span class="sub-text" >Your balance is: <div class="span"  style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: 1.2rem;">$0.00</div></span>
-        {% endif %}
-        
-      </span>
-
-      </div>
-    </div>
-      
-    
-    <div class="balance-div collection-div dashboard-section">
-      <div class="leftt">
-        <img class="balance-img" src="/static/pix/images/iconmonstr-picture-thin-240.png" alt="collections">
-        <span class="sub-text balance-text">Collections:</span>
-      </div>
-      <div class="rightt">
-        <span class="user-balance collection-count" style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: 1.2rem;">{{ user_image_count }}</span>
-
-      </div>
-  </div>
-
-   
-  <div class="balance-div collection-div dashboard-section">
-    <div class="leftt">
-      <span href="{% url 'pix:dashboard' %}">
-        {% if user.profile.profile_picture %}
-        <img class="balance-img" src="{{ user.profile.profile_picture.url }}" alt="Profile Picture">
-        {% else %}
-        <img class="balance-img" src="/static/pix/images/iconmonstr-user-circle-thin-240.png" alt="Default Picture">
-        {% endif %}
-      </span>
-      <span class="sub-text balance-text">User info:</span>
-    </div>
-
-    <div class="rightt">
-
-      <div class="" style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: 1rem;">
-        <div class="inner-rightt"><div class="tag">Name: </div>
-        <div class="value">{{ user.first_name }} {{ user.last_name }}</div></div>
-        <div class="inner-rightt"><div class="tag">Email: </div><div class="value" style="display: flex; flex-wrap: wrap;"> {{ user.email }}</div></div>
-      </div>
-      
-    </div>
-</div>
-
-
-
-
-
-</div> -->
-     
-
-  <!-- old dashboard code end -->
-
-
-
-
   <!-- new dashboard code start  -->
 
 
-
-
   <div class="container">
+    <div class="dsb" style="display: flex; justify-content: flex-start; font-weight: bold; font-family: Arial, Helvetica, sans-serif; width: 90%;">DASHBOARD</div>
     <div class="balance-div dashboard-section" style="background: white; color: black; display: flex; flex-direction: column;">
 
       <div class="upper-balance" style="display: flex; flex-direction: row; justify-content: space-around; width: 100%;">
@@ -483,43 +465,45 @@ if (dropdownContent.style.display === "block") {
 
     </div>
     
-    <div class="balance-div collection-div dashboard-section">
+    <a class="balance-div collection-div dashboard-section adb" style="text-decoration: none; cursor: pointer;" href="{% url 'pix:collections' %}" >
         <div class="leftt">
             <img class="balance-img" src="/static/pix/images/iconmonstr-picture-thin-240.png" alt="collections">
-            <span class="sub-text balance-text" style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">Collections</span>
+            <span class="sub-text balance-text" style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; color: white;">Collections</span>
         </div>
         <div class="rightt">
           <div class="right-inner">
             
-            <span class="user-balance collection-count">{{ user_image_count }}</span>
+            <span class="user-balance collection-count" style="color: white;">{{ user_image_count }}</span>
           </div>
         </div>
-    </div>
+      </a>
     
-    <div class="balance-div collection-div dashboard-section">
+    <a  class="balance-div collection-div dashboard-section adb" style="text-decoration: none; cursor: pointer;"  href="{% url 'pix:settings' %}">
         <div class="leftt">
-            <a href="{% url 'pix:dashboard' %}">
+            <div href="{% url 'pix:dashboard' %}">
                 {% if user.profile.profile_picture %}
-                <img class="balance-img" src="{{ user.profile.profile_picture.url }}" alt="Profile Picture">
+                <img class="balance-img" src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" style="border: solid 1px white; border-radius: 100%;">
                 {% else %}
-                <img class="balance-img" src="/static/pix/images/iconmonstr-user-circle-thin-240.png" alt="Default Picture">
+                <img class="balance-img" src="/static/pix/images/iconmonstr-user-circle-thin-240.png" alt="Default Picture" style="border: solid 1px white; border-radius: 100%;">
                 {% endif %}
-            </a>
+            </div>
             <!-- <span class="sub-text balance-text" style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">User info</span> -->
         </div>
         <div class="rightt">
             <div class="">
                 <div class="inner-rightt">
-                    <div class="tag">Name:</div>
-                    <div class="value">{{ user.first_name }} {{ user.last_name }}</div>
+                    <div class="tag" style="color: white;">Name:</div>
+                    <div class="value" style="color: white;">{{ user.first_name }} {{ user.last_name }}</div>
                 </div>
                 <div class="inner-rightt">
-                    <div class="tag">Email:</div>
-                    <div class="value">{{ user.email }}</div>
+                    <div class="tag" style="color: white;">Email:</div>
+                    <div class="value" style="color: white;">{{ user.email }}</div>
                 </div>
             </div>
         </div>
-    </div>
+      </a>
+
+    
 </div>
 
 
@@ -531,10 +515,54 @@ if (dropdownContent.style.display === "block") {
 <canvas id="c" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></canvas>
 <script src="/static/pix/js/script.js"></script> 
 
+
+    <!-- js for scroll pop up effect start  -->
+    <script>
+      // script.js
+document.addEventListener('DOMContentLoaded', function() {
+    const elements = document.querySelectorAll('.fade-in-element');
+
+    const handleScroll = () => {
+        const windowHeight = window.innerHeight;
+        elements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            if (elementTop < windowHeight - 50) {
+                element.classList.add('visible');
+            } else {
+                element.classList.remove('visible');
+            }
+        });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Run on initial load
+});
+
+    </script>
+    <!-- js for scroll pop up effect end -->
+    
+    <style>
+
+
+.fade-in-element {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    margin-top: 20px ;
+}
+
+.fade-in-element.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+    </style>
+
  
   <!-- new footer start  -->
 
-  <footer class="site-footer">
+  <footer class="site-footer" style="color: white;">
+    <hr>
     <div class="footer-content">
         <!-- <div class="footer-section">
             <p class="footer-header">SERVICES</p>
@@ -546,22 +574,28 @@ if (dropdownContent.style.display === "block") {
         </div> -->
 
         <div class="footer-section">
-            <p class="footer-header">CONTACT</p>
+            <!-- <p class="footer-header">CONTACT</p> -->
             <div class="links">
-              <a href="https://t.me/pixelvault_live">User Support</a>
+              <a href="https://t.me/pixelvault_live">USER SUPPORT</a>
+            </div>
+        </div>
+        
+        <div class="footer-section">
+            <!-- <p class="footer-header">CONTACT</p> -->
+            <div class="links">
+              <a href="{% url 'pix:Terms' %}" >TERMS OF USE</a>
             </div>
         </div>
 
         <div class="footer-section">
-            <p class="footer-header">LEGAL</p>
+            <!-- <p class="footer-header">LEGAL</p> -->
             <div class="links">
-                <a href="{% url 'pix:Terms' %}">Terms of Use</a>
-                <a href="{% url 'pix:Privacy' %}">Privacy Policy</a>
+                <!-- <a href="{% url 'pix:Terms' %}">Terms of Use</a> -->
+                <a href="{% url 'pix:Privacy' %}">PRIVACY POLICY</a>
             </div>
         </div>
     </div>
 </footer>
-
 
   <!-- new footer end -->
 
@@ -592,13 +626,15 @@ if (dropdownContent.style.display === "block") {
     padding-bottom: 2rem;
   }
 
-  .right{
+  .navbar .right{
     z-index: 3;
     display: flex;
     justify-content: flex-end;
     flex-direction: row;
     padding: auto;
     margin: auto;
+    position: absolute;
+    right: 1rem;
   }
 
   .user-icon{
@@ -819,7 +855,7 @@ flex-direction: row;
 justify-content: space-around;
 align-items: center;
 height: 9rem;
-width: 80%;
+width: 90%;
 border-radius: 10px;
 background: linear-gradient(to bottom right, blue, red, purple);
 background: darkblue;
@@ -1000,8 +1036,8 @@ cursor: pointer;
 
 .site-footer {
     background: transparent;
-    color: beige; /* Light text color */
-    padding: 40px 0;
+    color: white; /* Light text color */
+    /* padding: 40px 0; */
     margin-top: 20px;
 }
 
@@ -1011,6 +1047,7 @@ cursor: pointer;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+    flex-direction: row;
 }
 
 .footer-section {
@@ -1025,9 +1062,14 @@ cursor: pointer;
     margin-bottom: 10px;
 }
 
+hr{
+  width: 100%;
+  color: white;
+}
+
 .links a {
     display: block;
-    color: beige;
+    color: white;
     text-decoration: none;
     margin-bottom: 8px;
     transition: color 0.3s;
@@ -1035,6 +1077,15 @@ cursor: pointer;
 
 .links a:hover {
     color: #007bff; /* Primary color or a color of your choice */
+}
+
+@media (max-width: 700px){
+  .links a, .footer-section, .links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 0;
+  }
 }
 
 
@@ -1178,6 +1229,35 @@ cursor: pointer;
   color: black;
   border: solid 1px black;
 }
+
+
+
+.footer-section{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.footer-section .links{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  color: white;
+  padding-top: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+
+.adb:hover{
+  cursor: pointer;
+  transition: ease-in-out all .15s;
+  scale: 1.02;
+  /* background: rgba(255, 255, 255, 0.142); */
+  box-shadow: 3px 9px 9px rgba(255, 255, 255, 0.329);
+}
+
 
 
 

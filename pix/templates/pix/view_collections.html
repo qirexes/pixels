@@ -13,7 +13,6 @@
 
   <nav class="navbar">
 
-    <!--LOGO-->
     <div class="left">
         <a href="{% url 'pix:index' %}"> 
           <img class="logo-img" src="/static/pix/images/Pixelvault black background.jpg">
@@ -21,13 +20,86 @@
     </div>
     
     
-    <!--3D TOOL-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <div class="right">
+      {% if user.is_authenticated %}
+      <div class="user-icon">
+        <a href="{% url 'pix:dashboard' %}" id="user-icon" style="display: flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; background: white;
+        ;  transform: translate(-50%, -50%);">
+          {% if user.profile.profile_picture %}
+          <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" style="width: 98%; height: 98%; border-radius: 100%;">
+          {% else %}
+          <img src="/static/pix/images/iconmonstr-user-circle-thin-240.png" alt="Default Picture" style="max-width: 50%; max-height: 50%;">
+          {% endif %}
+        </a>
+      </div>
+                
+<div class="dropdown-container" id="dropdown-container" style="position: relative; z-index: 3;">
+<button onclick="toggleDropdown()" class="dropdown-button" style="background: none; border: none; cursor: pointer;">
+<img src="/static/pix/images/dropdown menu icon.png" alt="Dropdown Icon" style="width: 30px; height: 30px; background: white; margin-bottom: auto; border-radius: 2px; margin-top: .25rem;" >
+</button>
+<div id="dropdownContent" class="dropdown-content" style="display: none; position: absolute; top: 100%; right: 0;border: 1px solid #ddd; border-radius: 3px; padding: 10px; transition: right 0.5s;
+background: linear-gradient(to bottom right, blue, red, purple);
+background: white; color: black;">
+<a class="sub-text" href="{% url 'pix:notifications' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Notifications</a>
+<a class="sub-text" href="{% url 'pix:collections' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Collections</a>
+<a class="sub-text" href="{% url 'pix:create' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Create</a>
+<a class="sub-text" href="{% url 'pix:settings' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Settings</a>
+<a class="sub-text" href="{% url 'pix:explore' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Explore</a>
+<form method="POST" action="{% url 'pix:logout' %}" style="display:inline;">
+  {% csrf_token %}
+  <button class="sub-text" type="submit" style="background: none; border: none; cursor: pointer; padding: 8px 0; width: 100%; text-align: left; color: black;">Logout</button>
+</form>
+</div>
+
+<script>
+function toggleDropdown() {
+var dropdownContent = document.getElementById("dropdownContent");
+if (dropdownContent.style.display === "block") {
+  dropdownContent.style.display = "none";
+} else {
+  dropdownContent.style.display = "block";
+}
+}
+</script>
+</div>
+
+      {% else %}
+      <div class="login-register-links" style="z-index: 100; display: flex; flex: row; gap: .5rem;" >
+        <a href="{% url 'pix:login' %}" style="color: beige; text-decoration: underline; margin-right: 10px; background: green; padding: .3rem .6rem; border: none; border-radius: 23px; text-decoration: none;
+          font-size: .7rem;
+          letter-spacing: 2px;
+          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+          font-weight: bold; background: transparent; padding: .6rem 1rem; border: none; border-radius: 23px; text-decoration: none; color: white;
+         z-index: 102; border: 1px white solid;
+         z-index: 101;" class="login-btn">LOGIN</a>
+        <a href="{% url 'pix:register' %}" style="color: white; text-decoration: underline;
+          font-size: .7rem;
+          letter-spacing: 2px;
+          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+          font-weight: bold; background: white; padding: .6rem 1rem; border: none; border-radius: 23px; text-decoration: none; color: black;
+         z-index: 102;  border: 1px white solid; " class="register-btn">REGISTER</a>
+      </div>  
+      {% endif %}
+    </div>
+  </nav>
+
+<!--   
+  <nav class="navbar">
+
+    <div class="left">
+        <a href="{% url 'pix:index' %}"> 
+          <img class="logo-img" src="/static/pix/images/Pixelvault black background.jpg">
+        </a>
+    </div>
+    
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
 
     
     <div class="right">
-      <!--USER PROFILE PICTURE-->
       {% if user.is_authenticated %}
       <div class="user-icon">
         <a href="{% url 'pix:dashboard' %}" id="user-icon" style="display: flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(to bottom right, blue, red, purple);
@@ -40,7 +112,6 @@
         </a>
       </div>
                 
-      <!--DROPDOWN MENU BUTTON-->
 <div class="dropdown-container" id="dropdown-container" style="position: relative; z-index: 3;">
 <button onclick="toggleDropdown()" class="dropdown-button" style="background: none; border: none; cursor: pointer;">
 <img src="/static/pix/images/dropdown menu icon.png" alt="Dropdown Icon" style="width: 30px; height: 30px; background: white; margin-bottom: auto; border-radius: 2px; margin-top: .25rem;" >
@@ -88,13 +159,13 @@ if (dropdownContent.style.display === "block") {
 </div>  
 {% endif %}
     </div>
-  </nav>
+  </nav> -->
         
 
       <form method="POST" action="{% url 'pix:collection_purchase' %}">
         {% csrf_token %}
         <div style="display: flex; justify-content: space-around; align-items: center; color: white;">
-        <button type="submit" class="Explore-btn" style="color: beige;">Purchase Collection</button>
+        <button type="submit" class="Explore-btn" style="width: 203px;">Purchase Collection</button>
       </div>
     </form>
 
@@ -159,36 +230,86 @@ if (dropdownContent.style.display === "block") {
 <script src="/static/pix/js/script.js"></script> 
 
 
+    <!-- js for scroll pop up effect start  -->
+    <script>
+      // script.js
+document.addEventListener('DOMContentLoaded', function() {
+    const elements = document.querySelectorAll('.fade-in-element');
+
+    const handleScroll = () => {
+        const windowHeight = window.innerHeight;
+        elements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            if (elementTop < windowHeight - 50) {
+                element.classList.add('visible');
+            } else {
+                element.classList.remove('visible');
+            }
+        });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Run on initial load
+});
+
+    </script>
+    <!-- js for scroll pop up effect end -->
+    
+    <style>
+
+
+.fade-in-element {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    margin-top: 20px ;
+}
+
+.fade-in-element.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+    </style>
+
+
   <!-- new footer start  -->
 
   <footer class="site-footer">
+    <hr>
     <div class="footer-content">
-        <div class="footer-section">
+        <!-- <div class="footer-section">
             <p class="footer-header">SERVICES</p>
             <div class="links">
                 <a href="{% url 'pix:explore' %}">Explore</a>
                 <a href="{% url 'pix:create' %}">Create</a>
                 <a href="{% url 'pix:explore' %}">Trade</a>
             </div>
-        </div>
+        </div> -->
 
         <div class="footer-section">
-            <p class="footer-header">CONTACT</p>
+            <!-- <p class="footer-header">CONTACT</p> -->
             <div class="links">
-              <a href="https://t.me/pixelvault_live">User Support</a>
+              <a href="https://t.me/pixelvault_live">USER SUPPORT</a>
+            </div>
+        </div>
+        
+        <div class="footer-section">
+            <!-- <p class="footer-header">CONTACT</p> -->
+            <div class="links">
+              <a href="{% url 'pix:Terms' %}">TERMS OF USE</a>
             </div>
         </div>
 
         <div class="footer-section">
-            <p class="footer-header">LEGAL</p>
+            <!-- <p class="footer-header">LEGAL</p> -->
             <div class="links">
-                <a href="{% url 'pix:Terms' %}">Terms of Use</a>
-                <a href="{% url 'pix:Privacy' %}">Privacy Policy</a>
+                <!-- <a href="{% url 'pix:Terms' %}">Terms of Use</a> -->
+                <a href="{% url 'pix:Privacy' %}">PRIVACY POLICY</a>
             </div>
         </div>
     </div>
 </footer>
-
 
   <!-- new footer end -->
 
@@ -640,17 +761,25 @@ box-shadow: 3px 3px 3px black;
     flex: 1 1 100%;
   }
 }
+
+
+
     
 
 
 /* new footer styling start  */
-
+hr{
+  width: 100%;
+}
 
 .site-footer {
     background: transparent;
-    color: beige; /* Light text color */
+    color: white; /* Light text color */
     padding: 40px 0;
     margin-top: 20px;
+    /* display: flex;
+    flex-direction: column; */
+    justify-content: space-around;
 }
 
 .footer-content {
@@ -675,7 +804,7 @@ box-shadow: 3px 3px 3px black;
 
 .links a {
     display: block;
-    color: beige;
+    color: white;
     text-decoration: none;
     margin-bottom: 8px;
     transition: color 0.3s;
@@ -687,6 +816,110 @@ box-shadow: 3px 3px 3px black;
 
 
 /* new footer styling end */
+
+
+
+.footer-section{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.footer-section .links{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  color: white;
+  padding-top: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+
+
+
+/* swiper code */
+
+
+
+
+.swiper-container {
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+        }
+
+        .swiper-wrapper {
+            display: flex;
+            transition: transform 0.3s ease;
+        }
+
+        .swiper-slide {
+            flex: 0 0 auto;
+            margin: 0 10px; /* Adjust margin for appropriate spacing */
+            width: 230px; /* Set width of each slide */
+        }
+
+        .item {
+            width: 100%; /* Ensure the item takes full width of the slide */
+            border: .3px rgba(255, 255, 255, 0.306) solid;
+            background: black;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .img-div {
+            width: 100%;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+
+        .img-div img {
+            width: 100%;
+            height: auto;
+        }
+
+        .collection-metadata {
+            background-color: transparent;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .collection-metadata .tag {
+            font-weight: medium;
+            display: inline;
+        }
+
+        .collection-metadata .value{
+          display: inline;
+        }
+
+        .Explore-btn {
+            border: none;
+            background: white;
+            color: black;
+            border: solid 1px black;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 4px;
+            margin-top: 10px;
+            width: 100%;
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.208);
+            /* background-color: #282828; */
+             /* Keep the default background color */
+        }
+
+        .Explore-btn:hover{
+          background: black;
+          color: white;
+          border: 1px solid white;
+          transition: ease-in-out all .3s;
+        }
 
 </style>
 

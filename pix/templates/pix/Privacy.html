@@ -15,7 +15,6 @@
 
       <nav class="navbar">
 
-        <!--LOGO-->
         <div class="left">
             <a href="{% url 'pix:index' %}"> 
               <img class="logo-img" src="/static/pix/images/Pixelvault black background.jpg">
@@ -23,40 +22,36 @@
         </div>
         
         
-        <!--3D TOOL-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     
-    
-        
         <div class="right">
-          <!--USER PROFILE PICTURE-->
           {% if user.is_authenticated %}
           <div class="user-icon">
-            <a href="{% url 'pix:dashboard' %}" id="user-icon" style="display: flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(to bottom right, blue, red, purple);
+            <a href="{% url 'pix:dashboard' %}" id="user-icon" style="display: flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; background: white;
             ;  transform: translate(-50%, -50%);">
               {% if user.profile.profile_picture %}
-              <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" style="max-width: 50%; max-height: 50%;">
+              <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" style="width: 98%; height: 98%; border-radius: 100%;">
               {% else %}
               <img src="/static/pix/images/iconmonstr-user-circle-thin-240.png" alt="Default Picture" style="max-width: 50%; max-height: 50%;">
               {% endif %}
             </a>
           </div>
                     
-          <!--DROPDOWN MENU BUTTON-->
     <div class="dropdown-container" id="dropdown-container" style="position: relative; z-index: 3;">
     <button onclick="toggleDropdown()" class="dropdown-button" style="background: none; border: none; cursor: pointer;">
     <img src="/static/pix/images/dropdown menu icon.png" alt="Dropdown Icon" style="width: 30px; height: 30px; background: white; margin-bottom: auto; border-radius: 2px; margin-top: .25rem;" >
     </button>
-    <div id="dropdownContent" class="dropdown-content" style="display: none; position: absolute; top: 100%; right: 0; background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 3px; padding: 10px; transition: right 0.5s;
-    background: linear-gradient(to bottom right, blue, red, purple);">
-    <a class="sub-text" href="{% url 'pix:notifications' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Notifications</a>
-    <a class="sub-text" href="{% url 'pix:collections' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Collections</a>
-    <a class="sub-text" href="{% url 'pix:create' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Create</a>
-    <a class="sub-text" href="{% url 'pix:settings' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Settings</a>
-    <a class="sub-text" href="{% url 'pix:explore' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: beige;">Explore</a>
+    <div id="dropdownContent" class="dropdown-content" style="display: none; position: absolute; top: 100%; right: 0;border: 1px solid #ddd; border-radius: 3px; padding: 10px; transition: right 0.5s;
+    background: linear-gradient(to bottom right, blue, red, purple);
+    background: white; color: black;">
+    <a class="sub-text" href="{% url 'pix:notifications' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Notifications</a>
+    <a class="sub-text" href="{% url 'pix:collections' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Collections</a>
+    <a class="sub-text" href="{% url 'pix:create' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Create</a>
+    <a class="sub-text" href="{% url 'pix:settings' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Profile</a>
+    <a class="sub-text" href="{% url 'pix:explore' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Explore</a>
     <form method="POST" action="{% url 'pix:logout' %}" style="display:inline;">
       {% csrf_token %}
-      <button class="sub-text" type="submit" style="background: none; border: none; cursor: pointer; padding: 8px 0; width: 100%; text-align: left; color: black; color: beige;">Logout</button>
+      <button class="sub-text" type="submit" style="background: none; border: none; cursor: pointer; padding: 8px 0; width: 100%; text-align: left; color: black;">Logout</button>
     </form>
     </div>
     
@@ -72,23 +67,23 @@
     </script>
     </div>
     
-{% else %}
-<div class="login-register-links" style="z-index: 100; display: flex; flex: row; gap: .5rem;" >
-  <a href="{% url 'pix:login' %}" style="color: beige; text-decoration: underline; margin-right: 10px; background: green; padding: .3rem .6rem; border: none; border-radius: 23px; text-decoration: none;
-    font-size: .7rem;
-    letter-spacing: 2px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-weight: bold; background: transparent; padding: .6rem 1rem; border: none; border-radius: 23px; text-decoration: none; color: white;
-   z-index: 102; border: 1px white solid;
-   z-index: 101;" class="login-btn">LOGIN</a>
-  <a href="{% url 'pix:register' %}" style="color: white; text-decoration: underline;
-    font-size: .7rem;
-    letter-spacing: 2px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-weight: bold; background: white; padding: .6rem 1rem; border: none; border-radius: 23px; text-decoration: none; color: black;
-   z-index: 102;  border: 1px white solid; " class="register-btn">REGISTER</a>
-</div>  
-{% endif %}
+          {% else %}
+          <div class="login-register-links" style="z-index: 100; display: flex; flex: row; gap: .5rem;" >
+            <a href="{% url 'pix:login' %}" style="color: beige; text-decoration: underline; margin-right: 10px; background: green; padding: .3rem .6rem; border: none; border-radius: 23px; text-decoration: none;
+              font-size: .7rem;
+              letter-spacing: 2px;
+              font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+              font-weight: bold; background: transparent; padding: .6rem 1rem; border: none; border-radius: 23px; text-decoration: none; color: white;
+             z-index: 102; border: 1px white solid;
+             z-index: 101;" class="login-btn">LOGIN</a>
+            <a href="{% url 'pix:register' %}" style="color: white; text-decoration: underline;
+              font-size: .7rem;
+              letter-spacing: 2px;
+              font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+              font-weight: bold; background: white; padding: .6rem 1rem; border: none; border-radius: 23px; text-decoration: none; color: black;
+             z-index: 102;  border: 1px white solid; " class="register-btn">REGISTER</a>
+          </div>  
+          {% endif %}
         </div>
       </nav>
           
@@ -97,28 +92,52 @@
 
            <div class="text-container"> 
             
-                <div class="sub-text">
+                <div class="sub-text" style="color: white;">
                     
+                  <span class="fade-in-element">
                   <span class="title">Privacy Policy:</span> 
                   Your privacy is important to us. This Privacy Policy explains how we collect, use, and disclose your personal information when you use PixelVault.live: <br> <div></div>
+                  </span>
 
+                  <span class="fade-in-element">
                     <span class="title">Information We Collect:</span> We collect information you provide when you register an account, create or purchase NFTs, and communicate with us. This may include your name, email address, payment information, and NFT metadata. <br> <div></div>
+                  </span>
 
+                  <span class="fade-in-element">
                     <span class="title">How We Use Your Information:</span> We use your information to operate, maintain, and improve PixelVault.live, to communicate with you, to facilitate transactions, and to comply with legal obligations. <br> <div></div>
+                  </span>
 
+                  
+                  <span class="fade-in-element">
                     <span class="title">Sharing Your Information:</span> We may share your information with third-party service providers who assist us in operating our platform and providing services to you. We may also share information in response to legal requests or to protect our rights or the rights of others. <br> <div></div>
+                  </span>
 
+                  
+                  <span class="fade-in-element">
                     <span class="title">Data Retention:</span>  We retain your information for as long as necessary to fulfill the purposes outlined in this Privacy Policy, unless a longer retention period is required by law. <br> <div></div>
+                  </span>
 
+                  <span class="fade-in-element">
                     <span class="title">Security:</span>  We take reasonable measures to protect your information from unauthorized access, alteration, or destruction, but no method of transmission over the internet or electronic storage is 100% secure. <br> <div></div>
+                  </span>
 
+                  <span class="fade-in-element">
                     <span class="title">Your Choices:</span> You may access, update, or delete your account information at any time. You may also opt out of receiving promotional communications from us. <br> <div></div>
+                  </span>
 
+                  
+                  <span class="fade-in-element">
                     <span class="title">Children's Privacy:</span> PixelVault.live is not intended for children under the age of 13, and we do not knowingly collect personal information from children under 13. <br> <div></div>
+                  </span>
 
+
+                  <span class="fade-in-element">
                     <span class="title">Changes to Privacy Policy:</span> We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page. <br> <div></div>
+                  </span>
 
+                  <span class="fade-in-element">
                     <span class="title">By using PixelVault.live, you consent to the collection, use, and disclosure of your information as described in this Privacy Policy. If you have any questions or concerns about our privacy practices, please contact us at [contact us via t.me/pixelvault_live].</span>  <br> <div></div>
+                  </span>
 
 
                 </div>
@@ -140,32 +159,82 @@
     
 
 
+    <!-- js for scroll pop up effect start  -->
+    <script>
+      // script.js
+document.addEventListener('DOMContentLoaded', function() {
+    const elements = document.querySelectorAll('.fade-in-element');
+
+    const handleScroll = () => {
+        const windowHeight = window.innerHeight;
+        elements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            if (elementTop < windowHeight - 50) {
+                element.classList.add('visible');
+            } else {
+                element.classList.remove('visible');
+            }
+        });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Run on initial load
+});
+
+    </script>
+    <!-- js for scroll pop up effect end -->
+    
+    <style>
+
+
+.fade-in-element {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    margin-top: 20px ;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.fade-in-element.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+    </style>
     
   <!-- new footer start  -->
 
   <footer class="site-footer">
+    <hr>
     <div class="footer-content">
-        <div class="footer-section">
+        <!-- <div class="footer-section">
             <p class="footer-header">SERVICES</p>
             <div class="links">
                 <a href="{% url 'pix:explore' %}">Explore</a>
                 <a href="{% url 'pix:create' %}">Create</a>
                 <a href="{% url 'pix:explore' %}">Trade</a>
             </div>
-        </div>
+        </div> -->
 
         <div class="footer-section">
-            <p class="footer-header">CONTACT</p>
+            <!-- <p class="footer-header">CONTACT</p> -->
             <div class="links">
-              <a href="https://t.me/pixelvault_live">User Support</a>
+              <a href="https://t.me/pixelvault_live">USER SUPPORT</a>
+            </div>
+        </div>
+        
+        <div class="footer-section">
+            <!-- <p class="footer-header">CONTACT</p> -->
+            <div class="links">
+              <a href="{% url 'pix:Terms' %}">TERMS OF USE</a>
             </div>
         </div>
 
         <div class="footer-section">
-            <p class="footer-header">LEGAL</p>
+            <!-- <p class="footer-header">LEGAL</p> -->
             <div class="links">
-                <a href="{% url 'pix:Terms' %}">Terms of Use</a>
-                <a href="{% url 'pix:Privacy' %}">Privacy Policy</a>
+                <!-- <a href="{% url 'pix:Terms' %}">Terms of Use</a> -->
+                <a href="{% url 'pix:Privacy' %}">PRIVACY POLICY</a>
             </div>
         </div>
     </div>
@@ -442,7 +511,7 @@
 
 .site-footer {
     background: transparent;
-    color: beige; /* Light text color */
+    color: white; /* Light text color */
     padding: 40px 0;
     margin-top: 20px;
 }
@@ -469,7 +538,7 @@
 
 .links a {
     display: block;
-    color: beige;
+    color: white;
     text-decoration: none;
     margin-bottom: 8px;
     transition: color 0.3s;
@@ -481,6 +550,27 @@
 
 
 /* new footer styling end */
+
+
+
+.footer-section{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.footer-section .links{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  color: white;
+  padding-top: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+
 </style>
 
 
