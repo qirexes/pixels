@@ -90,8 +90,8 @@ if (dropdownContent.style.display === "block") {
 
 
 
-    <!-- Display user's images -->
-    <div class="container">
+    <!-- initial code to Display user's owned collections -->
+    <!-- <div class="container">
       {% for category, image_file in images_by_category.items %}
           <div class="item" style="max-width: 350px;">
 
@@ -123,8 +123,55 @@ if (dropdownContent.style.display === "block") {
               </div>
           </div>
       {% endfor %}
-    </div>
+    </div> -->
+    <!-- end intiial code to display user's owned collections -->
     
+
+
+    <!-- new code to display user's owned collections start -->
+
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          {% for category, image_file in images_by_category.items %}
+              <div class="item fade-in-element">
+                <div class="img-div">
+                  <img src="{{ image_file.image.url }}" alt="Image">
+                </div>
+                  <div class="collection-metadata">
+                    <div class="collection-name">
+                      {{ category }}
+                    </div>
+                      <div class="collection-owner">
+                          <div class="tag">Collection: </div>
+                          <div class="value">
+                            {{ image_file.image_info.name }}
+                          </div>
+                      </div>
+                      <div class="collection-owner">
+                          <div class="tag">Uploaded by: </div>
+                          <div class="value">
+                            {{ image_file.image_info.user.username }}
+                          </div>
+                      </div>
+                      <div class="collection-price">
+                          <div class="tag">Price: </div>
+                          <div class="value">{{ image_file.image_info.price }} ETH</div>
+                      </div>
+                      <a href="{% url 'pix:full_collection' image_file.image_info.name %}">
+                          <button class="Explore-btn" style="min-width: 98%; border-radius: 4px;">View Collection</button>
+                      </a>
+                  </div>
+              </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- new code to display user's owned collections end -->
+
+
+
 
     <canvas id="c" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></canvas>
     <script src="/static/pix/js/script.js"></script> 
@@ -808,6 +855,236 @@ hr{
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
 }
+
+
+/* swiper code */
+
+
+
+
+.swiper-container {
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+        }
+
+        .swiper-wrapper {
+            display: flex;
+            transition: transform 0.3s ease;
+        }
+
+        .swiper-slide {
+            flex: 0 0 auto;
+            margin: 0 10px; /* Adjust margin for appropriate spacing */
+            width: 230px; /* Set width of each slide */
+        }
+
+        .item {
+            width: 100%; /* Ensure the item takes full width of the slide */
+            border: .3px rgba(255, 255, 255, 0.306) solid;
+        }
+
+        .img-div {
+            width: 100%;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+
+        .img-div img {
+            width: 100%;
+            height: auto;
+        }
+
+        .collection-metadata {
+            background-color: transparent;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .collection-metadata .tag {
+            font-weight: medium;
+            display: inline;
+        }
+
+        .collection-metadata .value{
+          display: inline;
+        }
+
+        .Explore-btn {
+            border: none;
+            background: white;
+            color: black;
+            border: solid 1px black;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 4px;
+            margin-top: 10px;
+            width: 100%;
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.208);
+            /* background-color: #282828; */
+             /* Keep the default background color */
+        }
+
+        .Explore-btn:hover{
+          background: black;
+          color: white;
+          border: 1px solid white;
+          transition: ease-in-out all .3s;
+        }
+
+        .nav-button {
+            background-color: #282828;
+            border: none;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 4px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .nav-button.left {
+            left: 10px;
+        }
+
+        .nav-button.right {
+            right: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .nav-button {
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            .swiper-slide {
+                margin: 0 5px; /* Adjust margin for smaller screens */
+            }
+
+            .item {
+                margin: 10px 0;
+            }
+        }
+
+
+
+/* swiper code other end */
+
+
+
+.tag{
+    font-size: small;
+  }
+
+  .value{
+    font-weight: 600;
+    font-size: small;
+  }
+
+  
+    /* swiper code */
+    
+    .swiper-container {
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      width: 100%;
+      position: relative;
+      flex-direction: column;
+    }
+    
+    .swiper-wrapper {
+      display: flex;
+      transition: transform 0.3s ease;
+      flex-direction: column;
+    }
+    
+    .swiper-slide {
+      flex: 0 0 auto;
+      /* margin: 0 10px; */
+      margin: auto;
+      width: 230px;
+      flex-direction: column;
+    }
+    
+    .item {
+      width: 100%;
+      border: 1px white solid;
+      background: transparent;
+      padding: .3rem;
+    }
+    
+    .item:hover {
+      scale: 1.03;
+      cursor: pointer;
+      transition: ease-in-out all .3s;
+    }
+    
+    .img-div {
+      width: 100%;
+      overflow: hidden;
+      border-radius: 5px;
+    }
+    
+    .img-div img {
+      width: 100%;
+      height: auto;
+    }
+    
+    .img-div img:hover {
+      scale: 1.02;
+    }
+    
+    .collection-metadata {
+      background-color: black;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+    
+    .collection-metadata .tag {
+      font-weight: medium;
+      display: inline;
+    }
+    
+    .collection-metadata .value {
+      display: inline;
+    }
+    
+    .Explore-btn {
+      border: none;
+      background: white;
+      color: black;
+      border: solid 1px black;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 4px;
+      margin-top: 10px;
+      width: 100%;
+      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.208);
+    }
+    
+    .Explore-btn:hover {
+      background: black;
+      color: white;
+      border: 1px solid white;
+      transition: ease-in-out all .3s;
+    }
+
+  /* swiper code main end */
+
+
+
     
 
 </style>

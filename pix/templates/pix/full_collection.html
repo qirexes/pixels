@@ -110,7 +110,8 @@ if (dropdownContent.style.display === "block") {
 </div> -->
 
 
-<div class="">
+<!-- .old-container start -->
+<!-- <div class="">
   <h2>Collection: {{ image_name }}</h2>
   <div class="container">
 
@@ -119,7 +120,7 @@ if (dropdownContent.style.display === "block") {
           
           <img class="" src="{{ image_file.image.url }}" alt="{{ image_name }}" style="max-width: 350px;">
           <div class="collection-metadata">
-              <!-- <div class="collection-name">nft name</div> -->
+              <div class="collection-name">nft name</div>
               <div class="tags">
                   <div class="collection-owner"><div class="tag">Uploaded by: </div><div class="value">{{ image_file.image_info.user.username }}</div></div>
                   <div class="collection-price"><div class="tag">Price: </div><div class="value">{{ image_file.image_info.price }} ETH</div></div>
@@ -128,7 +129,48 @@ if (dropdownContent.style.display === "block") {
       </div>
       {% endfor %}
   </div>
+</div> -->
+<!-- .old-container end -->
+
+
+
+<!-- new container start -->
+
+<div class="">
+  <h3>
+    <div class="outlined-text">Collection:</div>
+    <div class="collection-name-container" style="display: inline-block; padding-left: 2px; color: white; font-family: Arial, Helvetica, sans-serif; font-size: 2.5rem;" >{{ image_name }}</div>
+  </h3>
+
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+    <div class="swiper-slide">
+        {% for image_file in images %}
+        <div class="item">
+            <div class="img-div">
+              <img class="" src="{{ image_file.image.url }}" alt="{{ image_name }}">
+            </div>
+            <div class="collection-metadata">
+                <!-- <div class="collection-name">nft name</div> -->
+              <div class="collection-owner">
+                <div class="tag">Uploaded by: </div>
+                <div class="value">{{ image_file.image_info.user.username }}</div>
+              </div>
+              <div class="collection-price">
+                <div class="tag">Price: </div>
+                <div class="value">{{ image_file.image_info.price }} ETH</div>
+              </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    </div>
+
+  </div>
+
 </div>
+
+<!-- new container end -->
 
 
 
@@ -726,6 +768,247 @@ box-shadow: 3px 3px 3px black;
 
 
 /* new footer styling end */
+
+
+
+.outlined-text {
+            color: black; /* Text color */
+            text-shadow: 
+                1px 1px 0 white, 
+                -1px -1px 0 white, 
+                -1px 1px 0 white, 
+                1px -1px 0 white, 
+                1px 0 0 white, 
+                -1px 0 0 white, 
+                0 1px 0 white, 
+                0 -1px 0 white; /* Create a white outline */
+        }
+
+
+
+        
+    /* swiper code start */
+    
+    .swiper-container {
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      width: 100%;
+      position: relative;
+      flex-direction: column;
+    }
+    
+    .swiper-wrapper {
+      display: flex;
+      transition: transform 0.3s ease;
+      flex-direction: column;
+    }
+    
+    .swiper-slide {
+      flex: 0 0 auto;
+      /* margin: 0 10px; */
+      margin: auto;
+      width: 230px;
+    }
+    
+    .item {
+      width: 100%;
+      border: 1px white solid;
+      background: transparent;
+      padding: .3rem;
+    }
+    
+    .item:hover {
+      scale: 1.03;
+      cursor: pointer;
+      transition: ease-in-out all .3s;
+    }
+    
+    .img-div {
+      width: 100%;
+      overflow: hidden;
+      border-radius: 5px;
+    }
+    
+    .img-div img {
+      width: 100%;
+      height: auto;
+    }
+    
+    .img-div img:hover {
+      scale: 1.02;
+    }
+    
+    .collection-metadata {
+      background-color: black;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+    
+    .collection-metadata .tag {
+      font-weight: medium;
+      display: inline;
+    }
+    
+    .collection-metadata .value {
+      display: inline;
+    }
+    
+    .Explore-btn {
+      border: none;
+      background: white;
+      color: black;
+      border: solid 1px black;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 4px;
+      margin-top: 10px;
+      width: 100%;
+      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.208);
+    }
+    
+    .Explore-btn:hover {
+      background: black;
+      color: white;
+      border: 1px solid white;
+      transition: ease-in-out all .3s;
+    }
+
+    
+
+
+.swiper-container {
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+        }
+
+        .swiper-wrapper {
+            display: flex;
+            transition: transform 0.3s ease;
+        }
+
+        .swiper-slide {
+            flex: 0 0 auto;
+            margin: 0 10px; /* Adjust margin for appropriate spacing */
+            width: 230px; /* Set width of each slide */
+        }
+
+        .item {
+            width: 100%; /* Ensure the item takes full width of the slide */
+            border: .3px rgba(255, 255, 255, 0.306) solid;
+        }
+
+        .img-div {
+            width: 100%;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+
+        .img-div img {
+            width: 100%;
+            height: auto;
+        }
+
+        .collection-metadata {
+            background-color: transparent;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .collection-metadata .tag {
+            font-weight: medium;
+            display: inline;
+        }
+
+        .collection-metadata .value{
+          display: inline;
+        }
+
+        .Explore-btn {
+            border: none;
+            background: white;
+            color: black;
+            border: solid 1px black;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 4px;
+            margin-top: 10px;
+            width: 100%;
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.208);
+            /* background-color: #282828; */
+             /* Keep the default background color */
+        }
+
+        .Explore-btn:hover{
+          background: black;
+          color: white;
+          border: 1px solid white;
+          transition: ease-in-out all .3s;
+        }
+
+        .nav-button {
+            background-color: #282828;
+            border: none;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 4px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .nav-button.left {
+            left: 10px;
+        }
+
+        .nav-button.right {
+            right: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .nav-button {
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            .swiper-slide {
+                margin: 0 5px; /* Adjust margin for smaller screens */
+            }
+
+            .item {
+                margin: 10px 0;
+            }
+        }
+
+
+
+/* swiper code end */
+
+
+
+.tag{
+    font-size: small;
+  }
+
+  .value{
+    font-weight: 600;
+    font-size: small;
+  }
+
+/* added style end */
+
 
 </style>
 

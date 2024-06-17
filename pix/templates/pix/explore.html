@@ -23,11 +23,21 @@
     </div>
 
 
+    <div class="search-container">
       <!-- Search form -->
       <form method="get" action="{% url 'pix:explore' %}" style="position: relative; display: inline-block;">
-        <input type="text" name="q" placeholder="&#xf002; Search..." value="{{ request.GET.q }}" style="font-family: Arial, FontAwesome; padding-left: 30px;">
-        <button type="submit"><i class="fa fa-search"></i></button>
+        <input class="search-input" type="text" name="q" placeholder="&#xf002; Search..." value="{{ request.GET.q }}" style="font-family: Arial, FontAwesome; padding-left: 10px;">
+        <button type="submit"><i class="fa fa-search search-input"></i></button>
     </form>
+
+    </div>
+
+  
+      <!-- Search form -->
+      <!-- <form method="get" action="{% url 'pix:explore' %}" style="position: relative; display: inline-block;">
+        <input type="text" name="q" placeholder="&#xf002; Search..." value="{{ request.GET.q }}" style="font-family: Arial, FontAwesome; padding-left: 10px;">
+        <button type="submit"><i class="fa fa-search"></i></button>
+    </form> -->
 
     
     
