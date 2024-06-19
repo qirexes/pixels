@@ -22,15 +22,13 @@
         </a>
     </div>
 
-
-    <div class="search-container">
-      <!-- Search form -->
+<!-- 
+    <div class="search-container" style="overflow: hidden;">
       <form method="get" action="{% url 'pix:explore' %}" style="position: relative; display: inline-block;">
         <input class="search-input" type="text" name="q" placeholder="&#xf002; Search..." value="{{ request.GET.q }}" style="font-family: Arial, FontAwesome; padding-left: 10px;">
-        <button type="submit"><i class="fa fa-search search-input"></i></button>
+        <button type="submit"><i class="fa fa-search search-input" style="background: black; color: white;"></i></button>
     </form>
-
-    </div>
+    </div> -->
 
   
       <!-- Search form -->
@@ -44,6 +42,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <div class="right">
+
+      
+    <div class="search-container" style="overflow: hidden;">
+      <form method="get" action="{% url 'pix:explore' %}" style="position: relative; display: inline-block;">
+        <input class="search-input" type="text" name="q" placeholder="&#xf002; Search..." value="{{ request.GET.q }}" style="font-family: Arial, FontAwesome; padding-left: 10px;">
+        <button type="submit"><i class="fa fa-search search-input" style="background: black; color: white;"></i></button>
+    </form>
+    </div>
+
       {% if user.is_authenticated %}
       <div class="user-icon">
         <a href="{% url 'pix:dashboard' %}" id="user-icon" style="display: flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; background: white;
@@ -402,6 +409,12 @@ document.addEventListener('DOMContentLoaded', function() {
   .logo-img{
     height: 38px;
     width: 38px;
+  }
+
+  .search-container{
+    display: flex;
+    flex-direction: row;
+    z-index: 3;
   }
 
   .right{
@@ -774,13 +787,16 @@ box-shadow: 3px 3px 3px black;
 .search-container {
   position: relative;
   width: 100%; /* Set to 100% to make it responsive */
-  max-width: 600px; /* Maximum width to prevent it from getting too large */
+  max-width: 300px; /* Maximum width to prevent it from getting too large */
   margin: 0 auto; /* Center the search bar */
+  margin-right: 30px;
 }
 
 .search-input {
   width: 100%;
-  padding: 10px 40px 10px 10px; /* Adjust padding to fit the icon */
+  /* padding: 10px 40px 10px 10px; */
+  /* Adjust padding to fit the icon */
+  padding: 10px 40px 10px 10px;
   border: 1px solid #ccc;
   border-radius: 20px; /* Adjust radius as needed */
   box-sizing: border-box;
@@ -789,7 +805,7 @@ box-shadow: 3px 3px 3px black;
 .search-button {
   position: absolute;
   top: 50%;
-  right: 10px;
+  /* right: 10px; */
   transform: translateY(-50%);
   background: none;
   border: none;
@@ -809,7 +825,7 @@ box-shadow: 3px 3px 3px black;
 
 @media (max-width: 600px) {
   .search-container {
-    max-width: 90%; /* Reduce max-width for smaller screens */
+    max-width: 80%; /* Reduce max-width for smaller screens */
   }
 
   .search-input {
@@ -823,6 +839,9 @@ box-shadow: 3px 3px 3px black;
 }
 
 @media (max-width: 400px) {
+  .search-container{
+    max-width: 60%;
+  }
   .search-input {
     padding: 8px 30px 8px 8px; /* Further adjust padding for very small screens */
   }
@@ -1142,6 +1161,37 @@ box-shadow: 3px 3px 3px black;
                 0 -1px 0 white; /* Create a white outline */
         }
 
+
+        /* search style start */
+
+  .search-container {
+    position: relative;
+    display: inline-block;
+  }
+  .search-input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .search-container button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  .search-container button i {
+    font-size: 16px;
+  }
+
+  .navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+        /* search style end */
     
 
 </style>

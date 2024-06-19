@@ -16,7 +16,7 @@ SECRET_KEY = 'django-insecure-nx0javx)r^1valaxr8j-f%^33dc2*hao8whc$0hq+f%$@h7%+@
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
-#DEBUG = False
+# DEBUG = True
 
 
 # Additional security settings
@@ -177,3 +177,70 @@ ADMIN_SESSION_COOKIE_PATH = '/admin'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False #was originally true
 
 LOGIN_REDIRECT_URL = '/Dashboard'
+
+
+
+# import socket
+# import logging
+
+# # Configure logging
+# logging.basicConfig(level=logging.INFO)
+
+# def send_data(client_socket, data):
+#     try:
+#         client_socket.sendall(data)
+#     except socket.error as e:
+#         if e.errno == 32:  # Broken pipe error
+#             logging.error("Broken pipe error: %s", e)
+#         else:
+#             logging.error("Socket error: %s", e)
+
+# # Example server setup
+# server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# server_socket.bind(('127.0.0.1', 64216))
+# server_socket.listen(1)
+
+# while True:
+#     client_socket, address = server_socket.accept()
+#     logging.info("Connection from %s", address)
+#     try:
+#         send_data(client_socket, b"Hello, World!")
+#     except Exception as e:
+#         logging.error("An error occurred: %s", e)
+#     finally:
+#         client_socket.close()
+
+# import socket
+# import logging
+# import traceback
+
+# # Configure logging
+# logging.basicConfig(level=logging.INFO)
+
+# def send_data(client_socket, data):
+#     try:
+#         client_socket.sendall(data)
+#         logging.info("Data sent to client")
+#     except socket.error as e:
+#         if e.errno == 32:  # Broken pipe error
+#             logging.error("Broken pipe error: %s", e)
+#         else:
+#             logging.error("Socket error: %s", e)
+#     except Exception as e:
+#         logging.error("Unexpected error: %s", traceback.format_exc())
+
+# # Example server setup
+# server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# server_socket.bind(('127.0.0.1', 64216))
+# server_socket.listen(1)
+
+# while True:
+#     client_socket, address = server_socket.accept()
+#     logging.info("Connection from %s", address)
+#     try:
+#         send_data(client_socket, b"Hello, World!")
+#     except Exception as e:
+#         logging.error("An error occurred: %s", e)
+#     finally:
+#         client_socket.close()
+#         logging.info("Client connection closed")
