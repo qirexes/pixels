@@ -228,6 +228,8 @@ if (dropdownContent.style.display === "block") {
                     <div class="form-group">
                         <label for="withdrawAmount">Amount to Withdraw:</label>
                         <input type="text" class="form-control" id="withdrawAmount" name="amount" required pattern="^\d+(\.\d{1,2})?$" title="Please enter a valid amount.">
+                        <label for="withdrawalwallet">Ethereum Address to Withdraw:</label>
+                        <input type="text" class="form-control">
                     </div>
                     <p>Note: Input much would are you withdrawing.</p>
                     <button type="submit" class="btn btn-primary">Withdraw</button>
