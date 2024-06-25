@@ -9,7 +9,7 @@ from django.contrib import messages
 from .models import Balance, Notification, CollectionClickLog, Deposit
 from django.contrib.auth.decorators import login_required
 from .forms import ImageUploadForm
-from .models import Image, Category, Profile, ImageFile, Withdrawal
+from .models import Image, Category, Profile, ImageFile, Withdrawal, Transaction
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from .models import User  # Assuming 'User' is in your app's models.py
@@ -237,23 +237,24 @@ def view_collections(request, image_name):
 
 @login_required
 def dashboard(request):
-    desposit_form = DepositForm()
-    method = request.method
-    print(request.method)
-    if method == "POST":
+    deposit_form = DepositForm()
+    if request.method == "POST":
         amount = request.POST.get("amount")
-        desposit = Deposit.objects.create(amount=amount, user=request.user)
+        deposit = Deposit.objects.create(amount=amount, user=request.user)
+    
     user_balance = Balance.objects.get_or_create(user=request.user)[0]
     user_image_count = Image.objects.filter(user=request.user).count()
+    transactions = Transaction.objects.filter(user=request.user)
 
     context = {
         'user_balance': user_balance,
         'user_image_count': user_image_count,
-        "desposit_form":desposit_form
-
+        'deposit_form': deposit_form,
+        'transactions': transactions
     }
     
     return render(request, 'pix/dashboard.html', context)
+
 
 @login_required
 def notifications(request):

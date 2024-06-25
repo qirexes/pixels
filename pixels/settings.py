@@ -1,6 +1,8 @@
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import  cloudinary_storage 
+
 import dj_database_url
 load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -15,8 +17,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SECRET_KEY = 'django-insecure-nx0javx)r^1valaxr8j-f%^33dc2*hao8whc$0hq+f%$@h7%+@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+DEBUG = os.environ.get('DJANGO_DEBUG', True) 
 # DEBUG = True
+
+
+
 
 
 # Additional security settings
@@ -28,7 +33,7 @@ if not DEBUG:
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SECURE_SSL_REDIRECT = True
-    SESSION_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True 
     CSRF_COOKIE_SECURE = True
     X_FRAME_OPTIONS = 'DENY'
 
@@ -66,6 +71,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -103,16 +110,17 @@ WSGI_APPLICATION = 'pixels.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-DATABASES = {
-    'default': dj_database_url.parse(os.environ.get("DB_URL") ),
-}
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get("DB_URL") ),
+    }
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
@@ -244,3 +252,11 @@ LOGIN_REDIRECT_URL = '/Dashboard'
 #     finally:
 #         client_socket.close()
 #         logging.info("Client connection closed")
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME' : 'dlgcq9sqc',
+    'API_KEY' : '375753421484816',
+    'API_SECRET' : '2QVjjFccIVr6MuFp2Fdp9ksO-qs',
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'

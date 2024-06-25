@@ -74,3 +74,20 @@ class Withdrawal(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.amount}"
+    
+
+
+class Transaction(models.Model):
+    TRANSACTION_TYPES = [
+        ('credit', 'Credit'),
+        ('debit', 'Debit'),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    transaction_type = models.CharField(max_length=6, choices=TRANSACTION_TYPES)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    description = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.transaction_type} - {self.amount}"

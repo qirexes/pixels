@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
-from .models import Balance, Category, Image, Notification, Profile, CollectionClickLog, Deposit, Withdrawal,ImageFile
+from .models import Balance, Category, Image, Notification, Profile, CollectionClickLog, Deposit, Withdrawal,ImageFile, Transaction
 from django import forms
 
 
@@ -101,3 +101,28 @@ class WithdrawalAdmin(admin.ModelAdmin):
     list_display = ('user', 'amount', 'withdrawal_date')
     search_fields = ('user__username', 'amount')
     list_filter = ('user', 'withdrawal_date')
+
+
+class TransactionAdmin(admin.ModelAdmin):
+    list_display = ('user', 'timestamp', 'transaction_type', 'amount', 'description')
+    list_filter = ('transaction_type', 'timestamp')
+    search_fields = ('user__username', 'description')
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(user=request.user)
+
+    def save_model(self, request, obj, form, change):
+        if not obj.pk:  # Only set user during the first save.
+            obj.user = request.user
+        super().save_model(request, obj, form, change)
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        if not request.user.is_superuser:
+            form.base_fields['user'].queryset = User.objects.filter(id=request.user.id)
+        return form
+
+admin.site.register(Transaction, TransactionAdmin)
