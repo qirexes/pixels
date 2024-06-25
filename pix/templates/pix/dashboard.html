@@ -484,7 +484,7 @@ if (dropdownContent.style.display === "block") {
         <div class="leftt">
             <div href="{% url 'pix:dashboard' %}">
                 {% if user.profile.profile_picture %}
-                <img class="balance-img" src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" style="border: solid 1px white; border-radius: 100%;">
+                <img class="balance-img bimg-adjustment" src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" style="border: solid 1px white; border-radius: 100%;">
                 {% else %}
                 <img class="balance-img" src="/static/pix/images/iconmonstr-user-circle-thin-240.png" alt="Default Picture" style="border: solid 1px white; border-radius: 100%;">
                 {% endif %}
@@ -493,12 +493,18 @@ if (dropdownContent.style.display === "block") {
         </div>
         <div class="rightt">
             <div class="">
+              <!-- the new container for username start -->
+              <div class="inner-rightt">
+                  <div class="tag" style="color: white;">USERNAME:</div>
+                  <div class="value" style="color: white;">{{ user.username }}</div>
+              </div>
+              <!-- the new containter for username end -->
                 <div class="inner-rightt">
-                    <div class="tag" style="color: white;">Name:</div>
+                    <div class="tag" style="color: white;">NAME:</div>
                     <div class="value" style="color: white;">{{ user.first_name }} {{ user.last_name }}</div>
                 </div>
                 <div class="inner-rightt">
-                    <div class="tag" style="color: white;">Email:</div>
+                    <div class="tag" style="color: white;">EMAIL:</div>
                     <div class="value" style="color: white;">{{ user.email }}</div>
                 </div>
             </div>
@@ -1161,12 +1167,17 @@ hr{
         }
 
         .balance-img {
-            width: 20px;
-            height: 20px;
+            width: 40px;
+            height: 40px;
             margin-bottom: 10px;
             position: relative;
             top: 8px;
         }
+/* 
+        .bimg-adjustment{
+          height: 50px;
+          width: 50px;
+        } */
 
         .sub-text {
             font-size: 1rem;
@@ -1332,6 +1343,13 @@ th, td{
 
 /* table styling end */
 
+/* balanced image adjustment start */
+
+.bimg-adjustment{
+  
+}
+
+/* balanced image adjustment end */
 
 
 
