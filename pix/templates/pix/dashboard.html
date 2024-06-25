@@ -529,8 +529,8 @@ if (dropdownContent.style.display === "block") {
                 {% for transaction in transactions %}
                 <tr>
                     <!-- <td>{{ transaction.timestamp }}</td> -->
-                    <td>{{ transaction.get_transaction_type_display }}</td>
-                    <td>${{ transaction.amount }}</td>
+                    <td>{{ transaction.get_transaction_type_display }}.</td>
+                    <td>${{ transaction.amount }}.</td>
                     <td>{{ transaction.description }}</td>
                 </tr>
                 {% empty %}
