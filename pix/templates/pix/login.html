@@ -1,0 +1,518 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Vault - Login</title>
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'pix/css/style.css' %}"> -->
+</head>
+<body>
+
+    <nav class="navbar">
+
+        <div class="left">
+            <a href="{% url 'pix:index' %}"> 
+              <img class="logo-img" src="/static/pix/images/Pixelvault black background.jpg">
+            </a>
+        </div>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+        <div class="right">
+          {% if user.is_authenticated %}
+          <div class="user-icon">
+            <a href="{% url 'pix:dashboard' %}" id="user-icon" style="display: flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; background: white;
+            ;  transform: translate(-50%, -50%);">
+              {% if user.profile.profile_picture %}
+              <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" style="width: 98%; height: 98%; border-radius: 100%;">
+              {% else %}
+              <img src="/static/pix/images/iconmonstr-user-circle-thin-240.png" alt="Default Picture" style="max-width: 50%; max-height: 50%;">
+              {% endif %}
+            </a>
+          </div>
+                    
+    <div class="dropdown-container" id="dropdown-container" style="position: relative; z-index: 3;">
+    <button onclick="toggleDropdown()" class="dropdown-button" style="background: none; border: none; cursor: pointer;">
+    <img src="/static/pix/images/dropdown menu icon.png" alt="Dropdown Icon" style="width: 30px; height: 30px; background: white; margin-bottom: auto; border-radius: 2px; margin-top: .25rem;" >
+    </button>
+    <div id="dropdownContent" class="dropdown-content" style="display: none; position: absolute; top: 100%; right: 0;border: 1px solid #ddd; border-radius: 3px; padding: 10px; transition: right 0.5s;
+    background: linear-gradient(to bottom right, blue, red, purple);
+    background: white; color: black;">
+    <a class="sub-text" href="{% url 'pix:notifications' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Notifications</a>
+    <a class="sub-text" href="{% url 'pix:collections' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Collections</a>
+    <a class="sub-text" href="{% url 'pix:create' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Create</a>
+    <a class="sub-text" href="{% url 'pix:settings' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Profile</a>
+    <a class="sub-text" href="{% url 'pix:explore' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Explore</a>
+    <form method="POST" action="{% url 'pix:logout' %}" style="display:inline;">
+      {% csrf_token %}
+      <button class="sub-text" type="submit" style="background: none; border: none; cursor: pointer; padding: 8px 0; width: 100%; text-align: left; color: black;">Logout</button>
+    </form>
+    </div>
+    
+    <script>
+    function toggleDropdown() {
+    var dropdownContent = document.getElementById("dropdownContent");
+    if (dropdownContent.style.display === "block") {
+      dropdownContent.style.display = "none";
+    } else {
+      dropdownContent.style.display = "block";
+    }
+    }
+    </script>
+    </div>
+    
+          {% else %}
+          <div class="login-register-links" style="z-index: 100; display: flex; flex: row; gap: .5rem;" >
+            <a href="{% url 'pix:login' %}" style="color: beige; text-decoration: underline; margin-right: 10px; background: green; padding: .3rem .6rem; border: none; border-radius: 23px; text-decoration: none;
+              font-size: .7rem;
+              letter-spacing: 2px;
+              font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+              font-weight: bold; background: transparent; padding: .6rem 1rem; border: none; border-radius: 23px; text-decoration: none; color: white;
+             z-index: 102; border: 1px white solid;
+             z-index: 101;" class="login-btn">LOGIN</a>
+            <a href="{% url 'pix:register' %}" style="color: white; text-decoration: underline;
+              font-size: .7rem;
+              letter-spacing: 2px;
+              font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+              font-weight: bold; background: white; padding: .6rem 1rem; border: none; border-radius: 23px; text-decoration: none; color: black;
+             z-index: 102;  border: 1px white solid; " class="register-btn">REGISTER</a>
+          </div>  
+          {% endif %}
+        </div>
+      </nav>
+
+
+    <!-- HEADER -->
+    <!-- <div class="header"> -->
+        <!-- <div class="logo"> -->
+            <!-- <a href="{% url 'pix:index' %}"> -->
+                <!-- <img src="{% static 'pix/images/Pixelvault black background.jpg' %}" alt="Pixel Vault Logo"> -->
+            <!-- </a> -->
+            <!-- <h1>Pixel Vault</h1> -->
+        <!-- </div> -->
+
+        <!--USER PROFILE PICTURE-->
+        <!-- <div class="user-profile"> -->
+            <!-- <a href="{% url 'pix:dashboard' %}"> -->
+                <!-- <img src="{% static 'pix/images/iconmonstr-user-circle-thin-240.png' %}" alt="User Profile"> -->
+            <!-- </a> -->
+        <!-- </div> -->
+    <!-- </div> -->
+
+
+    <!-- old login form container start -->
+
+
+    <!-- LOGIN FORM -->
+    <!-- <div class="login-form-container">
+        <form method="POST" class="login-form">
+            {% csrf_token %}
+            <h2>Login</h2>
+            {{ form.as_p }}
+            <p>Don't have an account? <a href="{% url 'pix:register' %}">Register</a></p>
+            <button class="lg-btn" type="submit">Login</button>
+        </form>
+    </div> -->
+
+
+    <!-- old login form container end -->
+
+
+
+
+
+    <!-- matthew new login form start -->
+
+
+<div class="login-form-container" style="color: white; font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: small;">
+    <form method="POST" class="login-form">
+        {% csrf_token %}
+        <h2 style="color: white; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">LOGIN</h2>
+        {{ form.non_field_errors }}
+        <div class="form-group">
+            {{ form.username.label_tag }}
+            {{ form.username }}
+            {% if form.username.errors %}
+                <div class="error-message">{{ form.username.errors }}</div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.password.label_tag }}
+            {{ form.password }}
+            {% if form.password.errors %}
+                <div class="error-message" style="color: white; font-family: Arial, Helvetica, sans-serif;">{{ form.password.errors }}</div>
+            {% endif %}
+        </div>
+        <button class="lg-btn" type="submit" style="font-weight: bold;">LOGIN</button>
+        <p class="register-link" style="color: white; font-family: arial;">Don't have an account? <a href="{% url 'pix:register' %}">Register</a></p>
+    </form>
+</div>
+
+
+    <!-- matthew new login form end -->
+
+
+
+
+
+    
+    <canvas id="c" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></canvas>
+    <script src="/static/pix/js/script.js"></script> 
+
+    
+    <!-- js for scroll pop up effect start  -->
+    <script>
+        // script.js
+  document.addEventListener('DOMContentLoaded', function() {
+      const elements = document.querySelectorAll('.fade-in-element');
+  
+      const handleScroll = () => {
+          const windowHeight = window.innerHeight;
+          elements.forEach(element => {
+              const elementTop = element.getBoundingClientRect().top;
+              if (elementTop < windowHeight - 50) {
+                  element.classList.add('visible');
+              } else {
+                  element.classList.remove('visible');
+              }
+          });
+      };
+  
+      window.addEventListener('scroll', handleScroll);
+      handleScroll(); // Run on initial load
+  });
+  
+      </script>
+      <!-- js for scroll pop up effect end -->
+      
+      <style>
+  
+  
+  .fade-in-element {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      margin-top: 20px ;
+  }
+  
+  .fade-in-element.visible {
+      opacity: 1;
+      transform: translateY(0);
+  }
+  
+      </style>
+
+ 
+  <!-- new footer start  -->
+
+  <footer class="site-footer">
+    <hr>
+    <div class="footer-content">
+        <!-- <div class="footer-section">
+            <p class="footer-header">SERVICES</p>
+            <div class="links">
+                <a href="{% url 'pix:explore' %}">Explore</a>
+                <a href="{% url 'pix:create' %}">Create</a>
+                <a href="{% url 'pix:explore' %}">Trade</a>
+            </div>
+        </div> -->
+
+        <div class="footer-section">
+            <!-- <p class="footer-header">CONTACT</p> -->
+            <div class="links">
+              <a href="https://t.me/pixelvault_live">USER SUPPORT</a>
+            </div>
+        </div>
+        
+        <div class="footer-section">
+            <!-- <p class="footer-header">CONTACT</p> -->
+            <div class="links">
+              <a href="{% url 'pix:Terms' %}">TERMS OF USE</a>
+            </div>
+        </div>
+
+        <div class="footer-section">
+            <!-- <p class="footer-header">LEGAL</p> -->
+            <div class="links">
+                <!-- <a href="{% url 'pix:Terms' %}">Terms of Use</a> -->
+                <a href="{% url 'pix:Privacy' %}">PRIVACY POLICY</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+  <!-- new footer end -->
+
+    <script src="{% static 'pix/js/script.js' %}"></script>
+</body>
+
+
+
+<style>
+
+body{
+    background: black;
+}
+
+    .navbar{
+      padding: 3px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      /* border: 1px solid #ccc; */
+      height: 8vh;
+    }
+    
+    .logo-img{
+      height: 38px;
+      width: 38px;
+    }
+
+    .right{
+      z-index: 3;
+      display: flex;
+      flex-direction: row;
+    }
+
+    .user-icon{
+      position: relative;
+      top: 19px;
+    }
+/* 
+    .body-container{
+      border: solid 1px white ;
+    } */
+
+
+
+      /* matthew new login form styling start */
+
+
+      .login-form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    /* background-color: #f9f9f9; */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to left, darkblue, darkslateblue);
+    background: black;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    /* color: #555; */
+    color: white;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    width: 90%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.error-message {
+    color: #d32f2f; /* Red color for error messages */
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.lg-btn {
+    background-color: #007bff; /* Bootstrap's primary color */
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 95%;
+    border-radius: 15px;
+}
+
+.lg-btn:hover {
+    background-color: #0056b3; /* Darker shade of primary color on hover */
+    scale: 1.04;
+    transition: ease-in-out all 0.3s;
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.register-link a {
+    color: #007bff; /* Matching the button's primary color */
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: none;
+}
+
+
+
+      /* matthew new login form styling end */
+
+
+      
+.login-btn,
+.register-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 23px;
+    text-decoration: none;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    box-shadow: 1px 1px 1px rgba(255, 255, 255, 0.367);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.login-btn {
+    background: darkgreen;
+    color: white;
+    border: none;
+}
+
+.register-btn {
+    background: darkblue;
+    color: white;
+    border: none;
+}
+
+.login-btn:hover,
+.register-btn:hover {
+    background-color: #007bff; /* Change to a shade of blue on hover */
+    color: white; /* Maintain text color */
+}
+
+.login-btn:focus,
+.register-btn:focus {
+    outline: none; /* Remove outline on focus */
+}
+
+
+
+/* new footer styling start  */
+
+
+.site-footer {
+    background: transparent;
+    color: white; /* Light text color */
+    padding: 40px 0;
+    margin-top: 20px;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.footer-section {
+    flex: 1 1 300px; /* Flexbox properties for responsive layout */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.footer-header {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.links a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 8px;
+    transition: color 0.3s;
+}
+
+.links a:hover {
+    color: #007bff; /* Primary color or a color of your choice */
+}
+
+
+
+
+.lg-btn {
+    background-color: white; /* Light background color */
+    color: black; /* Dark text color */
+    border: none;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 5px;
+}
+
+.lg-btn:hover {
+    background-color: #e0e0e0; /* Lighter shade of background color on hover */
+    background: black;
+    color: white;
+    border: 1px white solid;
+    scale: 1.04;
+    transition: ease-in-out all 0.3s; 
+}
+
+
+.footer-section{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.footer-section .links{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  color: white;
+  padding-top: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+
+
+/* new footer styling end */
+
+</style>
+
+
+
+
+
+
+</html>

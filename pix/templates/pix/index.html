@@ -1,0 +1,2262 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'pix/style.css' %}">
+    
+    <!--TITLE-->
+    <title>Pixel Vault</title>
+  </head>
+ 
+<body>
+
+
+ 
+    
+      <!--SITE TEXT-->
+    <div class="body-container">
+      <div class="body-wrapper">
+<!-- 
+    <div class="welcome-txt">
+      <h1 class="intro-text">
+        Unlock a world of <br> possibilities with   <div class="orange-text" style="display: inline-block; padding-left: 2px"> Pixel Vault.</div> 
+      </h1>
+      <h3 class="sub-text stt">
+        Our secure and user-friendly platform makes NFT trading a breeze. <br> Explore, collect, and own a piece of the future.
+      </h3> 
+    </div> -->
+
+    <!-- new welcome text with image background and slide show start -->
+
+
+
+
+  <div class="background-container">
+    <div class="background-overlay">
+
+ 
+      <div class="bg-top">
+        
+     
+  <nav class="navbar">
+
+    <div class="left">
+        <a href="{% url 'pix:index' %}"> 
+          <img class="logo-img" src="/static/pix/images/Pixelvault black background.jpg">
+        </a>
+    </div>
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <div class="right">
+      {% if user.is_authenticated %}
+      <div class="user-icon">
+        <a href="{% url 'pix:dashboard' %}" id="user-icon" style="display: flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; background: white;
+        ;  transform: translate(-50%, -50%);">
+          {% if user.profile.profile_picture %}
+          <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" style="width: 98%; height: 98%; border-radius: 100%;">
+          {% else %}
+          <img src="/static/pix/images/iconmonstr-user-circle-thin-240.png" alt="Default Picture" style="max-width: 50%; max-height: 50%;">
+          {% endif %}
+        </a>
+      </div>
+                
+<div class="dropdown-container" id="dropdown-container" style="position: relative; z-index: 3;">
+<button onclick="toggleDropdown()" class="dropdown-button" style="background: none; border: none; cursor: pointer;">
+<img src="/static/pix/images/dropdown menu icon.png" alt="Dropdown Icon" style="width: 30px; height: 30px; background: white; margin-bottom: auto; border-radius: 2px; margin-top: .25rem;" >
+</button>
+<div id="dropdownContent" class="dropdown-content" style="display: none; position: absolute; top: 100%; right: 0;border: 1px solid #ddd; border-radius: 3px; padding: 10px; transition: right 0.5s;
+background: linear-gradient(to bottom right, blue, red, purple);
+background: white; color: black;">
+<a class="sub-text" href="{% url 'pix:notifications' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Notifications</a>
+<a class="sub-text" href="{% url 'pix:collections' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Collections</a>
+<a class="sub-text" href="{% url 'pix:create' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Create</a>
+<a class="sub-text" href="{% url 'pix:settings' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Profile</a>
+<a class="sub-text" href="{% url 'pix:explore' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Explore</a>
+<form method="POST" action="{% url 'pix:logout' %}" style="display:inline;">
+  {% csrf_token %}
+  <button class="sub-text" type="submit" style="background: none; border: none; cursor: pointer; padding: 8px 0; width: 100%; text-align: left; color: black;">Logout</button>
+</form>
+</div>
+
+<script>
+function toggleDropdown() {
+var dropdownContent = document.getElementById("dropdownContent");
+if (dropdownContent.style.display === "block") {
+  dropdownContent.style.display = "none";
+} else {
+  dropdownContent.style.display = "block";
+}
+}
+</script>
+</div>
+
+      {% else %}
+      <div class="login-register-links" style="z-index: 100; display: flex; flex: row; gap: .5rem;" >
+        <a href="{% url 'pix:login' %}" style="color: beige; text-decoration: underline; margin-right: 10px; background: green; padding: .3rem .6rem; border: none; border-radius: 23px; text-decoration: none;
+          font-size: .7rem;
+          letter-spacing: 2px;
+          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+          font-weight: bold; background: transparent; padding: .6rem 1rem; border: none; border-radius: 23px; text-decoration: none; color: white;
+         z-index: 102; border: 1px white solid;
+         z-index: 101;" class="login-btn">LOGIN</a>
+        <a href="{% url 'pix:register' %}" style="color: white; text-decoration: underline;
+          font-size: .7rem;
+          letter-spacing: 2px;
+          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+          font-weight: bold; background: white; padding: .6rem 1rem; border: none; border-radius: 23px; text-decoration: none; color: black;
+         z-index: 102;  border: 1px white solid; " class="register-btn">REGISTER</a>
+      </div>  
+      {% endif %}
+    </div>
+  </nav>
+  
+      </div>
+
+      <div class="bg-bottom fade-in-element">
+        
+
+      <div class="welcome-txt left-side">
+        <div class="space-around-container" style="gap: 1rem;">
+          <h1 class="intro-text" style="color: white;">
+            <span class="outlined-text" style="font-size: 2rem;">
+              Unlock a world of <br> possibilities with 
+
+            </span>
+            <div class="" style="display: inline-block; padding-left: 2px; color: white; font-family: Arial, Helvetica, sans-serif; font-size: 3.5rem;" >Pixel Vault.</div>
+          </h1>
+          <h3 class="sub-text stt" style="color: white; font-family: Arial, Helvetica, sans-serif; font-weight: 500;">
+            Our secure and user-friendly platform makes NFT trading a breeze. <br> Explore, collect, and own a piece of the future.
+          </h3>
+
+        </div>
+      </div>
+  
+      <div class="right-sidezzzzz  fade-in-element">
+        
+        <div class="slideshow-containerzzzzz">
+          <div class="mySlideszzzzz fadezzzzz">
+            <img src="/static/pix/images/7742215.jpg" style="width:100%">
+          </div>
+          <div class="mySlideszzzzz fadezzzzz">
+            <img src="/static/pix/images/hand-drawn-retro-60s-70s-background_23-2149952361.jpg" style="width:100%">
+          </div>
+          <div class="mySlideszzzzz fadezzzzz">
+            <img src="/static/pix/images/cartoon-character-with-handbag-sunglasses_71767-99.jpg" style="width:100%">
+          </div>
+          <div class="mySlideszzzzz fadezzzzz">
+            <img src="/static/pix/images/IMG-20240612-WA0097.jpg" style="width:100%">
+          </div>
+          <div class="mySlideszzzzz fadezzzzz">
+            <img src="/static/pix/images/IMG-20240612-WA0021.jpg" style="width:100%">
+          </div>
+        </div>
+
+      </div>
+        
+
+      </div>
+        
+
+      </div>
+    </div>
+  </div>
+
+    <!-- new welcome text with image background and slide show end -->
+
+
+
+    <h2 class="fade-in-element" style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-weight: bolder; font-size: larger; padding-left: 1rem; color: white;">Hot Collections</h2>
+
+
+    <div class="swiper-container fade-in-element" id="swiper1">
+      <button class="nav-button left">&lt;</button>
+      <div class="swiper-wrapper">
+        <!-- Swiper slides go here -->
+        <!-- ... -->
+          <div class="swiper-slide">
+            <div class="item">
+                <div class="img-div">
+                    <img src="/static/pix/images/IMG-20240612-WA0006.jpg" alt="Image">
+                </div>
+                <div class="collection-metadata">
+                    <div class="collection-owner">
+                        <div class="tag">Collection: </div>
+                        <div class="value">Abstract</div>
+                    </div>
+                    <div class="collection-owner">
+                        <div class="tag">Uploaded by: </div>
+                        <div class="value">catusjack</div>
+                    </div>
+                    <div class="collection-price">
+                        <div class="tag">Price: </div>
+                        <div class="value">1.43 ETH</div>
+                    </div>
+                    <a href="{% url 'pix:explore' %}">
+                        <button class="Explore-btn" style="min-width: 98%; border-radius: 4px;">View Collections</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="item">
+                <div class="img-div">
+                    <img src="/static/pix/images/IMG-20240612-WA0061.jpg" alt="Image">
+                </div>
+                <div class="collection-metadata">
+                    <div class="collection-owner">
+                        <div class="tag">Collection: </div>
+                        <div class="value">Wizard-chan</div>
+                    </div>
+                    <div class="collection-owner">
+                        <div class="tag">Uploaded by: </div>
+                        <div class="value">catusjack</div>
+                    </div>
+                    <div class="collection-price">
+                        <div class="tag">Price: </div>
+                        <div class="value">3.65 ETH</div>
+                    </div>
+                    <a href="{% url 'pix:explore' %}">
+                        <button class="Explore-btn" style="min-width: 98%; border-radius: 4px;">View Collections</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="item">
+                <div class="img-div">
+                    <img src="/static/pix/images/IMG-20240612-WA0007.jpg" alt="Image">
+                </div>
+                <div class="collection-metadata">
+                    <div class="collection-owner">
+                        <div class="tag">Collection: </div>
+                        <div class="value">Faces</div>
+                    </div>
+                    <div class="collection-owner">
+                        <div class="tag">Uploaded by: </div>
+                        <div class="value">catusjack</div>
+                    </div>
+                    <div class="collection-price">
+                        <div class="tag">Price: </div>
+                        <div class="value">2.43 ETH</div>
+                    </div>
+                    <a href="{% url 'pix:explore' %}">
+                        <button class="Explore-btn" style="min-width: 98%; border-radius: 4px;">View Collections</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="item">
+              <div class="img-div">
+                  <img src="/static/pix/images/IMG-20240612-WA0097.jpg" alt="Image">
+              </div>
+              <div class="collection-metadata">
+                  <div class="collection-owner">
+                      <div class="tag">Collection: </div>
+                      <div class="value">Robofam</div>
+                  </div>
+                  <div class="collection-owner">
+                      <div class="tag">Uploaded by: </div>
+                      <div class="value">orangeSoda</div>
+                  </div>
+                  <div class="collection-price">
+                      <div class="tag">Price: </div>
+                      <div class="value">2.22 ETH</div>
+                  </div>
+                  <a href="{% url 'pix:explore' %}">
+                      <button class="Explore-btn" style="min-width: 98%; border-radius: 4px;">View Collections</button>
+                  </a>
+              </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="item">
+              <div class="img-div">
+                  <img src="/static/pix/images/IMG-20240612-WA0021.jpg" alt="Image">
+              </div>
+              <div class="collection-metadata">
+                  <div class="collection-owner">
+                      <div class="tag">Collection: </div>
+                      <div class="value">Touch</div>
+                  </div>
+                  <div class="collection-owner">
+                      <div class="tag">Uploaded by: </div>
+                      <div class="value">BananaMan</div>
+                  </div>
+                  <div class="collection-price">
+                      <div class="tag">Price: </div>
+                      <div class="value">1.22 ETH</div>
+                  </div>
+                  <a href="{% url 'pix:explore' %}">
+                      <button class="Explore-btn" style="min-width: 98%; border-radius: 4px;">View Collections</button>
+                  </a>
+              </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="item">
+              <div class="img-div">
+                  <img src="/static/pix/images/IMG-20240612-WA0078.jpg" alt="Image">
+              </div>
+              <div class="collection-metadata">
+                  <div class="collection-owner">
+                      <div class="tag">Collection: </div>
+                      <div class="value">Van</div>
+                  </div>
+                  <div class="collection-owner">
+                      <div class="tag">Uploaded by: </div>
+                      <div class="value">catusjack</div>
+                  </div>
+                  <div class="collection-price">
+                      <div class="tag">Price: </div>
+                      <div class="value">1.45 ETH</div>
+                  </div>
+                  <a href="{% url 'pix:explore' %}">
+                      <button class="Explore-btn" style="min-width: 98%; border-radius: 4px;">View Collections</button>
+                  </a>
+              </div>
+          </div>
+        </div>
+      </div>
+      <button class="nav-button right">&gt;</button>
+    </div>
+    
+
+    
+    <h2 class=" fade-in-element" style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-weight: bolder; font-size: larger; padding-left: 1rem; color: white; ">Recently Updated</h2>
+
+    <div class="swiper-container fade-in-element" id="swiper2">
+      <button class="nav-button left">&lt;</button>
+      <div class="swiper-wrapper">
+        <!-- Swiper slides go here -->
+        <!-- ... -->
+          <div class="swiper-slide">
+            <div class="item">
+                <div class="img-div">
+                    <img src="/static/pix/images/626ae1c79ac6a4d847b879ed_Marvin.png" alt="Image">
+                </div>
+                <div class="collection-metadata">
+                    <div class="collection-owner">
+                        <div class="tag">Collection: </div>
+                        <div class="value">Punks</div>
+                    </div>
+                    <div class="collection-owner">
+                        <div class="tag">Uploaded by: </div>
+                        <div class="value">catusjack</div>
+                    </div>
+                    <div class="collection-price">
+                        <div class="tag">Price: </div>
+                        <div class="value">1.43 ETH</div>
+                    </div>
+                    <a href="{% url 'pix:explore' %}">
+                        <button class="Explore-btn" style="min-width: 98%; border-radius: 4px;">View Collections</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="item">
+                <div class="img-div">
+                    <img src="/static/pix/images/626ae1c770c9114d8a07ca36_Courtney-p-500.png" alt="Image">
+                </div>
+                <div class="collection-metadata">
+                    <div class="collection-owner">
+                        <div class="tag">Collection: </div>
+                        <div class="value">Punks</div>
+                    </div>
+                    <div class="collection-owner">
+                        <div class="tag">Uploaded by: </div>
+                        <div class="value">catusjack</div>
+                    </div>
+                    <div class="collection-price">
+                        <div class="tag">Price: </div>
+                        <div class="value">1.43 ETH</div>
+                    </div>
+                    <a href="{% url 'pix:explore' %}">
+                        <button class="Explore-btn" style="min-width: 98%; border-radius: 4px;">View Collections</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="item">
+                <div class="img-div">
+                    <img src="/static/pix/images/IMG-20240612-WA0050.jpg" alt="Image">
+                </div>
+                <div class="collection-metadata">
+                    <div class="collection-owner">
+                        <div class="tag">Collection: </div>
+                        <div class="value">Faces</div>
+                    </div>
+                    <div class="collection-owner">
+                        <div class="tag">Uploaded by: </div>
+                        <div class="value">catusjack</div>
+                    </div>
+                    <div class="collection-price">
+                        <div class="tag">Price: </div>
+                        <div class="value">2.43 ETH</div>
+                    </div>
+                    <a href="{% url 'pix:explore' %}">
+                        <button class="Explore-btn" style="min-width: 98%; border-radius: 4px;">View Collections</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="item">
+              <div class="img-div">
+                  <img src="/static/pix/images/3d-rendering-holographic-layering_23-2150491102.jpg" alt="Image">
+              </div>
+              <div class="collection-metadata">
+                  <div class="collection-owner">
+                      <div class="tag">Collection: </div>
+                      <div class="value">Robofam</div>
+                  </div>
+                  <div class="collection-owner">
+                      <div class="tag">Uploaded by: </div>
+                      <div class="value">orangeSoda</div>
+                  </div>
+                  <div class="collection-price">
+                      <div class="tag">Price: </div>
+                      <div class="value">2.22 ETH</div>
+                  </div>
+                  <a href="{% url 'pix:explore' %}">
+                      <button class="Explore-btn" style="min-width: 98%; border-radius: 4px;">View Collections</button>
+                  </a>
+              </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="item">
+              <div class="img-div">
+                  <img src="/static/pix/images/626ae1c770c9114d8a07ca36_Courtney-p-500.png" alt="Image">
+              </div>
+              <div class="collection-metadata">
+                  <div class="collection-owner">
+                      <div class="tag">Collection: </div>
+                      <div class="value">Punks</div>
+                  </div>
+                  <div class="collection-owner">
+                      <div class="tag">Uploaded by: </div>
+                      <div class="value">catusjack</div>
+                  </div>
+                  <div class="collection-price">
+                      <div class="tag">Price: </div>
+                      <div class="value">1.22 ETH</div>
+                  </div>
+                  <a href="{% url 'pix:explore' %}">
+                      <button class="Explore-btn" style="min-width: 98%; border-radius: 4px;">View Collections</button>
+                  </a>
+              </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="item">
+              <div class="img-div">
+                  <img src="/static/pix/images/IMG-20240612-WA0200.jpg" alt="Image">
+              </div>
+              <div class="collection-metadata">
+                  <div class="collection-owner">
+                      <div class="tag">Collection: </div>
+                      <div class="value">Van</div>
+                  </div>
+                  <div class="collection-owner">
+                      <div class="tag">Uploaded by: </div>
+                      <div class="value">catusjack</div>
+                  </div>
+                  <div class="collection-price">
+                      <div class="tag">Price: </div>
+                      <div class="value">1.45 ETH</div>
+                  </div>
+                  <a href="{% url 'pix:explore' %}">
+                      <button class="Explore-btn" style="min-width: 98%; border-radius: 4px;">View Collections</button>
+                  </a>
+              </div>
+          </div>
+        </div>
+      </div>
+      <button class="nav-button right">&gt;</button>
+    </div>
+
+    <bodyTS>
+  
+      <h2 class=" fade-in-element" style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-weight: bolder; font-size: larger; padding-left: 1rem; color: white; ">TOP SELLERS OF THE WEEK</h2>
+      <div class="top-sellersTS">
+          <div class="sellerTS fade-in-element">
+            <div class="rank-img-container">
+              <div class="rank">🥇</div>
+              <img src="/static/pix/images/humanpic3.jpg" alt="Seller 1" class="profile-picTS">
+            </div>
+              <div class="seller-infoTS">
+                  <div class="seller-nameTS">Lorcan Quinn</div>
+                  <div class="amount-soldTS">$495,350</div>
+                  <div class="other-infoTS">Top collector, Specializes in digital art.</div>
+              </div>
+          </div>
+          <div class="sellerTS fade-in-element">
+            <div class="rank-img-container">
+              <div class="rank">🥈</div>
+              <img src="/static/pix/images/humanpic2.jpg" alt="Seller 2" class="profile-picTS">
+            </div>
+              <div class="seller-infoTS">
+                  <div class="seller-nameTS">Jessica Meyer</div>
+                  <div class="amount-soldTS">$302,711</div>
+                  <div class="other-infoTS">Known for rare NFT drops.</div>
+              </div>
+          </div>
+          <div class="sellerTS fade-in-element">
+            <div class="rank-img-container">
+              <div class="rank">🥉</div>
+              <img src="/static/pix/images/humanpic.jpg" alt="Seller 3" class="profile-picTS">
+            </div>
+              <div class="seller-infoTS">
+                  <div class="seller-nameTS">Tessa Angelou</div>
+                  <div class="amount-soldTS">$295,028</div>
+                  <div class="other-infoTS">Focused on collectible items.</div>
+              </div>
+          </div>
+          <div class="sellerTS fade-in-element">
+            <div class="rank-img-container">
+              <div class="rank">4</div>
+              <img src="/static/pix/images/pfpphotoz.jpg" alt="Seller 4" class="profile-picTS">
+            </div>
+              <div class="seller-infoTS">
+                  <div class="seller-nameTS">Randolph Ager</div>
+                  <div class="amount-soldTS">$157,500</div>
+                  <div class="other-infoTS">Expert in virtual land sales.</div>
+              </div>
+          </div>
+          <div class="sellerTS fade-in-element">
+            <div class="rank-img-container">
+              <div class="rank">5</div>
+              <img src="/static/pix/images/pfpphotozz.jpg" alt="Seller 5" class="profile-picTS">
+            </div>
+              <div class="seller-infoTS">
+                  <div class="seller-nameTS">Toan Duguay</div>
+                  <div class="amount-soldTS">$104,500</div>
+                  <div class="other-infoTS">Specializes in 3D NFTs.</div>
+              </div>
+          </div>
+          <!-- <div class="sellerTS fade-in-element">
+            <div class="rank-img-container">
+              <div class="rank">6</div>
+              <img src="/static/pix/images/pfpphotozzz.jpg" alt="Seller 6" class="profile-picTS">
+            </div>
+              <div class="seller-infoTS">
+                  <div class="seller-nameTS">Humbert Ediger</div>
+                  <div class="amount-soldTS">$100,000</div>
+                  <div class="other-infoTS">Prominent NFT artist.</div>
+              </div>
+          </div> -->
+      </div>
+    </bodyTS>
+    
+    
+    <!-- top sellers section end -->
+
+    
+<!-- review section start -->
+
+
+<div class="bodyRV">
+  <div class="reviews-sectionRV">
+      <h2>Reviews</h2>
+
+      <div class="reviewRV fade-in-element">
+          <div class="review-headerRV">
+              <span class="usernameRV">Alice Montgomery</span>
+              <span class="starsRV">★★★★★</span>
+          </div>
+          <p class="review-descriptionRV">Amazing NFT collection! The art is beautiful and the community is active.</p>
+          <p class="review-detailRV">I love the creativity and unique style of the artwork. It’s worth every penny.</p>
+          <div class="developer-responseRV">
+              <p><strong>Pixelvault Team:</strong> Thank you, Alice! We're thrilled that you love our work and appreciate your feedback.</p>
+          </div>
+      </div>
+
+
+      <div class="reviewRV fade-in-element">
+        <div class="review-headerRV">
+            <span class="usernameRV">Jordan Mitchell</span>
+            <span class="starsRV">★★★★★</span>
+        </div>
+        <p class="review-descriptionRV">I was initially skeptical about NFT trading...</p>
+        <p class="review-detailRV">I used to think NFT trading was a scam, but a friend convinced me to check out this site. I was amazed at how easy it was to start making money. The tools and guidance provided here made all the difference. Now, I’m a true believer in the potential of NFTs!</p>
+        <div class="developer-responseRV">
+            <p><strong>Pixelvault Team:</strong> Thank you, Jordan! We’re thrilled that our platform has helped turn your skepticism into success. We’re here to support you on your NFT journey!</p>
+        </div>
+    </div>
+
+    
+<!-- 
+      <div class="reviewRV">
+          <div class="review-headerRV">
+              <span class="usernameRV">Bob</span>
+              <span class="starsRV">★★★★★</span>
+          </div>
+          <p class="review-descriptionRV">Great collection, but a few technical issues.</p>
+          <p class="review-detailRV">The art is fantastic, but I had trouble accessing the site initially.</p>
+          <div class="developer-responseRV">
+              <p><strong>Altabay Team:</strong> Hi Bob, we’re sorry to hear about the technical issues. We're working on improvements to enhance your experience.</p>
+          </div>
+      </div> -->
+
+
+      <div class="reviewRV fade-in-element">
+        <div class="review-headerRV">
+            <span class="usernameRV">Taylor Reynolds</span>
+            <span class="starsRV">★★★★☆</span>
+        </div>
+        <p class="review-descriptionRV">Surprisingly easy to get started...</p>
+        <p class="review-detailRV">I thought NFT art was too complex and overpriced. However I was pleasantly surprised by how straightforward and profitable it turned out to be. The ease of use and support have been fantastic.</p>
+        <div class="developer-responseRV">
+            <p><strong>Pixelvault Team:</strong> Hi Taylor, we appreciate your feedback! We’re glad you found our platform easy to use and helpful. Thanks for sharing your experience!</p>
+        </div>
+    </div>
+
+
+      <div class="reviewRV fade-in-element">
+          <div class="review-headerRV">
+              <span class="usernameRV">Charlie Thompson</span>
+              <span class="starsRV">★★★★☆</span>
+          </div>
+          <p class="review-descriptionRV">Really nice NFT art with some minor bugs.</p>
+          <p class="review-detailRV">The artwork is impressive, though I encountered some bugs while browsing.</p>
+          <div class="developer-responseRV">
+              <p><strong>Pixelvault Team:</strong> Thanks for your feedback, Charlie. We’re aware of the bugs and are working to fix them as soon as possible.</p>
+          </div>
+      </div>
+<!-- 
+      <div class="reviewRV">
+          <div class="review-headerRV">
+              <span class="usernameRV">Dana</span>
+              <span class="starsRV">★★★☆☆</span>
+          </div>
+          <p class="review-descriptionRV">Good concept, but room for improvement.</p>
+          <p class="review-detailRV">The concept is great, but the execution could be smoother. I faced some issues with the interface.</p>
+          <div class="developer-responseRV">
+              <p><strong>Altabay Team:</strong> Hi Dana, thank you for your honest feedback. We are working on making the interface more user-friendly.</p>
+          </div>
+      </div> -->
+
+<!-- 
+      <div class="reviewRV">
+        <div class="review-headerRV">
+            <span class="usernameRV">Alex</span>
+            <span class="starsRV">★★★★★</span>
+        </div>
+        <p class="review-descriptionRV">A game changer for me...</p>
+        <p class="review-detailRV">I was hesitant about NFTs but a friend showed me this site. I was amazed by how easy it was to start making money. The site’s features and the support I received were exactly what I needed to become successful.</p>
+        <div class="developer-responseRV">
+            <p><strong>Altabay Team:</strong> Thank you, Alex! We’re excited to hear that our platform has been a game changer for you. It’s great to know that our tools and support have contributed to your success.</p>
+        </div>
+    </div> -->
+
+
+      <!-- <div class="reviewRV">
+          <div class="review-headerRV">
+              <span class="usernameRV">Eve</span>
+              <span class="starsRV">★★★★★</span>
+          </div>
+          <p class="review-descriptionRV">Decent, but not what I expected.</p>
+          <p class="review-detailRV">The NFTs are okay, but I expected more based on the preview images. The loading times were also longer than anticipated.</p>
+          <div class="developer-responseRV">
+              <p><strong>Altabay Team:</strong> Hi Eve, we’re sorry that the NFTs didn’t meet your expectations. We’re looking into improving loading times and updating the previews.</p>
+          </div>
+      </div>
+  </div> -->
+  <a href="{% url 'pix:review' %}" class="see-moreRV">See More Reviews</a>
+</div> 
+
+
+<!-- review section end -->
+
+    
+    <script>
+    (function() {
+      function initializeSwiper(containerId) {
+        let startX = 0;
+        let currentX = 0;
+        let diffX = 0;
+        let currentIndex = 0;
+    
+        const swiperContainer = document.getElementById(containerId);
+        const swiperWrapper = swiperContainer.querySelector('.swiper-wrapper');
+        const slides = swiperWrapper.querySelectorAll('.swiper-slide');
+        const slidesCount = slides.length;
+    
+        for (let i = 0; i < getSlidesPerView(); i++) {
+            const firstClone = slides[i].cloneNode(true);
+            const lastClone = slides[slides.length - 1 - i].cloneNode(true);
+            swiperWrapper.appendChild(firstClone);
+            swiperWrapper.insertBefore(lastClone, slides[0]);
+        }
+    
+        function getSlidesPerView() {
+          if (window.innerWidth >= 1200) {
+              return 4;
+          } else if (window.innerWidth >= 900) {
+              return 3;
+          } else if (window.innerWidth >= 600) {
+              return 2;
+          } else {
+              return 1;
+          }
+        }
+    
+        function updateTransform() {
+          const slidesPerView = getSlidesPerView();
+          swiperWrapper.style.transition = 'none';
+          swiperWrapper.style.transform = `translateX(${-currentIndex * 240 / slidesPerView}px)`;
+        }
+    
+        function handleTouchStart(event) {
+          startX = event.touches[0].clientX;
+          swiperWrapper.style.transition = 'none';
+        }
+    
+        function handleTouchMove(event) {
+          currentX = event.touches[0].clientX;
+          diffX = currentX - startX;
+          const slidesPerView = getSlidesPerView();
+          swiperWrapper.style.transform = `translateX(${-currentIndex * 240 / slidesPerView + (diffX / window.innerWidth) * 240}px)`;
+        }
+    
+        function handleTouchEnd() {
+          const slidesPerView = getSlidesPerView();
+          if (diffX > 50) {
+              navigateSlide('left');
+          } else if (diffX < -50) {
+              navigateSlide('right');
+          } else {
+              swiperWrapper.style.transition = 'transform 0.3s ease';
+              swiperWrapper.style.transform = `translateX(${-currentIndex * 240 / slidesPerView}px)`;
+          }
+        }
+    
+        function navigateSlide(direction) {
+          const slidesPerView = getSlidesPerView();
+          if (direction === 'left') {
+              currentIndex--;
+          } else if (direction === 'right') {
+              currentIndex++;
+          }
+    
+          swiperWrapper.style.transition = 'transform 0.3s ease';
+          swiperWrapper.style.transform = `translateX(${-currentIndex * 240 / slidesPerView}px)`;
+    
+          if (currentIndex >= slidesCount) {
+              setTimeout(() => {
+                  swiperWrapper.style.transition = 'none';
+                  currentIndex = 0;
+                  swiperWrapper.style.transform = `translateX(${-currentIndex * 240 / slidesPerView}px)`;
+              }, 300);
+          } else if (currentIndex < 0) {
+              setTimeout(() => {
+                  swiperWrapper.style.transition = 'none';
+                  currentIndex = slidesCount - 1;
+                  swiperWrapper.style.transform = `translateX(${-currentIndex * 240 / slidesPerView}px)`;
+              }, 300);
+          }
+        }
+    
+        swiperWrapper.addEventListener('touchstart', handleTouchStart);
+        swiperWrapper.addEventListener('touchmove', handleTouchMove);
+        swiperWrapper.addEventListener('touchend', handleTouchEnd);
+    
+        swiperContainer.querySelector('.nav-button.left').addEventListener('click', () => navigateSlide('left'));
+        swiperContainer.querySelector('.nav-button.right').addEventListener('click', () => navigateSlide('right'));
+    
+        window.addEventListener('resize', updateTransform);
+        window.addEventListener('load', () => {
+          currentIndex = getSlidesPerView();
+          updateTransform();
+        });
+      }
+    
+      // Initialize both swipers
+      initializeSwiper('swiper1');
+      initializeSwiper('swiper2');
+    })();
+    </script>
+
+    <!-- js for scroll pop up effect start  -->
+    <script>
+      // script.js
+document.addEventListener('DOMContentLoaded', function() {
+    const elements = document.querySelectorAll('.fade-in-element');
+
+    const handleScroll = () => {
+        const windowHeight = window.innerHeight;
+        elements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            if (elementTop < windowHeight - 50) {
+                element.classList.add('visible');
+            } else {
+                element.classList.remove('visible');
+            }
+        });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Run on initial load
+});
+
+    </script>
+    <!-- js for scroll pop up effect end -->
+    
+    <style>
+    /* swiper code */
+    
+    .swiper-container {
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      width: 100%;
+      position: relative;
+    }
+    
+    .swiper-wrapper {
+      display: flex;
+      transition: transform 0.3s ease;
+    }
+    
+    .swiper-slide {
+      flex: 0 0 auto;
+      margin: 0 10px;
+      width: 230px;
+    }
+    
+    .item {
+      width: 100%;
+      border: 1px white solid;
+      background: transparent;
+      padding: .3rem;
+    }
+    
+    .item:hover {
+      scale: 1.03;
+      cursor: pointer;
+      transition: ease-in-out all .3s;
+    }
+    
+    .img-div {
+      width: 100%;
+      overflow: hidden;
+      border-radius: 5px;
+    }
+    
+    .img-div img {
+      width: 100%;
+      height: auto;
+    }
+    
+    .img-div img:hover {
+      scale: 1.02;
+    }
+    
+    .collection-metadata {
+      background-color: black;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+    
+    .collection-metadata .tag {
+      font-weight: medium;
+      display: inline;
+    }
+    
+    .collection-metadata .value {
+      display: inline;
+    }
+    
+    .Explore-btn {
+      border: none;
+      background: white;
+      color: black;
+      border: solid 1px black;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 4px;
+      margin-top: 10px;
+      width: 100%;
+      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.208);
+    }
+    
+    .Explore-btn:hover {
+      background: black;
+      color: white;
+      border: 1px solid white;
+      transition: ease-in-out all .3s;
+    }
+    </style>
+    
+<script>
+  let slideIndexzzzzz = 0;
+  showSlideszzzzz();
+
+  function showSlideszzzzz() {
+    let i;
+    let slides = document.getElementsByClassName("mySlideszzzzz");
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+    }
+    slideIndexzzzzz++;
+    if (slideIndexzzzzz > slides.length) {slideIndexzzzzz = 1}    
+    slides[slideIndexzzzzz-1].style.display = "block";  
+    setTimeout(showSlideszzzzz, 4000); // Change image every 4 seconds
+  }
+</script>
+
+  <script>
+    let startX = 0;
+    let currentX = 0;
+    let diffX = 0;
+    let currentIndex = 0;
+
+    const swiperWrapper = document.querySelector('.swiper-wrapper');
+    const slides = document.querySelectorAll('.swiper-slide');
+    const slidesCount = slides.length;
+
+    // Clone the first and last few slides for infinite scroll effect
+    for (let i = 0; i < getSlidesPerView(); i++) {
+        const firstClone = slides[i].cloneNode(true);
+        const lastClone = slides[slides.length - 1 - i].cloneNode(true);
+        swiperWrapper.appendChild(firstClone);
+        swiperWrapper.insertBefore(lastClone, slides[0]);
+    }
+
+    function getSlidesPerView() {
+        if (window.innerWidth >= 1200) {
+            return 4;
+        } else if (window.innerWidth >= 900) {
+            return 3;
+        } else if (window.innerWidth >= 600) {
+            return 2;
+        } else {
+            return 1;
+        }
+    }
+
+    function updateTransform() {
+        const slidesPerView = getSlidesPerView();
+        swiperWrapper.style.transition = 'none';
+        swiperWrapper.style.transform = `translateX(${-currentIndex * 240 / slidesPerView}px)`; // 230px width + 10px margin each side
+    }
+
+    function handleTouchStart(event) {
+        startX = event.touches[0].clientX;
+        swiperWrapper.style.transition = 'none';
+    }
+
+    function handleTouchMove(event) {
+        currentX = event.touches[0].clientX;
+        diffX = currentX - startX;
+        const slidesPerView = getSlidesPerView();
+        swiperWrapper.style.transform = `translateX(${-currentIndex * 240 / slidesPerView + (diffX / window.innerWidth) * 240}px)`;
+    }
+
+    function handleTouchEnd() {
+        const slidesPerView = getSlidesPerView();
+        if (diffX > 50) {
+            navigateSlide('left');
+        } else if (diffX < -50) {
+            navigateSlide('right');
+        } else {
+            swiperWrapper.style.transition = 'transform 0.3s ease';
+            swiperWrapper.style.transform = `translateX(${-currentIndex * 240 / slidesPerView}px)`;
+        }
+    }
+
+    function navigateSlide(direction) {
+        const slidesPerView = getSlidesPerView();
+        if (direction === 'left') {
+            currentIndex--;
+        } else if (direction === 'right') {
+            currentIndex++;
+        }
+
+        swiperWrapper.style.transition = 'transform 0.3s ease';
+        swiperWrapper.style.transform = `translateX(${-currentIndex * 240 / slidesPerView}px)`;
+
+        if (currentIndex >= slidesCount) {
+            setTimeout(() => {
+                swiperWrapper.style.transition = 'none';
+                currentIndex = 0;
+                swiperWrapper.style.transform = `translateX(${-currentIndex * 240 / slidesPerView}px)`;
+            }, 300);
+        } else if (currentIndex < 0) {
+            setTimeout(() => {
+                swiperWrapper.style.transition = 'none';
+                currentIndex = slidesCount - 1;
+                swiperWrapper.style.transform = `translateX(${-currentIndex * 240 / slidesPerView}px)`;
+            }, 300);
+        }
+    }
+
+    swiperWrapper.addEventListener('touchstart', handleTouchStart);
+    swiperWrapper.addEventListener('touchmove', handleTouchMove);
+    swiperWrapper.addEventListener('touchend', handleTouchEnd);
+
+    document.querySelector('.nav-button.left').addEventListener('click', () => navigateSlide('left'));
+    document.querySelector('.nav-button.right').addEventListener('click', () => navigateSlide('right'));
+
+    window.addEventListener('resize', updateTransform);
+    window.addEventListener('load', () => {
+        currentIndex = getSlidesPerView();
+        updateTransform();
+    });
+</script>
+
+
+    
+    <!--FOOTER WRITE UP-->
+    <div class="homepage-tran fade-in-element">
+      
+      <div class="transaction fade-in-element">
+        <div class="img-container">
+          <img class="t-img" src="/static/pix/images/wallet icon.png">
+        </div>
+        <div class="txt-container">
+          <div class="intro-text" style="color: white;">Fund your wallet</div>
+          <div class="sub-text" style="color: white;">Start By Funding your wallet</div>
+        </div>
+      </div>
+      
+      <div class="transaction fade-in-element">
+        <div class="img-container">
+          <img class="t-img" src="/static/pix/images/cloud upload icon.png"> 
+        </div>
+        <div class="txt-container">
+          <div class="intro-text" style="color: white;">  Add your NFT's </div>
+          <div class="sub-text" style="color: white;">  Add your NFTs and Collections </div>
+        </div>
+      </div>
+      
+      <div class="transaction fade-in-element">
+        <div class="img-container">
+          <img class="t-img" src="/static/pix/images/pricetag icon.png">
+        </div>
+        <div class="txt-container">
+          <div class="intro-text it" style="color: white;">Sell your NFT's</div>
+          <div class="sub-text st" style="color: white; width: fit-content;">Sell it or share to a buyer</div>
+        </div>
+      </div>
+
+      
+    </div>
+
+
+<!-- 
+       <div class="right-cont">
+        
+
+       <div class="punks-image-container"><img src="https://assets-global.website-files.com/62545401dbaa887c8a7585ea/626ae1c770c9114d8a07ca36_Courtney.png" loading="lazy" sizes="(max-width: 479px) 31vw, (max-width: 767px) 29vw, (max-width: 991px) 14vw, 18vw" width="248.5" alt="courtney" srcset="https://assets-global.website-files.com/62545401dbaa887c8a7585ea/626ae1c770c9114d8a07ca36_Courtney-p-500.png 500w, https://assets-global.website-files.com/62545401dbaa887c8a7585ea/626ae1c770c9114d8a07ca36_Courtney.png 634w" class="courtney" style=""><img src="https://assets-global.website-files.com/62545401dbaa887c8a7585ea/626ae1c79ac6a4d847b879ed_Marvin.png" loading="lazy" alt="marvin" width="248.5" class="marvin" style=""><img src="https://assets-global.website-files.com/62545401dbaa887c8a7585ea/626ae1c713aedc06932d27c6_GFunk.png" loading="lazy" sizes="(max-width: 479px) 29vw, (max-width: 767px) 27vw, (max-width: 991px) 14vw, 17vw" width="248.5" alt="g-funk" srcset="https://assets-global.website-files.com/62545401dbaa887c8a7585ea/626ae1c713aedc06932d27c6_GFunk-p-500.png 500w, https://assets-global.website-files.com/62545401dbaa887c8a7585ea/626ae1c713aedc06932d27c6_GFunk.png 603w" class="gfunk" style=""><img src="https://assets-global.website-files.com/62545401dbaa887c8a7585ea/626ae1c6e48e6d5867ac66eb_Belcalis.png" loading="lazy" alt="elvira" width="248.5" class="elvira" style=""><img src="https://assets-global.website-files.com/62545401dbaa887c8a7585ea/626ae1c6b1c8c860855cafb5_Frank.png" loading="lazy" alt="frank" width="248.5" class="frank" style=""><img src="https://assets-global.website-files.com/62545401dbaa887c8a7585ea/626ae1c6e48e6d43c4ac66ec_Futurist.png" loading="lazy" alt="futurist" width="248.5" class="futurist" style=""></div>
+
+       
+      </div> -->
+<!-- 
+      <div class="column punks-content w-col w-col-4 w-col-stack">
+        <div class="content centered punks-content">
+        <img src="https://assets-global.website-files.com/62545401dbaa887c8a7585ea/6262c62186f4bc35df87edfd_punks-logo.png" loading="lazy" sizes="(max-width: 479px) 100vw, (max-width: 767px) 225px, (max-width: 991px) 210px, 24vw" srcset="https://assets-global.website-files.com/62545401dbaa887c8a7585ea/6262c62186f4bc35df87edfd_punks-logo-p-500.png 500w, https://assets-global.website-files.com/62545401dbaa887c8a7585ea/6262c62186f4bc35df87edfd_punks-logo.png 746w" alt="Punks logo" class="punks-logo">
+      </div>
+    </div> -->
+
+   
+    </div>
+
+    <canvas id="c" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></canvas>
+    <script src="/static/pix/js/script.js"></script> 
+    
+    
+
+  <!-- new footer start  -->
+  <footer class="site-footer">
+    <hr>
+    <div class="footer-content">
+        <!-- <div class="footer-section">
+            <p class="footer-header">SERVICES</p>
+            <div class="links">
+                <a href="{% url 'pix:explore' %}">Explore</a>
+                <a href="{% url 'pix:create' %}">Create</a>
+                <a href="{% url 'pix:explore' %}">Trade</a>
+            </div>
+        </div> -->
+
+        <div class="footer-section" >
+            <!-- <p class="footer-header">CONTACT</p> -->
+            <div class="links">
+              <a href="https://t.me/pixelvault_live" >USER SUPPORT</a>
+            </div>
+        </div>
+        
+        <div class="footer-section">
+            <!-- <p class="footer-header">CONTACT</p> -->
+            <div class="links">
+              <a href="{% url 'pix:Terms' %}" >TERMS OF USE</a>
+            </div>
+        </div>
+
+        <div class="footer-section">
+            <!-- <p class="footer-header">LEGAL</p> -->
+            <div class="links">
+                <!-- <a href="{% url 'pix:Terms' %}">Terms of Use</a> -->
+                <a href="{% url 'pix:Privacy' %}" >PRIVACY POLICY</a>
+            </div>
+        </div>
+    </div>
+</footer>
+  <!-- new footer end -->
+
+  </body>
+
+    <style>
+      .navbar{
+        padding: 3px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        /* border: 1px solid #ccc; */
+        height: 8vh;
+      }
+
+      .login-btn:hover, .register-btn:hover{
+        scale: 1.07;
+        opacity: .9;
+        transition: all ease-in .5s;
+      }
+      
+      .logo-img{
+        height: 38px;
+        width: 38px;
+      }
+
+      .right{
+        z-index: 3;
+        display: flex;
+        flex-direction: row;
+      }
+
+      .user-icon{
+        position: relative;
+        top: 19px;
+      }
+/* 
+      .body-container{
+        border: solid 1px white ;
+      } */
+
+      .welcome-txt{
+        padding-left: 1rem;
+        transition: all ease-in 1s;
+      }
+      .intro-text{    
+        color: beige; 
+        top: 10%; 
+        font-size: 2rem;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .orange-text{
+        /* color: orangered; */
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-size: 3rem;
+        font-weight: bolder;
+        font-style: italic;
+        background: linear-gradient(to right, purple, red);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .stt{
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      
+      .sub-text{
+        color: beige;
+        font-size: 1rem;
+        letter-spacing: 2px;
+        width: 70%;
+        font-family: monospace;
+      }
+
+      .nft-slider-wrapper, .nft-slider{
+        padding: 1rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+      }
+
+      .nft-slider-img{
+        width: 50%;
+        border-radius: 10px;
+        padding: 1rem;
+      }
+
+      .homepage-tran{
+        padding: 1rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+      }
+
+      
+      /* SLIDER CODE */
+
+
+/* CSS styles */
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 2rem;
+}
+
+.slider {
+  display: flex;
+  transition: transform 0.5s ease;
+  justify-content: space-around;
+  align-items: center;
+  background: linear-gradient(to bottom right, purple, red);
+  background: linear-gradient(to bottom, rgb(0, 0, 68), rgb(0, 0, 193));
+  transition:all  ease-out 1s;
+  border-radius: 15px;
+  padding-bottom: 2rem;
+}
+
+.slider-image{
+  max-width: 350px;
+  min-width: 300px;
+  max-height: 350px;
+  min-height: 300px;
+  border-radius: 20px;
+  scale: 90%;
+}
+
+.button {
+  /* position: absolute; */
+  /* top: 50%; */
+  /* transform: translateY(-50%); */
+  cursor: pointer;
+  background-color: beige;
+  border-radius: 100%;
+  padding: 10px;
+}
+
+.slider-metadata{
+  font-weight: bold;
+  font-size: medium;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-top: 10px;
+  padding-left: 1rem;
+}
+
+.owner, .price{
+  font-weight: 400;
+  font-size: small;
+}
+
+.prev, .next{
+  width: 17px;
+  height: 17px;
+  font-size: large;
+  font-weight: bold;
+  position: absolute;
+}
+
+.prev:hover, .next:hover{
+  opacity: 0.9;
+}
+
+.prev {
+  left: 0;
+}
+
+.next {
+  right: 0;
+}
+
+.slider-price{
+  font-weight: bold;
+  font-size: medium;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+}
+  
+.Explore-btn{
+  /* background-color: blue; */
+  /* background: linear-gradient(to bottom right, blue, red, purple); */
+  background: white;
+  color: black;
+  border-radius: 20px;
+  justify-content: space-around;
+  width: fit-content;
+  padding: 9px 9px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: medium;
+  border: none;
+  margin-top: 1rem;
+}
+
+.Explore-btn:hover, .connect-wallet-btn:hover{
+  transition: 0.5s;
+  scale: 1.03;
+  background-color: rgba(0, 0, 255, 0.644);
+  box-sizing: 2px 2px 3px black;
+  cursor: pointer;
+}
+
+.metadata-title{
+  font-size: small;
+  font-weight: 400;
+}
+
+.homepage-tran, .outro-text-wrapper{
+  display: flex;
+  width: 90%;
+  justify-content: center;
+  margin: auto;
+}
+
+.transaction{
+  width: 31%;
+  height: 190px;
+  border: solid none;
+  background: linear-gradient(to bottom right, blue, red, purple);
+  background: black;
+  border: 1px solid white;
+  margin: auto;
+  border-radius: 6px;
+}
+.transaction .img-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.transaction .t-img{
+  padding: 1rem;
+  height: 1rem;
+  width: 1rem;
+}
+
+.transaction .txt-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 1rem;  
+  align-items: center;
+  margin: auto;
+}
+
+.st, .it{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 90%;
+  margin: auto;
+}
+
+
+.transaction .intro-text{
+  font-size: .7rem;
+  font-weight: bold;
+}
+
+.transaction .sub-text{
+  font-size: .5rem;
+  margin-top: 1rem;
+  padding: auto;
+}
+
+@media (max-width: 1000px){
+  .transaction .sub-text{
+    color: black;
+  }
+}
+
+.body-container{
+  /* padding-bottom: 15rem; */
+}
+
+.outro-text{
+  padding-top: 2rem;
+}
+.outro-text-wrapper{
+  flex-direction: column;
+  margin: auto;
+  padding-top: 2rem;
+}
+.outro-text-header{
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-style: italic;
+}
+.outro-text-subtext{
+  padding-top: .5rem;
+  padding-left: .2rem;
+  font-weight: .4rem;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  letter-spacing: .3rem;
+}
+
+.lg-btn:hover, .Explore-btn:hover{
+  box-shadow: 3px 3px 3px black;
+}
+
+
+.login-btn:hover, .register-btn:hover{
+        scale: 1.07;
+        opacity: .9;
+        transition: all ease-in .5s;
+      }
+
+
+
+        /* added style */
+
+
+  .container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 10px;
+}
+
+.item {
+  flex: 1 1 350px;
+  max-width: 230px;
+  margin: 5px;
+  padding: 3px;
+  background-color: black;
+  border: 1px solid #dddddd71;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+.tag{
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: smaller;
+}
+
+.value{
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.item:hover{
+  transition: ease-in-out all .4s;
+  scale: 1.03;
+  opacity: .97;
+}
+
+.item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: hidden;
+}
+
+.item .img-div{
+  max-height: 224px;
+  max-width: 230px;
+}
+
+.tag{
+  font-size: 1px;
+}
+
+.metadata {
+  padding: 10px 0;
+}
+
+.metadata h3 {
+  margin: 10px 0 5px;
+}
+
+.metadata p {
+  margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .item {
+    flex: 1 1 300px;
+  }
+}
+
+@media (max-width: 800px) {
+  .item {
+    flex: 1 1 100%;
+  }
+}
+
+
+/* swiper code */
+
+
+
+
+.swiper-container {
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+        }
+
+        .swiper-wrapper {
+            display: flex;
+            transition: transform 0.3s ease;
+        }
+
+        .swiper-slide {
+            flex: 0 0 auto;
+            margin: 0 10px; /* Adjust margin for appropriate spacing */
+            width: 230px; /* Set width of each slide */
+        }
+
+        .item {
+            width: 100%; /* Ensure the item takes full width of the slide */
+            border: .3px rgba(255, 255, 255, 0.306) solid;
+        }
+
+        .img-div {
+            width: 100%;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+
+        .img-div img {
+            width: 100%;
+            height: auto;
+        }
+
+        .collection-metadata {
+            background-color: transparent;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .collection-metadata .tag {
+            font-weight: medium;
+            display: inline;
+        }
+
+        .collection-metadata .value{
+          display: inline;
+        }
+
+        .Explore-btn {
+            border: none;
+            background: white;
+            color: black;
+            border: solid 1px black;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 4px;
+            margin-top: 10px;
+            width: 100%;
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.208);
+            /* background-color: #282828; */
+             /* Keep the default background color */
+        }
+
+        .Explore-btn:hover{
+          background: black;
+          color: white;
+          border: 1px solid white;
+          transition: ease-in-out all .3s;
+        }
+
+        .nav-button {
+            background-color: #282828;
+            border: none;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 4px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .nav-button.left {
+            left: 10px;
+        }
+
+        .nav-button.right {
+            right: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .nav-button {
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            .swiper-slide {
+                margin: 0 5px; /* Adjust margin for smaller screens */
+            }
+
+            .item {
+                margin: 10px 0;
+            }
+        }
+
+
+
+/* swiper code end */
+
+
+
+.tag{
+    font-size: small;
+  }
+
+  .value{
+    font-weight: 600;
+    font-size: small;
+  }
+
+
+
+  /* new footer styling start  */
+
+
+.site-footer {
+    background-color: transparent;
+    color: white; /* Light text color */
+    /* padding: 40px 0; */
+    /* margin-top: 20px; */
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.footer-section {
+    flex: 1 1 300px; /* Flexbox properties for responsive layout */
+    text-align: center;
+}
+
+.footer-header {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.links a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 8px;
+    transition: color 0.3s;
+}
+
+.links a:hover {
+    color: #007bff; /* Primary color or a color of your choice */
+}
+
+
+/* new footer styling end */
+
+.outro-text-wrapper{
+  color: beige;
+}
+
+
+/* newer footer styling start */
+
+
+.footer-section{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.footer-section .links{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  color: white;
+  padding-top: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+/* newer footer styling end */
+
+
+@media (max-width: 500px) {
+  .homepage-tran{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 1rem;
+
+  }
+  .transaction{
+    width: 80%;
+
+  }
+}
+
+
+
+/* matthew new navbar styling */
+
+
+/* General styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: #333; */
+    padding: 1rem;
+    color: white;
+}
+
+.navbar-logo-img {
+    max-height: 50px;
+}
+
+/* User Icon styles */
+.navbar-user-icon {
+    margin-right: 10px;
+}
+
+.navbar-user-icon a {
+    display: block;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.navbar-profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the entire area */
+}
+
+/* Dropdown Container styles */
+.navbar-dropdown-container {
+    position: relative;
+}
+
+.navbar-dropdown-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.navbar-dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 10px;
+    width: 200px; /* Adjust as needed */
+    z-index: 1000; /* Ensure dropdown is above other content */
+}
+
+.navbar-dropdown-item {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    padding: 8px 0;
+}
+
+/* Media query for mobile view */
+@media (max-width: 600px) {
+    .navbar-dropdown-content {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #f9f9f9;
+        padding: 20px;
+        overflow-y: auto;
+        z-index: 1000;
+    }
+    
+    .navbar-dropdown-item {
+        padding: 10px 0;
+    }
+}
+
+
+
+/* navbar styling end */
+
+
+/* second swiper for new collections start */
+
+
+/* second swiper for new collections end */
+
+
+
+body, html {
+            font-family: Arial, sans-serif;
+        }
+
+        .left-side{
+          width: 60%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+        }
+        
+        .background-container {
+            position: relative;
+            background-image: url('/static/pix/images/hand-drawn-retro-60s-70s-background_23-2149952416.jpg');
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+            height: 100vh; 
+        }
+
+        .background-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.93) ) ; 
+            display: flex;
+            /* justify-content: center; */
+            /* align-items: center; */
+            padding: 20px;
+            box-sizing: border-box;
+            flex-direction: column;
+        }
+
+        .bg-top{
+          display: flex;
+          flex-direction: column;
+        }
+
+        .navbar .left{
+          display: flex;
+          justify-content: flex-start;
+        }
+
+        .navbar .right{
+          display: flex;
+          justify-content: flex-start;
+        }
+
+        @media (max-width: 768px) {
+            .welcome-txt h1 {
+                font-size: 2em;
+            }
+
+            .welcome-txt h3 {
+                font-size: 1.2em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .welcome-txt h1 {
+                font-size: 1.5em;
+            }
+
+            .welcome-txt h3 {
+                font-size: 1em;
+            }
+        }
+
+
+
+        /* for slideshow start */
+
+        .right-sidezzzzz{
+          width: 50%;
+        }
+
+        .right-sidezzzzz img{
+          height: 450px;
+          width: 350px;
+          border-radius: 20px;
+          filter: brightness(60%);
+        }
+
+.slideshow-containerzzzzz {
+    position: relative;
+    max-width: 100%;
+    margin: auto;
+  }
+  .mySlideszzzzz {
+    display: none;
+  }
+  .fadezzzzz {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+  }
+  @-webkit-keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+  }
+  @keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+  }
+
+  
+  .bg-bottom{
+          display: flex;
+          flex-direction: row;
+        }
+        
+
+  @media (max-width: 930px){
+
+    .bg-bottom{
+      display: flex;
+      justify-content: space-around;
+      margin: auto;
+      /* padding-top: 3.5rem; */
+      padding-top: 2rem;
+    }
+
+    .right-sidezzzzz{
+      display: none;
+    }
+    .left-side{
+      width: 80%;
+      justify-content: space-around;
+    }
+  }
+
+        /* for slideshow end */
+
+
+        
+/* punks styling start */
+
+.punks-image-container{
+  scale: .9;
+  position: absolute;
+  top: 1%;
+}
+
+.futurist {
+    width: 28%;
+    position: absolute;
+    top: 5%;
+    bottom: auto;
+    left: 7%;
+    right: auto;
+}
+
+.elvira {
+    z-index: 1;
+    width: 31.5%;
+    position: absolute;
+    top: 1%;
+    bottom: auto;
+    left: 15.5%;
+    right: auto;
+}
+
+.gfunk {
+    z-index: 2;
+    width: 32%;
+    position: absolute;
+    top: 2.5%;
+    bottom: auto;
+    left: 28%;
+    right: auto;
+}
+
+.courtney {
+    z-index: 3;
+    width: 34%;
+    position: absolute;
+    top: 2%;
+    bottom: auto;
+    left: 39.5%;
+    right: auto;
+}
+
+.marvin {
+    z-index: 2;
+    width: 30%;
+    position: absolute;
+    top: 5%;
+    bottom: auto;
+    left: 53%;
+    right: auto;
+}
+
+.frank {
+    width: 28%;
+    position: absolute;
+    top: 5.5%;
+    bottom: auto;
+    left: 67%;
+    right: auto;
+}
+
+@media screen and (max-width: 767px) {
+    .column.punks-content {
+        justify-content: center;
+        align-self: auto;
+        align-items: center;
+        display: flex;
+    }
+}
+
+/* punks styling end */
+
+
+.fade-in-element {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    margin-top: 20px ;
+}
+
+.fade-in-element.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.dropdown-item:hover{
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+  background: rgba(0, 0, 0, 0.174);
+  scale: 1.1;
+}
+
+
+.outlined-text {
+            color: black; /* Text color */
+            text-shadow: 
+                1px 1px 0 white, 
+                -1px -1px 0 white, 
+                -1px 1px 0 white, 
+                1px -1px 0 white, 
+                1px 0 0 white, 
+                -1px 0 0 white, 
+                0 1px 0 white, 
+                0 -1px 0 white; /* Create a white outline */
+        }
+
+        /* top sellers styling start */
+
+        
+
+        
+        bodyTS {
+            margin: 0;
+            padding: 0;
+            background-color: blackTS;
+            color: whiteTS;
+            font-family: Arial, sans-serif;
+        }
+
+        .top-sellersTS {
+            overflow-y: auto;
+            max-height: 80vh;
+            padding: 20px;
+            border: 1px solid #333;
+        }
+
+        .sellerTS {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 10px;
+        }
+
+        .profile-picTS {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            background-color: #222;
+        }
+
+        .seller-infoTS {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .seller-nameTS {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0;
+            color: white;
+        }
+
+        .amount-soldTS {
+            font-size: 16px;
+            color: #00ff00;
+            margin: 5px 0;
+        }
+
+        .other-infoTS {
+            font-size: 14px;
+            color: #888;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .top-sellersTS {
+                max-height: 60vh;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profile-picTS {
+                width: 50px;
+                height: 50px;
+            }
+
+            .seller-nameTS {
+                font-size: 16px;
+            }
+
+            .amount-soldTS {
+                font-size: 14px;
+            }
+
+            .other-infoTS {
+                font-size: 12px;
+            }
+        }
+
+        .rank-img-container{
+          display: flex;
+          justify-content: space-between;
+          gap: 1rem;
+          flex-direction: row;
+          font-weight: bold;
+          color: white;
+          font-family: monospace;
+        }
+
+        /* top sellers styling end */
+
+
+        /* review section styling start */
+
+
+        .bodyRV {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000000; /* Black background */
+            background-color: transparent;
+            color: #ffffff; /* White text color for contrast */
+            margin-top: 2rem;
+        }
+        .reviews-sectionRV {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            background-color: #1a1a1a; /* Slightly lighter black for contrast */
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+        .reviewRV {
+            border-bottom: 1px solid #333333; /* Darker line for separation */
+            padding: 15px 0;
+        }
+        .reviewRV:last-child {
+            border-bottom: none;
+        }
+        .review-headerRV {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .usernameRV {
+            font-weight: bold;
+        }
+        .starsRV {
+            color: #ffd700; /* Golden color for stars */
+        }
+        .review-descriptionRV {
+            font-style: italic;
+            margin-bottom: 5px;
+        }
+        .review-detailRV {
+            margin-bottom: 10px;
+        }
+        .developer-responseRV {
+            background-color: #2a2a2a; /* Dark gray background for response */
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .developer-responseRV p {
+            margin: 0;
+        }
+
+
+        .see-moreRV {
+    display: block;
+    text-align: center;
+    margin: 20px 0;
+    color: #1e90ff; /* Bright blue color for links */
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+}
+.see-moreRV:hover {
+    text-decoration: underline;
+}
+
+
+        /* review section styling end */
+
+
+
+</style>
+
+
+</html>
+

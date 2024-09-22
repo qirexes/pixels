@@ -1,0 +1,16 @@
+@media (max-width: 1500px) {
+    /* #logo {
+        position: absolute;
+        top: 0%;
+        z-index: 2;
+    } */
+}
+
+@media (max-width: 1000px) {
+    /* #logo {
+        position: absolute;
+        top: 0%;
+        left: 20;
+        z-index: 2;
+    } */
+}

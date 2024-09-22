@@ -1,0 +1,1205 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'pix/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!--TITLE-->
+    <title>Pixel Vault</title>
+  </head>
+ 
+<body>
+
+   
+     
+  <nav class="navbar">
+
+    <div class="left">
+        <a href="{% url 'pix:index' %}"> 
+          <img class="logo-img" src="/static/pix/images/Pixelvault black background.jpg">
+        </a>
+    </div>
+
+<!-- 
+    <div class="search-container" style="overflow: hidden;">
+      <form method="get" action="{% url 'pix:explore' %}" style="position: relative; display: inline-block;">
+        <input class="search-input" type="text" name="q" placeholder="&#xf002; Search..." value="{{ request.GET.q }}" style="font-family: Arial, FontAwesome; padding-left: 10px;">
+        <button type="submit"><i class="fa fa-search search-input" style="background: black; color: white;"></i></button>
+    </form>
+    </div> -->
+
+  
+      <!-- Search form -->
+      <!-- <form method="get" action="{% url 'pix:explore' %}" style="position: relative; display: inline-block;">
+        <input type="text" name="q" placeholder="&#xf002; Search..." value="{{ request.GET.q }}" style="font-family: Arial, FontAwesome; padding-left: 10px;">
+        <button type="submit"><i class="fa fa-search"></i></button>
+    </form> -->
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <div class="right">
+
+      
+    <div class="search-container" style="overflow: hidden;">
+      <form method="get" action="{% url 'pix:explore' %}" style="position: relative; display: inline-block;">
+        <input class="search-input" type="text" name="q" placeholder="&#xf002; Search..." value="{{ request.GET.q }}" style="font-family: Arial, FontAwesome; padding-left: 10px;">
+        <button type="submit"><i class="fa fa-search search-input" style="background: black; color: white;"></i></button>
+    </form>
+    </div>
+
+      {% if user.is_authenticated %}
+      <div class="user-icon">
+        <a href="{% url 'pix:dashboard' %}" id="user-icon" style="display: flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; background: white;
+        ;  transform: translate(-50%, -50%);">
+          {% if user.profile.profile_picture %}
+          <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" style="width: 98%; height: 98%; border-radius: 100%;">
+          {% else %}
+          <img src="/static/pix/images/iconmonstr-user-circle-thin-240.png" alt="Default Picture" style="max-width: 50%; max-height: 50%;">
+          {% endif %}
+        </a>
+      </div>
+                
+<div class="dropdown-container" id="dropdown-container" style="position: relative; z-index: 3;">
+<button onclick="toggleDropdown()" class="dropdown-button" style="background: none; border: none; cursor: pointer;">
+<img src="/static/pix/images/dropdown menu icon.png" alt="Dropdown Icon" style="width: 30px; height: 30px; background: white; margin-bottom: auto; border-radius: 2px; margin-top: .25rem;" >
+</button>
+<div id="dropdownContent" class="dropdown-content" style="display: none; position: absolute; top: 100%; right: 0; border: 1px solid #ddd; border-radius: 3px; padding: 10px; transition: right 0.5s;
+background: linear-gradient(to bottom right, blue, red, purple);
+background: white; color: black;">
+<a class="sub-text" href="{% url 'pix:notifications' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Notifications</a>
+<a class="sub-text" href="{% url 'pix:collections' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Collections</a>
+<a class="sub-text" href="{% url 'pix:create' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Create</a>
+<a class="sub-text" href="{% url 'pix:settings' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Profile</a>
+<a class="sub-text" href="{% url 'pix:explore' %}" class="dropdown-item" style="display: block; color: #333; text-decoration: none; padding: 8px 0; border-bottom: 1px solid black; color: black;">Explore</a>
+<form method="POST" action="{% url 'pix:logout' %}" style="display:inline;">
+  {% csrf_token %}
+  <button class="sub-text" type="submit" style="background: none; border: none; cursor: pointer; padding: 8px 0; width: 100%; text-align: left; color: black;">Logout</button>
+</form>
+</div>
+
+<script>
+function toggleDropdown() {
+var dropdownContent = document.getElementById("dropdownContent");
+if (dropdownContent.style.display === "block") {
+  dropdownContent.style.display = "none";
+} else {
+  dropdownContent.style.display = "block";
+}
+}
+</script>
+</div>
+
+      {% else %}
+      <div class="login-register-links" style="z-index: 100; display: flex; flex: row; gap: .5rem;" >
+        <a href="{% url 'pix:login' %}" style="color: beige; text-decoration: underline; margin-right: 10px; background: green; padding: .3rem .6rem; border: none; border-radius: 23px; text-decoration: none;
+          font-size: .7rem;
+          letter-spacing: 2px;
+          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+          font-weight: bold; background: transparent; padding: .6rem 1rem; border: none; border-radius: 23px; text-decoration: none; color: white;
+         z-index: 102; border: 1px white solid;
+         z-index: 101;" class="login-btn">LOGIN</a>
+        <a href="{% url 'pix:register' %}" style="color: white; text-decoration: underline;
+          font-size: .7rem;
+          letter-spacing: 2px;
+          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+          font-weight: bold; background: white; padding: .6rem 1rem; border: none; border-radius: 23px; text-decoration: none; color: black;
+         z-index: 102;  border: 1px white solid; " class="register-btn">REGISTER</a>
+      </div>  
+      {% endif %}
+    </div>
+  </nav>
+  
+
+
+<div class="title">
+  <h1 class="intro-text">
+    <span class="outlined-text">Explore all available</span> <div  style="display: inline-block; color: white; padding-left: 2px; font-size: 3rem; font-family: Arial, Helvetica, sans-serif; font-weight: bold;"> Collections.</div> 
+  </h1>
+</div>
+
+
+
+<!-- matthew new code with slider containing collections according to their category  -->
+
+
+
+
+
+<div class="container">
+  {% for category, images in images_by_category.items %}
+      <div class="category-container">
+          <h2 class="fade-in-element" style="display: flex; color: white; font-weight: bold; font-size: 3rem; font-family: Arial, Helvetica, sans-serif; justify-content: flex-start;">{{ category }}</h2>
+          <button class="nav-button left">&lt;</button>
+          <div class="image-grid">
+              {% for image_file in images %}
+                  <div class="item fade-in-element" style="max-width: 230px;">
+                      <div class="img-div">
+                          <img src="{{ image_file.image.url }}" alt="Image">
+                      </div>
+                      <div class="collection-metadata">
+                          <div class="collection-owner">
+                              <div class="tag">Collection: </div>
+                              <div class="value">{{ image_file.image_info.name }}</div>
+                          </div>
+                          <div class="collection-owner">
+                              <div class="tag">Owner: </div>
+                              <div class="value">{{ image_file.image_info.user.username }}</div>
+                          </div>
+                          <div class="collection-price">
+                              <div class="tag">Price: </div>
+                              <div class="value">{{ image_file.image_info.price }} ETH</div>
+                          </div>
+                          {% if image_file.image_info.name %}
+                              <a href="{% url 'pix:view_collections' image_file.image_info.name %}">
+                                  <button class="Explore-btn" style="min-width: 190px; border-radius: 4px;">View Collection</button>
+                              </a>
+                          {% else %}
+                              <p>Collection name not available</p>
+                          {% endif %}
+                      </div>
+                  </div>
+              {% endfor %}
+          </div>
+          <button class="nav-button right">&gt;</button>
+      </div>
+  {% endfor %}
+</div>
+<script>
+  document.querySelectorAll('.category-container').forEach(container => {
+      let startX = 0;
+      let currentX = 0;
+      let diffX = 0;
+      let currentIndex = 0;
+
+      const imageGrid = container.querySelector('.image-grid');
+      const items = container.querySelectorAll('.item');
+      const totalItems = items.length;
+
+      function getSlidesPerView() {
+          if (window.innerWidth >= 1200) {
+              return 4;
+          } else if (window.innerWidth >= 900) {
+              return 3;
+          } else if (window.innerWidth >= 600) {
+              return 2;
+          } else {
+              return 1;
+          }
+      }
+
+      function updateTransform() {
+          const slidesPerView = getSlidesPerView();
+          imageGrid.style.transition = 'none';
+          imageGrid.style.transform = `translateX(${-currentIndex * 100 / slidesPerView}vw)`;
+      }
+
+      function handleTouchStart(event) {
+          startX = event.touches[0].clientX;
+          imageGrid.style.transition = 'none';
+      }
+
+      function handleTouchMove(event) {
+          currentX = event.touches[0].clientX;
+          diffX = currentX - startX;
+          const slidesPerView = getSlidesPerView();
+          imageGrid.style.transform = `translateX(${-currentIndex * 100 / slidesPerView + diffX / window.innerWidth * 100}vw)`;
+      }
+
+      function handleTouchEnd() {
+          const slidesPerView = getSlidesPerView();
+          if (diffX > 50 && currentIndex > 0) {
+              currentIndex--;
+          } else if (diffX < -50 && currentIndex < totalItems - slidesPerView) {
+              currentIndex++;
+          }
+          imageGrid.style.transition = 'transform 0.3s ease';
+          imageGrid.style.transform = `translateX(${-currentIndex * 100 / slidesPerView}vw)`;
+      }
+
+      function navigateSlide(direction) {
+          const slidesPerView = getSlidesPerView();
+          if (direction === 'left' && currentIndex > 0) {
+              currentIndex--;
+          } else if (direction === 'right' && currentIndex < totalItems - slidesPerView) {
+              currentIndex++;
+          }
+          imageGrid.style.transition = 'transform 0.3s ease';
+          imageGrid.style.transform = `translateX(${-currentIndex * 100 / slidesPerView}vw)`;
+      }
+
+      imageGrid.addEventListener('touchstart', handleTouchStart);
+      imageGrid.addEventListener('touchmove', handleTouchMove);
+      imageGrid.addEventListener('touchend', handleTouchEnd);
+
+      container.querySelector('.nav-button.left').addEventListener('click', () => navigateSlide('left'));
+      container.querySelector('.nav-button.right').addEventListener('click', () => navigateSlide('right'));
+
+      window.addEventListener('resize', updateTransform);
+  });
+</script>
+
+<!-- matthew new code end -->
+
+
+
+
+
+
+<!-- ELVIS NEW CODE -->
+<!-- 
+<div class="container" style="display: flex; flex-direction: column; justify-content: space-around; align-items: center;">
+  {% for category, images in images_by_category.items %}
+    <div class="category-container">
+      <h2 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; color: beige;">{{ category }}</h2>
+      <div class="image-grid">
+        {% for image_file in images %}
+          <div class="item" style="max-width: 350px; border-radius: 5px;">
+            <div class="img-div">
+              <img class="" src="{{ image_file.image.url }}" alt="Image" style="max-width: 350px;">
+            </div>
+            <div class="collection-metadata">
+              <div class="collection-owner">
+                <div class="tag">Collection: </div>
+                <div class="value">{{ image_file.image_info.name }}</div>
+              </div>
+              <div class="collection-owner">
+                <div class="tag">Uploaded by: </div>
+                <div class="value">{{ image_file.image_info.user.username }}</div>
+              </div>
+              <div class="collection-price">
+                <div class="tag">Price: </div>
+                <div class="value">{{ image_file.image_info.price }} ETH</div>
+              </div>
+              {% if image_file.image_info.name %}
+                <a href="{% url 'pix:view_collections' image_file.image_info.name %}">
+                  <button class="Explore-btn">View Collection</button>
+                </a>
+              {% else %}
+                <p>Collection name not available</p>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endfor %}
+</div> -->
+
+
+
+<!-- ELVIS NEW CODE ENDS -->
+
+
+
+
+            
+ <canvas id="c" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></canvas>
+ <script src="/static/pix/js/script.js"></script> 
+
+            
+    <!-- js for scroll pop up effect start  -->
+    <script>
+      // script.js
+document.addEventListener('DOMContentLoaded', function() {
+    const elements = document.querySelectorAll('.fade-in-element');
+
+    const handleScroll = () => {
+        const windowHeight = window.innerHeight;
+        elements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            if (elementTop < windowHeight - 50) {
+                element.classList.add('visible');
+            } else {
+                element.classList.remove('visible');
+            }
+        });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Run on initial load
+});
+
+    </script>
+    <!-- js for scroll pop up effect end -->
+    
+    <style>
+
+
+.fade-in-element {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    margin-top: 20px ;
+}
+
+.fade-in-element.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+    </style>
+ 
+  <!-- new footer start  -->
+
+  <footer class="site-footer" >
+    <hr>
+    <div class="footer-content">
+        <!-- <div class="footer-section">
+            <p class="footer-header">SERVICES</p>
+            <div class="links">
+                <a href="{% url 'pix:explore' %}">Explore</a>
+                <a href="{% url 'pix:create' %}">Create</a>
+                <a href="{% url 'pix:explore' %}">Trade</a>
+            </div>
+        </div> -->
+
+        <div class="footer-section">
+            <!-- <p class="footer-header">CONTACT</p> -->
+            <div class="links">
+              <a href="https://t.me/pixelvault_live" >USER SUPPORT</a>
+            </div>
+        </div>
+        
+        <div class="footer-section">
+            <!-- <p class="footer-header">CONTACT</p> -->
+            <div class="links">
+              <a href="{% url 'pix:Terms' %}" >TERMS OF USE</a>
+            </div>
+        </div>
+
+        <div class="footer-section">
+            <!-- <p class="footer-header">LEGAL</p> -->
+            <div class="links">
+                <!-- <a href="{% url 'pix:Terms' %}">Terms of Use</a> -->
+                <a href="{% url 'pix:Privacy' %}">PRIVACY POLICY</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+  <!-- new footer end -->
+
+  </body>
+
+
+
+
+
+<style>
+  .navbar{
+    padding: 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* border: 1px solid #ccc; */
+    height: 8vh;
+  }
+
+  .login-btn:hover, .register-btn:hover{
+    scale: 1.07;
+    opacity: .9;
+    transition: all ease-in .5s;
+  }
+  
+  .logo-img{
+    height: 38px;
+    width: 38px;
+  }
+
+  .search-container{
+    display: flex;
+    flex-direction: row;
+    z-index: 3;
+  }
+
+  .right{
+    z-index: 3;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .user-icon{
+    position: relative;
+    top: 19px;
+    right: -10px;
+  }
+/* 
+  .body-container{
+    border: solid 1px white ;
+  } */
+
+  .welcome-txt{
+    padding-left: 1rem;
+    transition: all ease-in 1s;
+  }
+  .intro-text{    
+    color: beige; 
+    top: 10%; 
+    font-size: 2rem;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .orange-text{
+    /* color: orangered; */
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 3rem;
+    font-weight: bolder;
+    font-style: italic;
+    background: linear-gradient(to right, purple, red);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .sub-text{
+    color: beige;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    width: 70%;
+    font-family: monospace;
+  }
+/* 
+  .nft-slider-wrapper, .nft-slider{
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .nft-slider-img{
+    width: 50%;
+    border-radius: 10px;
+    padding: 1rem;
+  }
+
+  .homepage-tran{
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  } */
+
+  
+  /* SLIDER CODE */
+
+
+/* CSS styles */
+/* .container {
+display: flex;
+flex-direction: column;
+justify-content: space-around;
+align-items: center;
+padding: 2rem;
+}
+
+.slider {
+display: flex;
+transition: transform 0.5s ease;
+justify-content: space-around;
+align-items: center;
+background: linear-gradient(to bottom right, purple, red);
+transition:all  ease-out 1s;
+border-radius: 15px;
+padding-bottom: 2rem;
+}
+
+.slider-image{
+max-width: 350px;
+min-width: 300px;
+max-height: 350px;
+min-height: 300px;
+border-radius: 20px;
+scale: 90%;
+} */
+
+.button {
+/* position: absolute; */
+/* top: 50%; */
+/* transform: translateY(-50%); */
+cursor: pointer;
+background-color: beige;
+border-radius: 100%;
+padding: 10px;
+}
+
+.slider-metadata{
+font-weight: bold;
+font-size: medium;
+font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+display: flex;
+flex-direction: column;
+justify-content: space-around;
+margin-top: 10px;
+padding-left: 1rem;
+}
+
+.owner, .price{
+font-weight: 400;
+font-size: small;
+}
+
+.prev, .next{
+width: 17px;
+height: 17px;
+font-size: large;
+font-weight: bold;
+position: absolute;
+}
+
+.prev:hover, .next:hover{
+opacity: 0.9;
+}
+
+.prev {
+left: 0;
+}
+
+.next {
+right: 0;
+}
+
+.slider-price{
+font-weight: bold;
+font-size: medium;
+font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+}
+
+.Explore-btn{
+background-color: blue;
+border-radius: 20px;
+justify-content: space-around;
+width: fit-content;
+padding: 9px 9px;
+cursor: pointer;
+font-weight: bold;
+font-size: medium;
+border: none;
+margin-top: 1rem;
+}
+
+.Explore-btn:hover{
+transition: 0.5s;
+scale: 1.03;
+background-color: rgba(0, 0, 255, 0.644);
+box-sizing: 2px 2px 3px black;
+}
+
+.metadata-title{
+font-size: small;
+font-weight: 400;
+}
+
+.homepage-tran, .outro-text-wrapper{
+display: flex;
+width: 90%;
+justify-content: center;
+margin: auto;
+}
+
+.transaction{
+width: 31%;
+height: 190px;
+border: solid none;
+background: linear-gradient(to bottom right, blue, red, purple);
+margin: auto;
+border-radius: 6px;
+}
+.transaction .img-container{
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 1rem;
+}
+
+.transaction .t-img{
+padding: 1rem;
+height: 1rem;
+width: 1rem;
+}
+
+.transaction .txt-container{
+display: flex;
+flex-direction: column;
+justify-content: center;
+padding: 0 1rem;  
+align-items: center;
+margin: auto;
+}
+
+.transaction .intro-text{
+font-size: .7rem;
+font-weight: bold;
+}
+
+.transaction .sub-text{
+font-size: .5rem;
+margin-top: 1rem;
+padding: auto;
+}
+
+@media (max-width: 1000px){
+.transaction .sub-text{
+color: black;
+}
+}
+
+/* @media (max-width: 600px){
+.collection-content{
+  justify-content: space-around;
+}
+} */
+
+/*.body-container{
+/* padding-bottom: 15rem; 
+} */
+
+.outro-text{
+padding-top: 2rem;
+}
+.outro-text-wrapper{
+flex-direction: column;
+margin: auto;
+padding-top: 2rem;
+}
+.outro-text-header{
+display: flex;
+flex-wrap: wrap;
+font-size: 2rem;
+font-weight: bold;
+font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+font-style: italic;
+}
+.outro-text-subtext{
+padding-top: .5rem;
+padding-left: .2rem;
+font-weight: .4rem;
+font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+letter-spacing: .3rem;
+}
+
+.lg-btn:hover, .Explore-btn:hover{
+box-shadow: 3px 3px 3px black;
+}
+
+
+.login-btn:hover, .register-btn:hover{
+    scale: 1.07;
+    opacity: .9;
+    transition: all ease-in .5s;
+  }
+
+ .h2{
+    color: white;
+ }
+
+ .collection-content{
+    gap: 1rem;
+ }
+
+ .collection-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 1rem;
+ }
+
+  .collection-section{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .collection-container{
+    min-width: 250px;
+    max-width: 300px;
+    box-shadow: 8px 8px 8px 8px rgba(0, 0, 0, 0.307);
+    border-radius: 5px;
+    flex-wrap: wrap;
+    overflow: hidden;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    cursor: pointer;
+  }
+
+  .collection-container:hover{
+    scale: 1.02;
+    transition: ease-in all .25s;
+  }
+
+  .collection-image{
+    width: 250px;
+    overflow: hidden;
+  }
+
+  .collection-image:hover{
+    scale: 1.05;
+    transition: ease-in all .25s;
+    overflow: hidden;
+    opacity: .7;
+  }
+
+  .collection-metadata{
+    background-color: white;
+    padding: 1rem;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .collection-name{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 1rem;
+    font-weight: bolder;
+  }
+
+  .tags{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+ /* .collection-owner .collection-price{
+    
+  } */
+
+  .tag{
+    font-size: x-small;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .value{
+    font-weight: 600;
+    font-size: small;
+  }
+
+/* searchbar styling */
+
+.search-container {
+  position: relative;
+  width: 100%; /* Set to 100% to make it responsive */
+  max-width: 300px; /* Maximum width to prevent it from getting too large */
+  margin: 0 auto; /* Center the search bar */
+  margin-right: 30px;
+}
+
+.search-input {
+  width: 100%;
+  /* padding: 10px 40px 10px 10px; */
+  /* Adjust padding to fit the icon */
+  padding: 10px 40px 10px 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px; /* Adjust radius as needed */
+  box-sizing: border-box;
+}
+
+.search-button {
+  position: absolute;
+  top: 50%;
+  /* right: 10px; */
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.search-icon {
+  width: 20px;
+  height: 20px;
+  fill: #333; /* Adjust icon color */
+}
+
+.search-button:focus, .search-input:focus {
+  outline: none;
+}
+
+@media (max-width: 600px) {
+  .search-container {
+    max-width: 80%; /* Reduce max-width for smaller screens */
+  }
+
+  .search-input {
+    padding: 10px 35px 10px 10px; /* Adjust padding for smaller screens */
+  }
+
+  .search-icon {
+    width: 18px; /* Adjust icon size for smaller screens */
+    height: 18px;
+  }
+}
+
+@media (max-width: 400px) {
+  .search-container{
+    max-width: 60%;
+  }
+  .search-input {
+    padding: 8px 30px 8px 8px; /* Further adjust padding for very small screens */
+  }
+
+  .search-icon {
+    width: 16px; /* Further adjust icon size */
+    height: 16px;
+  }
+}
+
+/* added styling */
+
+
+
+
+/* matthew swiper style code */
+
+
+
+
+
+
+.container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .category-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .category-container h2 {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color: beige;
+            text-align: center;
+        }
+
+        .image-grid {
+            display: flex;
+            transition: transform 0.3s ease;
+            will-change: transform;
+        }
+
+        .item {
+            flex-shrink: 0;
+            /* background-color: #444; */
+            border-radius: 5px;
+            margin: 0 10px;
+            max-width: 230px;
+        }
+
+        .img-div img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 1rem;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .nav-button.left {
+            left: 10px;
+        }
+
+        .nav-button.right {
+            right: 10px;
+        }
+
+        @media (min-width: 1200px) {
+            .item {
+                width: calc(25% - 20px); /* 4 items in one view */
+            }
+        }
+
+        @media (min-width: 900px) and (max-width: 1199px) {
+            .item {
+                width: calc(33.33% - 20px); /* 3 items in one view */
+            }
+        }
+
+        @media (min-width: 600px) and (max-width: 899px) {
+            .item {
+                width: calc(50% - 20px); /* 2 items in one view */
+            }
+        }
+
+        @media (max-width: 599px) {
+            .item {
+                width: calc(100% - 20px); /* 1 item in one view */
+            }
+        }
+
+
+
+
+/* matthew swiper style code end */
+
+
+/* new footer styling start  */
+
+
+.site-footer {
+    background: transparent;
+    color: white; /* Light text color */
+    /* padding: 40px 0; */
+    /* margin-top: 20px; */
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.footer-section {
+    flex: 1 1 300px; /* Flexbox properties for responsive layout */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.footer-header {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.links a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 8px;
+    transition: color 0.3s;
+}
+
+.links a:hover {
+    color: #007bff; /* Primary color or a color of your choice */
+}
+
+
+/* new footer styling end */
+
+
+.footer-section{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.footer-section .links{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  color: white;
+  padding-top: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+
+
+.item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: hidden;
+}
+
+.item .img-div{
+  max-height: 224px;
+  max-width: 230px;
+
+  /* added style to ensure image uniformity in explore page start  */
+  min-height: 224px;
+  /* added style to ensure image uniformity in explore page end */
+}
+
+.metadata {
+  padding: 10px 0;
+}
+
+.metadata h3 {
+  margin: 10px 0 5px;
+}
+
+.metadata p {
+  margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .item {
+    flex: 1 1 300px;
+  }
+}
+
+@media (max-width: 800px) {
+  .item {
+    flex: 1 1 100%;
+  }
+}
+
+
+/* swiper code */
+
+
+
+
+.swiper-container {
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+        }
+
+        .swiper-wrapper {
+            display: flex;
+            transition: transform 0.3s ease;
+        }
+
+        .swiper-slide {
+            flex: 0 0 auto;
+            margin: 0 10px; /* Adjust margin for appropriate spacing */
+            width: 230px; /* Set width of each slide */
+        }
+
+        .item {
+            width: 100%; /* Ensure the item takes full width of the slide */
+            border: .3px rgba(255, 255, 255, 0.306) solid;
+            background: transparent;
+            padding: .3rem;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .item:hover{
+          scale: 1.03;
+          cursor: pointer;
+          transition: ease-in-out all .3s;
+        }
+
+        .img-div {
+            width: 100%;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+
+        .img-div img {
+            width: 100%;
+            height: auto;
+        }
+
+        .img-div img:hover{
+          scale: 1.02;
+        }
+
+        .collection-metadata {
+            background-color: black;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .collection-metadata .tag {
+            font-weight: medium;
+            display: inline;
+        }
+
+        .collection-metadata .value{
+          display: inline;
+        }
+
+        .Explore-btn {
+            border: none;
+            background: white;
+            color: black;
+            border: solid 1px black;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 4px;
+            margin-top: 10px;
+            width: 100%;
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.208);
+        }
+
+        .Explore-btn:hover{
+          background: black;
+          color: white;
+          border: 1px solid white;
+          transition: ease-in-out all .3s;
+        }
+
+
+        
+.outlined-text {
+            color: black; /* Text color */
+            text-shadow: 
+                1px 1px 0 white, 
+                -1px -1px 0 white, 
+                -1px 1px 0 white, 
+                1px -1px 0 white, 
+                1px 0 0 white, 
+                -1px 0 0 white, 
+                0 1px 0 white, 
+                0 -1px 0 white; /* Create a white outline */
+        }
+
+
+        /* search style start */
+
+  .search-container {
+    position: relative;
+    display: inline-block;
+  }
+  .search-input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .search-container button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  .search-container button i {
+    font-size: 16px;
+  }
+
+  .navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+        /* search style end */
+    
+
+</style>
+
+
+</html>
+
