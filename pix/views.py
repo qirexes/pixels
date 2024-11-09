@@ -149,7 +149,7 @@ def full_collection(request, image_name):
 
 @login_required
 def create(request):
-    upload_cost_per_file = 185
+    upload_cost_per_file = 96
     if request.method == 'POST':
         form = ImageUploadForm(request.POST, request.FILES)
         if form.is_valid():
