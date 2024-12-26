@@ -416,22 +416,3 @@ def withdraw(request):
             return redirect('pix:dashboard')  # Replace with your desired URL
     else:
         return redirect('pix:dashboard')  # Replace with your desired URL
-
-
-from django.shortcuts import render
-from .forms import CustomForm
-
-def custom_form_view(request):
-    if request.method == 'POST':
-        form = CustomForm(request.POST)
-        if form.is_valid():
-            # Process the form data
-            name = form.cleaned_data['name']
-            email = form.cleaned_data['email']
-            message = form.cleaned_data['message']
-            # Add your processing logic here
-            return render(request, 'success.html', {'name': name})
-    else:
-        form = CustomForm()
-
-    return render(request, 'custom_form.html', {'form': form})
