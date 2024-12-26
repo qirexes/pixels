@@ -25,5 +25,4 @@ urlpatterns = [
     path("collection_purchase/", views.collection_purchase , name="collection_purchase"),
     path('deposit/', deposit, name='deposit'),
     path('withdraw/', views.withdraw, name='withdraw'),
-   
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
