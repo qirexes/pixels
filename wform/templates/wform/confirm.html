@@ -264,8 +264,8 @@
 
     <!-- TERMS AND CONDITIONS -->
     <form style="color: beige" method="POST">
-      {% csrf_token %}
-      <button type="submit">Submit</button>
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit" class="btn btn-dark">Submit</button>
     </form>
 
     <script
