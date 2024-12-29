@@ -1,0 +1,716 @@
+<html lang="en">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <!--TITLE-->
+    <title>Pixel Vault</title>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="left">
+        <a href="{% url 'pix:index' %}">
+          <img
+            class="logo-img"
+            src="/static/pix/images/Pixelvault black background.jpg"
+          />
+        </a>
+      </div>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+      <div class="right">
+        {% if user.is_authenticated %}
+        <div class="user-icon">
+          <a
+            href="{% url 'pix:dashboard' %}"
+            id="user-icon"
+            style="
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              background: white;
+              transform: translate(-50%, -50%);
+            "
+          >
+            {% if user.profile.profile_picture %}
+            <img
+              src="{{ user.profile.profile_picture.url }}"
+              alt="Profile Picture"
+              style="width: 98%; height: 98%; border-radius: 100%"
+            />
+            {% else %}
+            <img
+              src="/static/pix/images/iconmonstr-user-circle-thin-240.png"
+              alt="Default Picture"
+              style="max-width: 50%; max-height: 50%"
+            />
+            {% endif %}
+          </a>
+        </div>
+
+        <div
+          class="dropdown-container"
+          id="dropdown-container"
+          style="position: relative; z-index: 3"
+        >
+          <button
+            onclick="toggleDropdown()"
+            class="dropdown-button"
+            style="background: none; border: none; cursor: pointer"
+          >
+            <img
+              src="/static/pix/images/dropdown menu icon.png"
+              alt="Dropdown Icon"
+              style="
+                width: 30px;
+                height: 30px;
+                background: white;
+                margin-bottom: auto;
+                border-radius: 2px;
+                margin-top: 0.25rem;
+              "
+            />
+          </button>
+          <div
+            id="dropdownContent"
+            class="dropdown-content"
+            style="
+              display: none;
+              position: absolute;
+              top: 100%;
+              right: 0;
+              border: 1px solid #ddd;
+              border-radius: 3px;
+              padding: 10px;
+              transition: right 0.5s;
+              background: linear-gradient(to bottom right, blue, red, purple);
+              background: white;
+              color: black;
+            "
+          >
+            <a
+              class="sub-text"
+              href="{% url 'pix:notifications' %}"
+              class="dropdown-item"
+              style="
+                display: block;
+                color: #333;
+                text-decoration: none;
+                padding: 8px 0;
+                border-bottom: 1px solid black;
+                color: black;
+              "
+              >Notifications</a
+            >
+            <a
+              class="sub-text"
+              href="{% url 'pix:collections' %}"
+              class="dropdown-item"
+              style="
+                display: block;
+                color: #333;
+                text-decoration: none;
+                padding: 8px 0;
+                border-bottom: 1px solid black;
+                color: black;
+              "
+              >Collections</a
+            >
+            <a
+              class="sub-text"
+              href="{% url 'pix:create' %}"
+              class="dropdown-item"
+              style="
+                display: block;
+                color: #333;
+                text-decoration: none;
+                padding: 8px 0;
+                border-bottom: 1px solid black;
+                color: black;
+              "
+              >Create</a
+            >
+            <a
+              class="sub-text"
+              href="{% url 'pix:settings' %}"
+              class="dropdown-item"
+              style="
+                display: block;
+                color: #333;
+                text-decoration: none;
+                padding: 8px 0;
+                border-bottom: 1px solid black;
+                color: black;
+              "
+              >Profile</a
+            >
+            <a
+              class="sub-text"
+              href="{% url 'pix:explore' %}"
+              class="dropdown-item"
+              style="
+                display: block;
+                color: #333;
+                text-decoration: none;
+                padding: 8px 0;
+                border-bottom: 1px solid black;
+                color: black;
+              "
+              >Explore</a
+            >
+            <form
+              method="POST"
+              action="{% url 'pix:logout' %}"
+              style="display: inline"
+            >
+              {% csrf_token %}
+              <button
+                class="sub-text"
+                type="submit"
+                style="
+                  background: none;
+                  border: none;
+                  cursor: pointer;
+                  padding: 8px 0;
+                  width: 100%;
+                  text-align: left;
+                  color: black;
+                "
+              >
+                Logout
+              </button>
+            </form>
+          </div>
+
+          <script>
+            function toggleDropdown() {
+              var dropdownContent = document.getElementById("dropdownContent");
+              if (dropdownContent.style.display === "block") {
+                dropdownContent.style.display = "none";
+              } else {
+                dropdownContent.style.display = "block";
+              }
+            }
+          </script>
+        </div>
+
+        {% else %}
+        <div
+          class="login-register-links"
+          style="z-index: 100; display: flex; flex: row; gap: 0.5rem"
+        >
+          <a
+            href="{% url 'pix:login' %}"
+            style="
+              color: beige;
+              text-decoration: underline;
+              margin-right: 10px;
+              background: green;
+              padding: 0.3rem 0.6rem;
+              border: none;
+              border-radius: 23px;
+              text-decoration: none;
+              font-size: 0.7rem;
+              letter-spacing: 2px;
+              font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
+                sans-serif;
+              font-weight: bold;
+              background: transparent;
+              padding: 0.6rem 1rem;
+              border: none;
+              border-radius: 23px;
+              text-decoration: none;
+              color: white;
+              z-index: 102;
+              border: 1px white solid;
+              z-index: 101;
+            "
+            class="login-btn"
+            >LOGIN</a
+          >
+          <a
+            href="{% url 'pix:register' %}"
+            style="
+              color: white;
+              text-decoration: underline;
+              font-size: 0.7rem;
+              letter-spacing: 2px;
+              font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
+                sans-serif;
+              font-weight: bold;
+              background: white;
+              padding: 0.6rem 1rem;
+              border: none;
+              border-radius: 23px;
+              text-decoration: none;
+              color: black;
+              z-index: 102;
+              border: 1px white solid;
+            "
+            class="register-btn"
+            >REGISTER</a
+          >
+        </div>
+        {% endif %}
+      </div>
+    </nav>
+
+    <!-- TERMS AND CONDITIONS -->
+    <form style="color: beige" method="POST" class="code-form">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit" class="btn btn-dark">Submit</button>
+    </form>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+    <canvas
+      id="c"
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+      "
+    ></canvas>
+    <script src="/static/pix/js/script.js"></script>
+  </body>
+  <script src="/static/pix/js/script.js"></script>
+
+  <!-- js for scroll pop up effect start  -->
+  <script>
+    // script.js
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.querySelector(".code-form");
+      const label = form.querySelector("label");
+      const input = form.querySelector("input");
+
+      label.classList.add("form-label");
+      input.classList.add("form-control");
+      const elements = document.querySelectorAll(".fade-in-element");
+
+      const handleScroll = () => {
+        const windowHeight = window.innerHeight;
+        elements.forEach((element) => {
+          const elementTop = element.getBoundingClientRect().top;
+          if (elementTop < windowHeight - 50) {
+            element.classList.add("visible");
+          } else {
+            element.classList.remove("visible");
+          }
+        });
+      };
+
+      window.addEventListener("scroll", handleScroll);
+      handleScroll(); // Run on initial load
+    });
+  </script>
+  <!-- js for scroll pop up effect end -->
+
+  <style>
+    .code-form {
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .code-form p {
+      display: block;
+    }
+    .code-form label {
+      display: block;
+    }
+    .fade-in-element {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      margin-top: 20px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .fade-in-element.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+
+  <!-- new footer start  -->
+
+  <footer class="site-footer">
+    <hr />
+    <div class="footer-content">
+      <!-- <div class="footer-section">
+            <p class="footer-header">SERVICES</p>
+            <div class="links">
+                <a href="{% url 'pix:explore' %}">Explore</a>
+                <a href="{% url 'pix:create' %}">Create</a>
+                <a href="{% url 'pix:explore' %}">Trade</a>
+            </div>
+        </div> -->
+
+      <div class="footer-section">
+        <!-- <p class="footer-header">CONTACT</p> -->
+        <div class="links">
+          <a href="https://t.me/pixelvault_live">USER SUPPORT</a>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <!-- <p class="footer-header">CONTACT</p> -->
+        <div class="links">
+          <a href="{% url 'pix:Terms' %}">TERMS OF USE</a>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <!-- <p class="footer-header">LEGAL</p> -->
+        <div class="links">
+          <!-- <a href="{% url 'pix:Terms' %}">Terms of Use</a> -->
+          <a href="{% url 'pix:Privacy' %}">PRIVACY POLICY</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- new footer end -->
+
+  <style>
+    .navbar {
+      padding: 3px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      /* border: 1px solid #ccc; */
+      height: 8vh;
+    }
+
+    .logo-img {
+      height: 38px;
+      width: 38px;
+    }
+
+    .right {
+      z-index: 3;
+      display: flex;
+      flex-direction: row;
+    }
+
+    .user-icon {
+      position: relative;
+      top: 19px;
+    }
+    /* 
+      .body-container{
+        border: solid 1px white ;
+      } */
+
+    .welcome-txt {
+      padding-left: 1rem;
+      transition: all ease-in 1s;
+    }
+    .intro-text {
+      color: beige;
+      top: 10%;
+      font-size: 2rem;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .orange-text {
+      /* color: orangered; */
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+        sans-serif;
+      font-size: 3rem;
+      font-weight: bolder;
+      font-style: italic;
+      background: linear-gradient(to right, purple, red);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .sub-text {
+      color: beige;
+      font-size: 1rem;
+      letter-spacing: 2px;
+      width: 70%;
+      font-family: monospace;
+    }
+
+    .nft-slider-wrapper,
+    .nft-slider {
+      padding: 1rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .nft-slider-img {
+      width: 50%;
+      border-radius: 10px;
+      padding: 1rem;
+    }
+
+    .homepage-tran {
+      padding: 1rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    /* SLIDER CODE */
+
+    /* CSS styles */
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .slider {
+      display: flex;
+      transition: transform 0.5s ease;
+      justify-content: space-around;
+      align-items: center;
+      background: linear-gradient(to bottom right, purple, red);
+      transition: all ease-out 1s;
+      border-radius: 15px;
+      padding-bottom: 2rem;
+    }
+
+    .slider-image {
+      max-width: 350px;
+      min-width: 300px;
+      max-height: 350px;
+      min-height: 300px;
+      border-radius: 20px;
+      scale: 90%;
+    }
+
+    .button {
+      position: absolute;
+      top: 50%;
+      /* transform: translateY(-50%); */
+      cursor: pointer;
+      background-color: beige;
+      border-radius: 100%;
+      padding: 10px;
+    }
+
+    .slider-metadata {
+      font-weight: bold;
+      font-size: medium;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+        sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      margin-top: 10px;
+      padding-left: 1rem;
+    }
+
+    .owner,
+    .price {
+      font-weight: 400;
+      font-size: small;
+    }
+
+    .prev {
+      left: 0;
+    }
+
+    .next {
+      right: 0;
+    }
+
+    .slider-price {
+      font-weight: bold;
+      font-size: medium;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+        sans-serif;
+    }
+
+    .Explore-btn {
+      background-color: blue;
+      border-radius: 20px;
+      justify-content: space-around;
+      width: fit-content;
+      padding: 9px 9px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: medium;
+      border: none;
+      margin-top: 1rem;
+    }
+
+    .Explore-btn:hover {
+      transition: 0.5s;
+      scale: 1.03;
+      background-color: rgba(0, 0, 255, 0.644);
+      box-sizing: 2px 2px 3px black;
+    }
+
+    .metadata-title {
+      font-size: small;
+      font-weight: 400;
+    }
+
+    .homepage-tran {
+      display: flex;
+      width: 70%;
+      justify-content: center;
+      margin: auto;
+    }
+
+    .transaction {
+      width: 31%;
+      height: 190px;
+      border: solid none;
+      background: linear-gradient(to bottom right, blue, red, purple);
+      margin: auto;
+      border-radius: 6px;
+    }
+    .transaction .img-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+
+    .transaction .t-img {
+      padding: 1rem;
+      height: 1rem;
+      width: 1rem;
+    }
+
+    .transaction .txt-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 1rem;
+      align-items: center;
+      margin: auto;
+    }
+
+    .transaction .intro-text {
+      font-size: 0.7rem;
+      font-weight: bold;
+    }
+
+    .transaction .sub-text {
+      font-size: 0.5rem;
+      margin-top: 1rem;
+      padding: auto;
+    }
+
+    @media (max-width: 1000px) {
+      .transaction .sub-text {
+        color: black;
+      }
+    }
+
+    .text-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+
+    .text-container div {
+      padding: 1rem;
+    }
+
+    .text-container .title {
+      font-weight: bold;
+    }
+
+    .login-btn:hover,
+    .register-btn:hover {
+      scale: 1.07;
+      opacity: 0.9;
+      transition: all ease-in 0.5s;
+    }
+
+    /* new footer styling start  */
+
+    .site-footer {
+      background: transparent;
+      color: white; /* Light text color */
+      padding: 40px 0;
+      margin-top: 20px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+
+    .footer-section {
+      flex: 1 1 300px; /* Flexbox properties for responsive layout */
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .footer-header {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .links a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      margin-bottom: 8px;
+      transition: color 0.3s;
+    }
+
+    .links a:hover {
+      color: #007bff; /* Primary color or a color of your choice */
+    }
+
+    /* new footer styling end */
+
+    .footer-section {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+
+    .footer-section .links {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      color: white;
+      padding-top: 1rem;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: bold;
+    }
+  </style>
+</html>
